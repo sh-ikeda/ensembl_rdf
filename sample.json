@@ -1,0 +1,25 @@
+{
+  "genes": [
+    {
+      "id": "1",
+      "name": "hoge",
+      "annotation": [
+        "a",
+        "b"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "fuga",
+      "annotation": [
+        "c"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "gyaa",
+      "annotation": [
+      ]
+    }
+  ]
+}
