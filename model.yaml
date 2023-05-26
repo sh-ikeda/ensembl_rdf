@@ -1,0 +1,207 @@
+# ENSG
+- EnsemblGene ens_resource:ENSG00000000003:
+  - a: ens_terms:EnsemblGene
+
+  # gene.biotype
+  # 従来は ens_terms と SO のクラスが同時に付けられていたが、ens_terms と SO の対応は ens_terms のオントロジー側で行いたい。
+  - ens_terms:biotype:
+    - ensg_biotype: ens_terms:protein_coding
+
+  # gene_attrib.select(value WHERE (gene_id=gene.gene_id, attrib_type_id=attrib_type.select(attrib_type_id WHERE (code="name"))))
+  # ヒトの場合は attrib_type_id=4 が name だが、どの生物種でもそうであるかは未確認。それについては attrib_type テーブルに書いてあるのでそれを使うのが正しい。
+  - rdfs:label:
+    - ensg_label: "TSPAN6"
+
+  # gene のテーブルにある display_xref_id から直接辿れるのは HGNC, Entrez, miRBase, RFAM のみ。
+  - rdfs:seeAlso+:
+    - []:
+      # external_db.select(db_name WHERE (external_db_id=xref.select(external_db_id WHERE (xref_id=gene.display_xref_id))))
+      - a: # #FIXME
+        - ensg_xref_database_origin: "EntrezGene"
+      # xref.select(dbprimary_acc WHERE (xref_id=gene.display_xref_id))
+      - dcterm:identifier:
+        - ensg_xref_id: "7105"
+      # xref.select(info_type WHERE (xref_id=gene.display_xref_id))
+      - ens_terms:info_type:
+        - ensg_xref_info_type: ens_terms:DEPENDENT
+      # xref.select(info_text WHERE (xref_id=gene.display_xref_id))
+      - ens_terms:info_text:
+        - ensg_xref_info_text: ""
+
+  # gene.description
+  - dc:description?:
+    - ensg_description: "tetraspanin 6 [Source:HGNC Symbol;Acc:HGNC:11858]"
+
+  # gene.gene_id
+  - dc:identifier:
+    - ensg_id: "ENSG00000000003"
+
+  # meta.select(meta_value WHERE (meta_key=species.taxonomy_id))
+  # meta テーブルには 4 列あり、meta_id	(Primary key), species_id, meta_key, meta_value である。species_id は、"Indentifies the species for multi-species databases" というもの。一個の ensembl 単位に複数種が含まれている場合にそれを特定するものらしい。具体例はまだ見つけていない。
+  - obo:RO_0002162:
+    - ensg_taxonomy: taxonomy:9606
+
+  # ortholog はとりあえず省略。
+  # 個別の生物種の各テーブルには書かれておらず、mysql/ensembl_compara_109 にまとめられている？まだあまり調査していない。
+  # GeneTree (e.g. http://asia.ensembl.org/Multi/GeneTree/Image?gt=ENSGT00940000159092) にまとめられた情報は Ensembl 独自のもののはずなので作る価値はありそう。
+  # - sio:SIO_000558+:
+  #   - []:
+  #     - ens_terms:orthology_type:
+  #       - ensg_orthology_type: ens_terms:ortholog_one2many
+  #     - obo:SIO_has_value:  #FIXME
+  #       - ensg_ortholog: EnsemblGene
+
+  # gene.select(seq_region_start, seq_region_end, seq_region_strand)
+  - faldo:location:
+    - []:
+      - a: faldo:Region
+      - faldo:begin:
+        - []:
+          - a: faldo:ExactPosition
+          - a:
+            - ensg_strand: faldo:ForwardStrandPosition  # 現状はこのように書かれているので、クラスが変数になる。
+          - faldo:position:
+            - ensg_begin: 100627108
+      - faldo:end:
+        - []:
+          - a: faldo:ExactPosition
+          # end 側にも Strand は当然書いてあるが、begin 側と同じ値なので、config 上は省略。
+          - faldo:position:
+            - ensg_end: 100639991
+
+  # gene_attrib.select(value WHERE (gene_id=gene.gene_id, attrib_type_id=attrib_type.select(attrib_type_id WHERE(code="synonym"))))
+  # ヒトでは attrib_type_id=3 が synonym
+  - skos:altlabel:
+    - ensg_altlabel: "TM4SF6"
+
+
+# ENST
+- EnsemblTranscript enst:ENST00000207457:
+  - a: ens_terms:EnsemblTranscript
+
+  # transcript.biotype
+  - ens_terms:biotype:
+    - enst_biotype: ens_terms:protein_coding
+
+  # transcirpt_attrib.select(value WHERE (transcript_id=transcript.transcript_id, attrib_type_id=4))
+  - rdfs:label:
+    - enst_label: "TEKT2-201"
+
+  - rdfs:seeAlso+:
+    - []:
+      # external_db.select(db_name WHERE (external_db_id=xref.select(external_db_id WHERE (xref_id=gene.display_xref_id))))
+      - a: # #FIXME
+        - enst_xref_database_origin: "EntrezGene"
+      # xref.select(dbprimary_acc WHERE (xref_id=gene.display_xref_id))
+      - dcterm:identifier:
+        - enst_xref_id: "7105"
+      # xref.select(info_type WHERE (xref_id=gene.display_xref_id))
+      - ens_terms:info_type:
+        - enst_xref_info_type: ens_terms:DEPENDENT
+      # xref.select(info_text WHERE (xref_id=gene.display_xref_id))
+      - ens_terms:info_text:
+        - enst_xref_info_text: ""
+
+  # transcript.transcript_id
+  - dc:identifier:
+    - enst_id: "ENST00000207457"
+
+  # exon.select(stable_id WHERE (exon_id=exon_transcript.select(exon_id WHERE (transcript_id=transcript.transcript_id))))
+  - obo:SO_has_part+:
+    - enst_has_exon: EnsemblExon
+
+  # transcript.gene_id
+  - obo:SO_transcribed_from:
+    - enst_transcribed_from: EnsemblGene
+
+  # transcript.canonical_translation_id
+  - obo:SO_translates_to+: # 旧 rdf-config では cardinality が "+" になっていたが、少なくとも今のデータを調べた限りではなさそう。
+    - enst_translates_to: EnsemblProtein
+
+  # canonical などのフラグ
+
+
+  # exon_transcript.select(rank WHERE (transcript_id=transcript.transcript_id))
+  - sio:SIO_000974+:
+    - enst_has_ordered_exon: EnsemblOrderedExon #ordered exon は exon と同じスキーマではない。ordered exon は SIO_001261 (ordered list item) クラスに属する。exon は単に SO_0000147 (exon) クラス。
+
+  # transcript.select(seq_region_start, seq_region_end, seq_region_strand)
+  - faldo:location:
+    - []:
+      - a: faldo:Region
+      - faldo:begin:
+        - []:
+          - a: faldo:ExactPosition
+          - a:
+            - enst_strand: faldo:ForwardStrandPosition
+          - faldo:position:
+            - enst_begin: 36084094
+      - faldo:end:
+        - []:
+          - a: faldo:ExactPosition
+          - faldo:position:
+            - enst_end: 36088275
+
+# EnsemblExon
+- EnsemblExon ense:ENSE00002619687:
+  - a: ens_terms:Exon
+  - a: obo:SO_0000147   # exon
+
+  # exon.stable_id
+  - rdfs:label:
+    - ense_label: "ENSE00002619687"
+  - dc:identifier:
+    - ense_id: "ENSE00002619687"
+
+  # exon.select(seq_region_start, seq_region_end, seq_region_strand)
+  - faldo:location:
+    - []:
+      - a: faldo:Region
+      - faldo:begin:
+        - []:
+          - a: faldo:ExactPosition
+          - a:
+            - ense_strand: faldo:ReverseStrandPosition
+          - faldo:position:
+            - ense_begin: 18792879
+      - faldo:end:
+        - []:
+          - a: faldo:ExactPosition
+          - faldo:position:
+            - ense_end: 18793370
+
+
+- EnsemblOrderedExon http://rdf.ebi.ac.uk/resource/ensembl.transcript/ENST00000623960#Exon_7:
+  - a: ens_terms:OrderedExon
+  - a: sio:SIO_001261 # ordered list item
+  - sio:SIO_000628: # refers to
+    - ensembl_ordered_exon_refers_to: EnsemblExon
+  # exon_transcript.select(rank WHERE (transcript_id=transcript.transcript_id))
+  - sio:SIO_000300: # has value
+    - ensembl_ordered_exon_index: 7
+
+#ENSP
+- EnsemblProtein ensp:ENSP00000473889:
+  - a: ens_terms:EnsemblProtein
+
+# translation.stable_id
+  - dc:identifier:
+    - ensp_id: "ENSP00000473889"
+
+  - rdfs:seeAlso+:
+    - []:
+      # external_db.select(db_name WHERE (external_db_id=xref.select(external_db_id WHERE (xref_id=gene.display_xref_id))))
+      - a: # #FIXME
+        - ensp_xref_database_origin: "EntrezGene"
+      # xref.select(dbprimary_acc WHERE (xref_id=gene.display_xref_id))
+      - dcterm:identifier:
+        - ensp_xref_id: "7105"
+      # xref.select(info_type WHERE (xref_id=gene.display_xref_id))
+      - ens_terms:info_type:
+        - ensp_xref_info_type: ens_terms:DEPENDENT
+      # xref.select(info_text WHERE (xref_id=gene.display_xref_id))
+      - ens_terms:info_text:
+        - ensp_xref_info_text: ""
+
+# 旧 rdf-config では LRG が別に立てられていたが、通常の gene と同じ扱いで構わないので削除。
+
