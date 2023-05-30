@@ -11,6 +11,9 @@ def triple(s, p, o):
     return
 
 
+def quote(s):
+    return "\"" + s + "\""
+
 class Ensembl2turtle:
     prefixes = [
         ['rdfs:', '<http://www.w3.org/2000/01/rdf-schema#>'],
@@ -34,6 +37,12 @@ class Ensembl2turtle:
         self.flg = True
         self.dbinfo = self.read_dbinfo(input_dbinfo_file)
         self.dbs = self.read_dbs()
+        taxonomy_ids = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'species.taxonomy_id']
+        if len(taxonomy_ids) >= 2:
+            print("Error: `meta` table has multiple taxonomy_id. This seems to be multi-species database.", file=sys.stderr)
+            print("taxonomy_ids: ", taxonomy_ids, file=sys.stderr)
+            sys.exit(1)
+        self.taxonomy_id = taxonomy_ids[0]
 
     def read_dbinfo(self, input_dbinfo_file):
         dbinfo_dict = {}
@@ -56,6 +65,7 @@ class Ensembl2turtle:
         return dbinfo_dict
 
     def read_db(self, db):
+        print("Reading DB: ", db, file=sys.stderr)
         dic = {}
         table_file = self.dbinfo[db]["filename"]
         key_indices = self.dbinfo[db]["key_indices"]
@@ -76,7 +86,7 @@ class Ensembl2turtle:
                     if key in dic:
                         dic[key].append(vals)
                     else:
-                        dic[key] = []
+                        dic[key] = [vals]
                     if self.flg:
                         print(db, key, vals)
                         self.flg = False
@@ -84,7 +94,6 @@ class Ensembl2turtle:
                     dic[key] = vals
                 # for index in val_indices:
                 #     dic[key].append(sep_line[index])
-                #     # list: true のときの処置が必要
 
                 line = input_table.readline()
 
@@ -107,6 +116,7 @@ class Ensembl2turtle:
         #name_id = [k for k, v in self.dbs["attrib_type"].items() if v[0] == 'name'][0]
         #synonym_id = [k for k, v in self.dbs["attrib_type"].items() if v[0] == 'synonym'][0]
         xref = self.dbs["xref"]
+        external_synonym = self.dbs["external_synonym"]
         #print(name_id, synonym_id)
         i = 0
         for id in gene:
@@ -114,9 +124,15 @@ class Ensembl2turtle:
             sbj = "ensg:" + gene[id][6]
             triple(sbj, "a", "terms:EnsemblGene")
             triple(sbj, "terms:biotype", "terms:"+gene[id][0])
-            # xref_id = genes[id][4]
+            xref_id = gene[id][4]
             #triple(sbj, "rdfs:label", gene_attrib[(id, name_id)])
-            triple(sbj, "rdfs:label", "\""+xref[gene[id][4]][2]+"\"")
+            triple(sbj, "rdfs:label", quote(xref[xref_id][2]))
+            triple(sbj, "dcterms:description", quote(gene[id][5]))
+            triple(sbj, "dcterms:identifier", quote(gene[id][6]))
+            triple(sbj, "obo:RO_0002162", "taxonomy:"+self.taxonomy_id)
+            # synonym
+            for values in external_synonym[xref_id]:
+                triple(sbj, "skos:altLabel", quote(values[0]))
             i += 1
             if i >= 10:
                 break

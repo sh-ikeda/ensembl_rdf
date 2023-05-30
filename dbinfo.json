@@ -111,5 +111,12 @@
       {"index": 2, "name": "ensembl_object_type"},
       {"index": 3, "name": "xref_id"}
     ]
+  },
+  "external_synonym": {
+    "filename": "external_synonym.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "synonym"},
+    ]
   }
 }
