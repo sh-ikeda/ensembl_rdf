@@ -9,6 +9,8 @@
 
   # gene_attrib.select(value WHERE (gene_id=gene.gene_id, attrib_type_id=attrib_type.select(attrib_type_id WHERE (code="name"))))
   # ヒトの場合は attrib_type_id=4 が name だが、どの生物種でもそうであるかは未確認。それについては attrib_type テーブルに書いてあるのでそれを使うのが正しい。
+  # ↑ 訂正 gene_attrib には name の情報がない遺伝子もあることがわかった。理由は不明。
+  # xref.select(display_label WHERE (xref_id=gene.display_xref_id))
   - rdfs:label:
     - ensg_label: "TSPAN6"
 
@@ -71,7 +73,7 @@
 
   # gene_attrib.select(value WHERE (gene_id=gene.gene_id, attrib_type_id=attrib_type.select(attrib_type_id WHERE(code="synonym"))))
   # ヒトでは attrib_type_id=3 が synonym
-  - skos:altlabel:
+  - skos:altLabel:
     - ensg_altlabel: "TM4SF6"
 
 
