@@ -1,0 +1,60 @@
+{
+  "gene": {
+    "filename": "gene.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "biotype"},
+      {"index": 4, "name": "seq_region_start"},
+      {"index": 5, "name": "seq_region_end"},
+      {"index": 6, "name": "seq_region_strand"},
+      {"index": 7, "name": "display_xref_id"},
+      {"index": 9, "name": "description"},
+      {"index": 12, "name": "stable_id"}
+    ]
+  },
+  "gene_attrib": {
+    "filename": "gene_attrib.txt.gz",
+    "key_indices": [0, 1],
+    "list": true,
+    "values": [
+      {"index": 1, "name": "attrib_type_id"},
+      {"index": 2, "name": "value"}
+    ]
+  },
+  "xref": {
+    "filename": "xref.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "external_db_id"},
+      {"index": 2, "name": "dbprimary_acc"},
+      {"index": 3, "name": "display_label"},
+      {"index": 6, "name": "info_type"},
+      {"index": 7, "name": "info_text"}
+    ]
+  },
+  "attrib_type": {
+    "filename": "attrib_type.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "attrib_type_id"},
+      {"index": 2, "name": "code"},
+      {"index": 3, "name": "name"}
+    ]
+  },
+  "meta": {
+    "filename": "meta.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "species_id"},
+      {"index": 2, "name": "meta_key"},
+      {"index": 3, "name": "meta_value"}
+    ]
+  },
+  "external_db": {
+    "filename": "external_db.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "db_name"}
+    ]
+  }
+}
