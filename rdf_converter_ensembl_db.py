@@ -48,20 +48,6 @@ class Ensembl2turtle:
         dbinfo_dict = {}
         with open(input_dbinfo_file, 'r') as input_dbinfo:
             dbinfo_dict = json.load(input_dbinfo)
-            # line = input_dbinfo.readline()
-            # while (line):
-            #     line = line.rstrip('\n')
-            #     sep_line = line.split('\t')
-
-            #     table_name = sep_line[0].replace('.txt.gz', '')
-            #     dbinfo_dict[table_name] = {
-            #         "key_indices": sep_line[1].split(','),
-            #         "val_indices": list(map(int, sep_line[2].split(','))),
-            #         "val_names": sep_line[3].split(','),
-            #         "table_filename": sep_line[0]
-            #     }
-
-            #     line = input_dbinfo.readline()
         return dbinfo_dict
 
     def read_db(self, db):
@@ -92,8 +78,6 @@ class Ensembl2turtle:
                         self.flg = False
                 else:
                     dic[key] = vals
-                # for index in val_indices:
-                #     dic[key].append(sep_line[index])
 
                 line = input_table.readline()
 
@@ -112,9 +96,6 @@ class Ensembl2turtle:
 
     def rdfize_gene(self):
         gene = self.dbs["gene"]
-        #gene_attrib = self.dbs["gene_attrib"]
-        #name_id = [k for k, v in self.dbs["attrib_type"].items() if v[0] == 'name'][0]
-        #synonym_id = [k for k, v in self.dbs["attrib_type"].items() if v[0] == 'synonym'][0]
         xref = self.dbs["xref"]
         external_synonym = self.dbs["external_synonym"]
         #print(name_id, synonym_id)
