@@ -2,6 +2,8 @@ import gzip
 import sys
 import psutil
 import json
+import rdflib
+from rdflib import Graph, Literal
 
 input_dir = "./"
 
@@ -14,35 +16,59 @@ def triple(s, p, o):
 def quote(s):
     return "\"" + s + "\""
 
+
 class Ensembl2turtle:
     prefixes = [
-        ['rdfs:', '<http://www.w3.org/2000/01/rdf-schema#>'],
-        ['faldo:', '<http://biohackathon.org/resource/faldo#>'],
-        ['obo:', '<http://purl.obolibrary.org/obo/>'],
-        ['dc:', '<http://purl.org/dc/elements/1.1/>'],
-        ['owl:', '<http://www.w3.org/2002/07/owl#>'],
-        ['ens_resource:', '<http://rdf.ebi.ac.uk/resource/ensembl/>'],
-        ['ens_terms:', '<http://rdf.ebi.ac.uk/terms/ensembl/>'],
-        ['ense:', '<http://rdf.ebi.ac.uk/resource/ensembl.exon/>'],
-        ['ensp:', '<http://rdf.ebi.ac.uk/resource/ensembl.protein/>'],
-        ['enst:', '<http://rdf.ebi.ac.uk/resource/ensembl.transcript/>'],
-        ['ensi:', '<http://identifiers.org/ensembl/>'],
-        ['taxonomy:', '<http://identifiers.org/taxonomy/>'],
-        ['uniprot:', '<http://purl.uniprot.org/uniprot/>'],
-        ['sio:', '<http://semanticscience.org/resource/>'],
-        ['skos:', '<http://www.w3.org/2004/02/skos/core#>']
+        ['rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'],
+        ['rdfs', 'http://www.w3.org/2000/01/rdf-schema#'],
+        ['faldo', 'http://biohackathon.org/resource/faldo#'],
+        ['obo', 'http://purl.obolibrary.org/obo/'],
+        ['dc', 'http://purl.org/dc/elements/1.1/'],
+        ['dcterms', 'http://purl.org/dc/terms/'],
+        ['owl', 'http://www.w3.org/2002/07/owl#'],
+        ['ensg', 'http://rdf.ebi.ac.uk/resource/ensembl/'],
+        ['terms', 'http://rdf.ebi.ac.uk/terms/ensembl/'],
+        ['ense', 'http://rdf.ebi.ac.uk/resource/ensembl.exon/'],
+        ['ensp', 'http://rdf.ebi.ac.uk/resource/ensembl.protein/'],
+        ['enst', 'http://rdf.ebi.ac.uk/resource/ensembl.transcript/'],
+        ['ensi', 'http://identifiers.org/ensembl/'],
+        ['taxonomy', 'http://identifiers.org/taxonomy/'],
+        ['uniprot', 'http://purl.uniprot.org/uniprot/'],
+        ['sio', 'http://semanticscience.org/resource/'],
+        ['skos', 'http://www.w3.org/2004/02/skos/core#']
     ]
 
     def __init__(self, input_dbinfo_file):
         self.flg = True
         self.dbinfo = self.read_dbinfo(input_dbinfo_file)
         self.dbs = self.read_dbs()
+        self.taxonomy_id = self.get_taxonomy_id()
+        self.namespace_dict = {}
+        self.initialize_namespace_dict()
+        self.graph = Graph()
+        self.initialize_graph()
+
+    # self.namespace_dict = {
+    #  "ensg": Namespace("http://rdf.ebi.ac.uk/resource/ensembl/"), ..}
+    def initialize_namespace_dict(self):
+        for prefix in Ensembl2turtle.prefixes:
+            ns = rdflib.Namespace(prefix[1])
+            self.namespace_dict[prefix[0]] = ns
+        return
+
+    def initialize_graph(self):
+        for abbrev, ns in self.namespace_dict.items():
+            self.graph.namespace_manager.bind(abbrev, ns)
+        return
+
+    def get_taxonomy_id(self):
         taxonomy_ids = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'species.taxonomy_id']
         if len(taxonomy_ids) >= 2:
             print("Error: `meta` table has multiple taxonomy_id. This seems to be multi-species database.", file=sys.stderr)
             print("taxonomy_ids: ", taxonomy_ids, file=sys.stderr)
             sys.exit(1)
-        self.taxonomy_id = taxonomy_ids[0]
+
+        return taxonomy_ids[0]
 
     def read_dbinfo(self, input_dbinfo_file):
         dbinfo_dict = {}
@@ -74,7 +100,7 @@ class Ensembl2turtle:
                     else:
                         dic[key] = [vals]
                     if self.flg:
-                        print(db, key, vals)
+                        print(db, key, vals, file=sys.stderr)
                         self.flg = False
                 else:
                     dic[key] = vals
@@ -100,23 +126,41 @@ class Ensembl2turtle:
         external_synonym = self.dbs["external_synonym"]
         #print(name_id, synonym_id)
         i = 0
+        nsd = self.namespace_dict
         for id in gene:
             #print(genes[id])
-            sbj = "ensg:" + gene[id][6]
-            triple(sbj, "a", "terms:EnsemblGene")
-            triple(sbj, "terms:biotype", "terms:"+gene[id][0])
+            sbj = nsd["ensg"][gene[id][6]]
             xref_id = gene[id][4]
-            #triple(sbj, "rdfs:label", gene_attrib[(id, name_id)])
-            triple(sbj, "rdfs:label", quote(xref[xref_id][2]))
-            triple(sbj, "dcterms:description", quote(gene[id][5]))
-            triple(sbj, "dcterms:identifier", quote(gene[id][6]))
-            triple(sbj, "obo:RO_0002162", "taxonomy:"+self.taxonomy_id)
+
+            self.graph.add((sbj, nsd["rdf"]["type"], nsd["terms"]["EnsemblGene"]))
+            self.graph.add((sbj, nsd["terms"]["biotype"], nsd["terms"][gene[id][0]]))
+            self.graph.add((sbj, nsd["rdfs"]["label"], Literal(xref[xref_id][2])))
+            self.graph.add((sbj, nsd["rdfs"]["label"], Literal(xref[xref_id][2])))
+            self.graph.add((sbj, nsd["dcterms"]["description"], Literal(gene[id][5])))
+            self.graph.add((sbj, nsd["dcterms"]["identifier"], Literal(gene[id][6])))
+            self.graph.add((sbj, nsd["obo"]["RO_0002162"], nsd["taxonomy"][self.taxonomy_id]))
             # synonym
-            for values in external_synonym[xref_id]:
-                triple(sbj, "skos:altLabel", quote(values[0]))
+            for syn in external_synonym[xref_id]:
+                self.graph.add((sbj, nsd["skos"]["altLabel"], Literal(syn[0])))
+
+            # sbj = "ensg:" + gene[id][6]
+            # triple(sbj, "a", "terms:EnsemblGene")
+            # triple(sbj, "terms:biotype", "terms:"+gene[id][0])
+            # xref_id = gene[id][4]
+            # triple(sbj, "rdfs:label", quote(xref[xref_id][2]))
+            # triple(sbj, "dcterms:description", quote(gene[id][5]))
+            # triple(sbj, "dcterms:identifier", quote(gene[id][6]))
+            # triple(sbj, "obo:RO_0002162", "taxonomy:"+self.taxonomy_id)
+            # # synonym
+            # synonyms = ", ".join([quote(v[0]) for v in external_synonym[xref_id]])
+            # triple(sbj, "skos:altLabel", synonyms)
             i += 1
             if i >= 10:
                 break
+        return
+
+    def output_graph(self):
+        print(self.graph.serialize(format="turtle"))
         return
 
 
@@ -126,6 +170,7 @@ def main():
     converter = Ensembl2turtle(input_dbinfo_file)
     converter.rdfize_gene()
     #print(converter.dbs['meta'].keys())
+    converter.output_graph()
 
 
 if __name__ == '__main__':
