@@ -83,6 +83,7 @@
     "filename": "translation.txt.gz",
     "key_indices": [0],
     "values": [
+      {"index": 1, "name": "transcript_id"},
       {"index": 6, "name": "stable_id"}
     ]
   },

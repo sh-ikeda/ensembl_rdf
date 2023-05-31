@@ -48,6 +48,7 @@ class Ensembl2turtle:
         ['rdfs:', '<http://www.w3.org/2000/01/rdf-schema#>'],
         ['faldo:', '<http://biohackathon.org/resource/faldo#>'],
         ['obo:', '<http://purl.obolibrary.org/obo/>'],
+        ['so:', '<http://purl.obolibrary.org/obo/so#>'],
         ['dc:', '<http://purl.org/dc/elements/1.1/>'],
         ['dcterms:', '<http://purl.org/dc/terms/>'],
         ['owl:', '<http://www.w3.org/2002/07/owl#>'],
@@ -141,7 +142,6 @@ class Ensembl2turtle:
 
             triple(sbj, "a", "terms:EnsemblGene")
             triple(sbj, "terms:biotype", "terms:"+gene[id][0])
-            xref_id = gene[id][4]
             if xref_id == "\\N":
                 label = gene[id][6]  # Substitute ID for label
             else:
@@ -159,22 +159,70 @@ class Ensembl2turtle:
                 triple(sbj, "skos:altLabel", synonyms)
 
             # location
-            loc = Bnode()
-            loc_beg = Bnode()
-            loc_end = Bnode()
-            loc_beg.add(("a", "faldo:ExactPosition"))
-            loc_beg.add(("a", strand2faldo(gene[id][3])))
-            loc_beg.add(("faldo:position", gene[id][1]))
-            loc_end.add(("a", "faldo:ExactPosition"))
-            loc_end.add(("a", strand2faldo(gene[id][3])))
-            loc_end.add(("faldo:position", gene[id][2]))
-            loc.add(("a", "faldo:Region"))
-            loc.add(("faldo:begin", loc_beg.serialize(level=2)))
-            loc.add(("faldo:end", loc_end.serialize(level=2)))
-            triple(sbj, "faldo:location", loc.serialize())
-            # i += 1
-            # if i >= 10:
-            #     break
+            location = self.create_location_str(gene[id][1],
+                                                gene[id][2],
+                                                gene[id][3])
+            triple(sbj, "faldo:location", location)
+            i += 1
+            if i >= 10:
+                break
+        return
+
+    def rdfize_transcript(self):
+        transcript = self.dbs["transcript"]
+        xref = self.dbs["xref"]
+        gene = self.dbs["gene"]
+        translation = self.dbs["translation"]
+        i = 0
+        for id in transcript:
+            sbj = "enst:" + transcript[id][7]
+            xref_id = transcript[id][4]
+
+            triple(sbj, "a", "terms:EnsemblTranscript")
+            triple(sbj, "terms:biotype", "terms:"+transcript[id][5])
+            if xref_id == "\\N":
+                label = transcript[id][7]  # Substitute ID for label
+            else:
+                label = xref[xref_id][2]
+            triple(sbj, "rdfs:label", quote(label))
+            triple(sbj, "dcterms:identifier", quote(transcript[id][7]))
+            triple(sbj, "so:transcribed_from", "ensg:"+gene[transcript[id][0]][6])
+            translates_to = transcript[id][6]
+            if translates_to != "\\N":
+                triple(sbj, "so:translates_to", "ensp:"+translation[translates_to][1])
+
+            # location
+            location = self.create_location_str(transcript[id][1],
+                                                transcript[id][2],
+                                                transcript[id][3])
+            triple(sbj, "faldo:location", location)
+            i += 1
+            if i >= 10:
+                break
+        return
+
+    def create_location_str(self, beg, end, strand, level=1):
+        loc = Bnode()
+        loc_beg = Bnode()
+        loc_end = Bnode()
+        loc_beg.add(("a", "faldo:ExactPosition"))
+        loc_beg.add(("a", strand2faldo(strand)))
+        loc_beg.add(("faldo:position", beg))
+        loc_end.add(("a", "faldo:ExactPosition"))
+        loc_end.add(("a", strand2faldo(strand)))
+        loc_end.add(("faldo:position", end))
+        loc.add(("a", "faldo:Region"))
+        loc.add(("faldo:begin", loc_beg.serialize(level=level+1)))
+        loc.add(("faldo:end", loc_end.serialize(level=level+1)))
+        return loc.serialize()
+
+    def rdfize_protein(self):
+        return
+
+    def rdfize_exon(self):
+        return
+
+    def rdfize_xref(self):
         return
 
     def output_prefixes(self):
@@ -185,6 +233,10 @@ class Ensembl2turtle:
     def output_turtle(self):
         self.output_prefixes()
         self.rdfize_gene()
+        self.rdfize_transcript()
+        self.rdfize_protein()
+        self.rdfize_exon()
+        self.rdfize_xref()
 
 
 def main():

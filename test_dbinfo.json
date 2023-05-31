@@ -12,13 +12,26 @@
       {"index": 12, "name": "stable_id"}
     ]
   },
-  "gene_attrib": {
-    "filename": "gene_attrib.txt.gz",
-    "key_indices": [0, 1],
-    "list": true,
+  "transcript": {
+    "filename": "transcript.txt.gz",
+    "key_indices": [0],
     "values": [
-      {"index": 1, "name": "attrib_type_id"},
-      {"index": 2, "name": "value"}
+      {"index": 1, "name": "gene_id"},
+      {"index": 4, "name": "seq_region_start"},
+      {"index": 5, "name": "seq_region_end"},
+      {"index": 6, "name": "seq_region_strand"},
+      {"index": 7, "name": "display_xref_id"},
+      {"index": 9, "name": "biotype"},
+      {"index": 12, "name": "canonical_translation_id"},
+      {"index": 13, "name": "stable_id"}
+    ]
+  },
+  "translation": {
+    "filename": "translation.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "transcript_id"},
+      {"index": 6, "name": "stable_id"}
     ]
   },
   "xref": {
