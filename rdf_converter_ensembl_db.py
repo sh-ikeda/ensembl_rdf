@@ -2,8 +2,6 @@ import gzip
 import sys
 import psutil
 import json
-import rdflib
-from rdflib import Graph, Literal
 
 input_dir = "./"
 
@@ -13,29 +11,56 @@ def triple(s, p, o):
     return
 
 
-def quote(s):
-    return "\"" + s + "\""
+def quote(string):
+    return "\"" + string + "\""
+
+
+def strand2faldo(s):
+    if s == "1":
+        return "faldo:ForwardStrandPosition"
+    elif s == "-1":
+        return "faldo:ReverseStrandPosition"
+    else:
+        print(f"Error: Invalid argument \"{s}\" for strand2faldo", file=sys.stderr)
+        sys.exit(1)
+
+
+class Bnode:
+    def __init__(self):
+        self.properties = []
+
+    def add(self, tpl):
+        # `tpl` is a tuple of strings (e.g. ("rdf:type", "owl:Class"))
+        self.properties.append(tpl)
+
+    def serialize(self, level=1):
+        s = "[\n"
+        indent = "    " * level
+        for tpl in self.properties:
+            s += indent + tpl[0] + " " + tpl[1] + " ;\n"
+        s += "    " * (level-1) + "]"
+        return s
 
 
 class Ensembl2turtle:
     prefixes = [
-        ['rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'],
-        ['rdfs', 'http://www.w3.org/2000/01/rdf-schema#'],
-        ['faldo', 'http://biohackathon.org/resource/faldo#'],
-        ['obo', 'http://purl.obolibrary.org/obo/'],
-        ['dc', 'http://purl.org/dc/elements/1.1/'],
-        ['dcterms', 'http://purl.org/dc/terms/'],
-        ['owl', 'http://www.w3.org/2002/07/owl#'],
-        ['ensg', 'http://rdf.ebi.ac.uk/resource/ensembl/'],
-        ['terms', 'http://rdf.ebi.ac.uk/terms/ensembl/'],
-        ['ense', 'http://rdf.ebi.ac.uk/resource/ensembl.exon/'],
-        ['ensp', 'http://rdf.ebi.ac.uk/resource/ensembl.protein/'],
-        ['enst', 'http://rdf.ebi.ac.uk/resource/ensembl.transcript/'],
-        ['ensi', 'http://identifiers.org/ensembl/'],
-        ['taxonomy', 'http://identifiers.org/taxonomy/'],
-        ['uniprot', 'http://purl.uniprot.org/uniprot/'],
-        ['sio', 'http://semanticscience.org/resource/'],
-        ['skos', 'http://www.w3.org/2004/02/skos/core#']
+        ['rdf:', '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'],
+        ['rdfs:', '<http://www.w3.org/2000/01/rdf-schema#>'],
+        ['faldo:', '<http://biohackathon.org/resource/faldo#>'],
+        ['obo:', '<http://purl.obolibrary.org/obo/>'],
+        ['dc:', '<http://purl.org/dc/elements/1.1/>'],
+        ['dcterms:', '<http://purl.org/dc/terms/>'],
+        ['owl:', '<http://www.w3.org/2002/07/owl#>'],
+        ['ensg:', '<http://rdf.ebi.ac.uk/resource/ensembl/>'],
+        ['terms:', '<http://rdf.ebi.ac.uk/terms/ensembl/>'],
+        ['ense:', '<http://rdf.ebi.ac.uk/resource/ensembl.exon/>'],
+        ['ensp:', '<http://rdf.ebi.ac.uk/resource/ensembl.protein/>'],
+        ['enst:', '<http://rdf.ebi.ac.uk/resource/ensembl.transcript/>'],
+        ['ensi:', '<http://identifiers.org/ensembl/>'],
+        ['taxonomy:', '<http://identifiers.org/taxonomy/>'],
+        ['uniprot:', '<http://purl.uniprot.org/uniprot/>'],
+        ['sio:', '<http://semanticscience.org/resource/>'],
+        ['skos:', '<http://www.w3.org/2004/02/skos/core#>']
     ]
 
     def __init__(self, input_dbinfo_file):
@@ -43,23 +68,6 @@ class Ensembl2turtle:
         self.dbinfo = self.read_dbinfo(input_dbinfo_file)
         self.dbs = self.read_dbs()
         self.taxonomy_id = self.get_taxonomy_id()
-        self.namespace_dict = {}
-        self.initialize_namespace_dict()
-        self.graph = Graph()
-        self.initialize_graph()
-
-    # self.namespace_dict = {
-    #  "ensg": Namespace("http://rdf.ebi.ac.uk/resource/ensembl/"), ..}
-    def initialize_namespace_dict(self):
-        for prefix in Ensembl2turtle.prefixes:
-            ns = rdflib.Namespace(prefix[1])
-            self.namespace_dict[prefix[0]] = ns
-        return
-
-    def initialize_graph(self):
-        for abbrev, ns in self.namespace_dict.items():
-            self.graph.namespace_manager.bind(abbrev, ns)
-        return
 
     def get_taxonomy_id(self):
         taxonomy_ids = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'species.taxonomy_id']
@@ -126,51 +134,66 @@ class Ensembl2turtle:
         external_synonym = self.dbs["external_synonym"]
         #print(name_id, synonym_id)
         i = 0
-        nsd = self.namespace_dict
         for id in gene:
             #print(genes[id])
-            sbj = nsd["ensg"][gene[id][6]]
+            sbj = "ensg:" + gene[id][6]
             xref_id = gene[id][4]
 
-            self.graph.add((sbj, nsd["rdf"]["type"], nsd["terms"]["EnsemblGene"]))
-            self.graph.add((sbj, nsd["terms"]["biotype"], nsd["terms"][gene[id][0]]))
-            self.graph.add((sbj, nsd["rdfs"]["label"], Literal(xref[xref_id][2])))
-            self.graph.add((sbj, nsd["rdfs"]["label"], Literal(xref[xref_id][2])))
-            self.graph.add((sbj, nsd["dcterms"]["description"], Literal(gene[id][5])))
-            self.graph.add((sbj, nsd["dcterms"]["identifier"], Literal(gene[id][6])))
-            self.graph.add((sbj, nsd["obo"]["RO_0002162"], nsd["taxonomy"][self.taxonomy_id]))
+            triple(sbj, "a", "terms:EnsemblGene")
+            triple(sbj, "terms:biotype", "terms:"+gene[id][0])
+            xref_id = gene[id][4]
+            if xref_id == "\\N":
+                label = gene[id][6]  # Substitute ID for label
+            else:
+                label = xref[xref_id][2]
+            triple(sbj, "rdfs:label", quote(label))
+            description = gene[id][5]
+            if description == "\\N":
+                description = ""
+            triple(sbj, "dcterms:description", quote(description))
+            triple(sbj, "dcterms:identifier", quote(gene[id][6]))
+            triple(sbj, "obo:RO_0002162", "taxonomy:"+self.taxonomy_id)
             # synonym
-            for syn in external_synonym[xref_id]:
-                self.graph.add((sbj, nsd["skos"]["altLabel"], Literal(syn[0])))
+            synonyms = ", ".join([quote(v[0]) for v in external_synonym.get(xref_id, [])])
+            if len(synonyms) >= 1:
+                triple(sbj, "skos:altLabel", synonyms)
 
-            # sbj = "ensg:" + gene[id][6]
-            # triple(sbj, "a", "terms:EnsemblGene")
-            # triple(sbj, "terms:biotype", "terms:"+gene[id][0])
-            # xref_id = gene[id][4]
-            # triple(sbj, "rdfs:label", quote(xref[xref_id][2]))
-            # triple(sbj, "dcterms:description", quote(gene[id][5]))
-            # triple(sbj, "dcterms:identifier", quote(gene[id][6]))
-            # triple(sbj, "obo:RO_0002162", "taxonomy:"+self.taxonomy_id)
-            # # synonym
-            # synonyms = ", ".join([quote(v[0]) for v in external_synonym[xref_id]])
-            # triple(sbj, "skos:altLabel", synonyms)
-            i += 1
-            if i >= 10:
-                break
+            # location
+            loc = Bnode()
+            loc_beg = Bnode()
+            loc_end = Bnode()
+            loc_beg.add(("a", "faldo:ExactPosition"))
+            loc_beg.add(("a", strand2faldo(gene[id][3])))
+            loc_beg.add(("faldo:position", gene[id][1]))
+            loc_end.add(("a", "faldo:ExactPosition"))
+            loc_end.add(("a", strand2faldo(gene[id][3])))
+            loc_end.add(("faldo:position", gene[id][2]))
+            loc.add(("a", "faldo:Region"))
+            loc.add(("faldo:begin", loc_beg.serialize(level=2)))
+            loc.add(("faldo:end", loc_end.serialize(level=2)))
+            triple(sbj, "faldo:location", loc.serialize())
+            # i += 1
+            # if i >= 10:
+            #     break
         return
 
-    def output_graph(self):
-        print(self.graph.serialize(format="turtle"))
+    def output_prefixes(self):
+        for prefix in Ensembl2turtle.prefixes:
+            triple("@prefix", prefix[0], prefix[1])
         return
+
+    def output_turtle(self):
+        self.output_prefixes()
+        self.rdfize_gene()
 
 
 def main():
     input_dbinfo_file = sys.argv[1]
 
     converter = Ensembl2turtle(input_dbinfo_file)
-    converter.rdfize_gene()
+    #converter.rdfize_gene()
     #print(converter.dbs['meta'].keys())
-    converter.output_graph()
+    converter.output_turtle()
 
 
 if __name__ == '__main__':
