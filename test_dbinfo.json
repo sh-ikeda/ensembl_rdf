@@ -34,6 +34,23 @@
       {"index": 6, "name": "stable_id"}
     ]
   },
+  "exon": {
+    "filename": "exon.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 2, "name": "seq_region_start"},
+      {"index": 3, "name": "seq_region_end"},
+      {"index": 4, "name": "seq_region_strand"},
+      {"index": 9, "name": "stable_id"}
+    ]
+  },
+  "exon_transcript": {
+    "filename": "exon_transcript.txt.gz",
+    "key_indices": [0, 1],
+    "values": [
+      {"index": 2, "name": "rank"}
+    ]
+  },
   "xref": {
     "filename": "xref.txt.gz",
     "key_indices": [0],
@@ -45,13 +62,22 @@
       {"index": 7, "name": "info_text"}
     ]
   },
+  "transcript_attrib": {
+    "filename": "transcript_attrib.txt.gz",
+    "key_indices": [0],
+    "list": true,
+    "values": [
+      {"index": 1, "name": "attrib_type_id"},
+      {"index": 2, "name": "value"}
+    ]
+  },
   "attrib_type": {
     "filename": "attrib_type.txt.gz",
     "key_indices": [0],
     "values": [
-      {"index": 1, "name": "attrib_type_id"},
-      {"index": 2, "name": "code"},
-      {"index": 3, "name": "name"}
+      {"index": 1, "name": "code"},
+      {"index": 2, "name": "name"},
+      {"index": 3, "name": "description"}
     ]
   },
   "meta": {

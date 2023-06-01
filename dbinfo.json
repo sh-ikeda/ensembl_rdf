@@ -9,7 +9,8 @@
       {"index": 6, "name": "seq_region_strand"},
       {"index": 7, "name": "display_xref_id"},
       {"index": 9, "name": "description"},
-      {"index": 12, "name": "stable_id"}
+      {"index": 12, "name": "stable_id"},
+      {"index": 3, "name": "seq_region_id"}
     ]
   },
   "gene_attrib": {
@@ -25,9 +26,9 @@
     "filename": "attrib_type.txt.gz",
     "key_indices": [0],
     "values": [
-      {"index": 1, "name": "attrib_type_id"},
-      {"index": 2, "name": "code"},
-      {"index": 3, "name": "name"}
+      {"index": 1, "name": "code"},
+      {"index": 2, "name": "name"},
+      {"index": 3, "name": "description"}
     ]
   },
   "meta": {
@@ -68,12 +69,14 @@
       {"index": 7, "name": "display_xref_id"},
       {"index": 9, "name": "biotype"},
       {"index": 12, "name": "canonical_translation_id"},
-      {"index": 13, "name": "stable_id"}
+      {"index": 13, "name": "stable_id"},
+      {"index": 3, "name": "seq_region_id"}
     ]
   },
   "transcript_attrib": {
     "filename": "transcript_attrib.txt.gz",
-    "key_indices": "0[]",
+    "key_indices": [0],
+    "list": true,
     "values": [
       {"index": 1, "name": "attrib_type_id"},
       {"index": 2, "name": "value"}
@@ -94,7 +97,8 @@
       {"index": 2, "name": "seq_region_start"},
       {"index": 3, "name": "seq_region_end"},
       {"index": 4, "name": "seq_region_strand"},
-      {"index": 9, "name": "stable_id"}
+      {"index": 9, "name": "stable_id"},
+      {"index": 1, "name": "seq_region_id"}
     ]
   },
   "exon_transcript": {
@@ -117,7 +121,24 @@
     "filename": "external_synonym.txt.gz",
     "key_indices": [0],
     "values": [
-      {"index": 1, "name": "synonym"},
+      {"index": 1, "name": "synonym"}
+    ]
+  },
+  "seq_region": {
+    "filename": "seq_region.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "name"},
+      {"index": 2, "name": "coord_system_id"}
+    ]
+  },
+  "coord_system": {
+    "filename": "coord_system.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "species_id"},
+      {"index": 2, "name": "name"},
+      {"index": 3, "name": "version"}
     ]
   }
 }
