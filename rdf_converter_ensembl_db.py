@@ -148,9 +148,9 @@ class Ensembl2turtle:
                         dic[key].append(vals)
                     else:
                         dic[key] = [vals]
-                    if self.flg:
-                        print(db, key, vals, file=sys.stderr)
-                        self.flg = False
+                    # if self.flg:
+                    #     print(db, key, vals, file=sys.stderr)
+                    #     self.flg = False
                 else:
                     dic[key] = vals
 
@@ -395,22 +395,22 @@ class Ensembl2turtle:
     def output_turtle(self):
         self.output_prefixes()
         dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] RDFize: gene", file=sys.stderr)
+        print(f"[{dt_now}] Output turtle: gene", file=sys.stderr)
         self.rdfize_gene()
         dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] RDFize: transcript", file=sys.stderr)
+        print(f"[{dt_now}] Output turtle: transcript", file=sys.stderr)
         self.rdfize_transcript()
         dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] RDFize: translation", file=sys.stderr)
+        print(f"[{dt_now}] Output turtle: translation", file=sys.stderr)
         self.rdfize_translation()
         dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] RDFize: exon", file=sys.stderr)
+        print(f"[{dt_now}] Output turtle: exon", file=sys.stderr)
         self.rdfize_exon()
         dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] RDFize: exon_transcript", file=sys.stderr)
+        print(f"[{dt_now}] Output turtle: exon_transcript", file=sys.stderr)
         self.rdfize_exon_transcript()
         dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] RDFize: xref", file=sys.stderr)
+        print(f"[{dt_now}] Output turtle: xref", file=sys.stderr)
         self.rdfize_xref()
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Done.", file=sys.stderr)
