@@ -276,9 +276,13 @@ class Ensembl2turtle:
         coord_system = self.dbs["coord_system"]
         chromosome_name = seq_region[seq_region_id][0]
         coord_system_id = seq_region[seq_region_id][1]
-        coord_system_version = coord_system[coord_system_id][2]  # e.g. "GRCm38"
+        # e.g. "GRCm38"
+        coord_system_version = coord_system[coord_system_id][2]
         # e.g. <http://rdf.ebi.ac.uk/resource/ensembl/109/mus_musculus/GRCm38/Y>
         chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+self.production_name+"/"+coord_system_version+"/"+chromosome_name+">"
+        # For LRG, <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/LRG_1>">"
+        if coord_system[coord_system_id][1] == "lrg":
+            chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+self.production_name+"/"+chromosome_name+">"
 
         loc_beg.add(("a", "faldo:ExactPosition"))
         loc_beg.add(("a", strand2faldo(strand)))
