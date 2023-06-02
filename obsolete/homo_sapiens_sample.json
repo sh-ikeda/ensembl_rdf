@@ -1,0 +1,985 @@
+{
+  "genes": [
+    {
+      "homologues": [],
+      "ArrayExpress": [
+        "ENSG00000275852"
+      ],
+      "RefSeq_ncRNA": [
+        "NR_147083"
+      ],
+      "genome": "homo_sapiens",
+      "seq_region_name": "20",
+      "strand": "1",
+      "id": "ENSG00000275852",
+      "EntrezGene": [
+        "105376992"
+      ],
+      "transcripts": [
+        {
+          "RNAcentral": [
+            "URS0000767F6C"
+          ],
+          "RefSeq_ncRNA": [
+            "NR_147083"
+          ],
+          "name": "LINC01742-201",
+          "HGNC_trans_name": [
+            "LINC01742-201"
+          ],
+          "end": "58004648",
+          "biotype": "lncRNA",
+          "seq_region_name": "20",
+          "UCSC": [
+            "uc061xzk.1"
+          ],
+          "strand": "1",
+          "exons": [
+            {
+              "seq_region_name": "20",
+              "strand": "1",
+              "id": "ENSE00003721000",
+              "end": "58004648",
+              "start": "58004185"
+            },
+            {
+              "seq_region_name": "20",
+              "strand": "1",
+              "id": "ENSE00003729549",
+              "end": "58004067",
+              "start": "58003904"
+            }
+          ],
+          "id": "ENST00000616333",
+          "xrefs": [
+            {
+              "display_id": "uc061xzk.1",
+              "primary_id": "uc061xzk.1",
+              "db_display": "UCSC Stable ID",
+              "info_type": "COORDINATE_OVERLAP",
+              "info_text": "",
+              "dbname": "UCSC"
+            },
+            {
+              "display_id": "LINC01742-201",
+              "primary_id": "LINC01742-201",
+              "db_display": "Transcript name",
+              "info_type": "MISC",
+              "info_text": "",
+              "description": "long intergenic non-protein coding RNA 1742",
+              "dbname": "HGNC_trans_name"
+            },
+            {
+              "display_id": "NR_147083.1",
+              "primary_id": "NR_147083",
+              "db_display": "RefSeq ncRNA",
+              "info_type": "DIRECT",
+              "info_text": "Generated via otherfeatures",
+              "dbname": "RefSeq_ncRNA"
+            },
+            {
+              "display_id": "URS0000767F6C",
+              "primary_id": "URS0000767F6C",
+              "db_display": "RNAcentral",
+              "info_type": "CHECKSUM",
+              "info_text": "",
+              "dbname": "RNAcentral"
+            }
+          ],
+          "start": "58003904"
+        }
+      ],
+      "RNAcentral": [
+        "URS0000767F6C"
+      ],
+      "taxon_id": 9606,
+      "name": "LINC01742",
+      "HGNC_trans_name": [
+        "LINC01742-201"
+      ],
+      "description": "long intergenic non-protein coding RNA 1742 [Source:HGNC Symbol;Acc:HGNC:52530]",
+      "biotype": "lncRNA",
+      "end": "58004648",
+      "lineage": [
+        6072,
+        7711,
+        7742,
+        7776,
+        8287,
+        9347,
+        9443,
+        9526,
+        9604,
+        9605,
+        9606,
+        32523,
+        32524,
+        32525,
+        33154,
+        33208,
+        33213,
+        33511,
+        40674,
+        89593,
+        117570,
+        117571,
+        207598,
+        314146,
+        314293,
+        314295,
+        376913,
+        1338369,
+        1437010,
+        1,
+        2759,
+        131567
+      ],
+      "UCSC": [
+        "uc061xzk.1"
+      ],
+      "WikiGene": [
+        "105376992"
+      ],
+      "GO": [],
+      "coord_system": {
+        "version": "GRCh38",
+        "name": "chromosome"
+      },
+      "genome_display": "Human",
+      "HGNC": [
+        "HGNC:52530"
+      ],
+      "start": "58003904",
+      "xrefs": [
+        {
+          "display_id": "ENSG00000275852",
+          "primary_id": "ENSG00000275852",
+          "db_display": "Expression Atlas",
+          "info_type": "DIRECT",
+          "info_text": "",
+          "dbname": "ArrayExpress"
+        },
+        {
+          "display_id": "LINC01742",
+          "primary_id": "105376992",
+          "db_display": "NCBI gene (formerly Entrezgene)",
+          "info_type": "DEPENDENT",
+          "info_text": "",
+          "description": "long intergenic non-protein coding RNA 1742",
+          "dbname": "EntrezGene"
+        },
+        {
+          "display_id": "LINC01742",
+          "primary_id": "HGNC:52530",
+          "db_display": "HGNC Symbol",
+          "info_type": "DIRECT",
+          "info_text": "Generated via ensembl_manual",
+          "description": "long intergenic non-protein coding RNA 1742",
+          "dbname": "HGNC"
+        },
+        {
+          "display_id": "LINC01742",
+          "primary_id": "105376992",
+          "db_display": "WikiGene",
+          "info_type": "DEPENDENT",
+          "info_text": "",
+          "description": "long intergenic non-protein coding RNA 1742",
+          "dbname": "WikiGene"
+        }
+      ]
+    },
+    {
+      "Interpro": [
+        "IPR040433"
+      ],
+      "ArrayExpress": [
+        "ENSG00000224440"
+      ],
+      "MobiDBLite": [
+        "mobidb-lite"
+      ],
+      "id": "ENSG00000224440",
+      "RefSeq_peptide": [
+        "NP_001137536"
+      ],
+      "EntrezGene": [
+        "100129239"
+      ],
+      "PANTHER": [
+        "PTHR37876"
+      ],
+      "RNAcentral": [
+        "URS00004E49CA"
+      ],
+      "name": "CXorf51A",
+      "EMBL": [
+        "AL109836"
+      ],
+      "description": "chromosome X open reading frame 51A [Source:HGNC Symbol;Acc:HGNC:30533]",
+      "end": "146814726",
+      "lineage": [
+        6072,
+        7711,
+        7742,
+        7776,
+        8287,
+        9347,
+        9443,
+        9526,
+        9604,
+        9605,
+        9606,
+        32523,
+        32524,
+        32525,
+        33154,
+        33208,
+        33213,
+        33511,
+        40674,
+        89593,
+        117570,
+        117571,
+        207598,
+        314146,
+        314293,
+        314295,
+        376913,
+        1338369,
+        1437010,
+        1,
+        2759,
+        131567
+      ],
+      "ncoils": [
+        "Coil"
+      ],
+      "UniParc": [
+        "UPI0000160F60"
+      ],
+      "GO": [],
+      "Uniprot_gn": [
+        "A0A1B0GTR3"
+      ],
+      "RefSeq_mRNA": [
+        "NM_001144064"
+      ],
+      "coord_system": {
+        "version": "GRCh38",
+        "name": "chromosome"
+      },
+      "genome_display": "Human",
+      "HGNC": [
+        "HGNC:30533"
+      ],
+      "start": "146814106",
+      "homologues": [
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSNLEG00000035926",
+          "genome_display": "Gibbon",
+          "orthology_type": "ortholog_one2many",
+          "genome": "nomascus_leucogenys"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSGGOG00000039962",
+          "genome_display": "Gorilla",
+          "orthology_type": "ortholog_one2many",
+          "genome": "gorilla_gorilla"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSPTRG00000043109",
+          "genome_display": "Chimpanzee",
+          "orthology_type": "ortholog_many2many",
+          "genome": "pan_troglodytes"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSPTRG00000048618",
+          "genome_display": "Chimpanzee",
+          "orthology_type": "ortholog_many2many",
+          "genome": "pan_troglodytes"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSPTRG00000051374",
+          "genome_display": "Chimpanzee",
+          "orthology_type": "ortholog_many2many",
+          "genome": "pan_troglodytes"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSPTRG00000047380",
+          "genome_display": "Chimpanzee",
+          "orthology_type": "ortholog_many2many",
+          "genome": "pan_troglodytes"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSPPAG00000032752",
+          "genome_display": "Bonobo",
+          "orthology_type": "ortholog_many2many",
+          "genome": "pan_paniscus"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSPPAG00000035065",
+          "genome_display": "Bonobo",
+          "orthology_type": "ortholog_many2many",
+          "genome": "pan_paniscus"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSCJAG00000031179",
+          "genome_display": "Marmoset",
+          "orthology_type": "ortholog_one2many",
+          "genome": "callithrix_jacchus"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSCATG00000031232",
+          "genome_display": "Sooty mangabey",
+          "orthology_type": "ortholog_one2many",
+          "genome": "cercocebus_atys"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSMFAG00000032729",
+          "genome_display": "Crab-eating macaque",
+          "orthology_type": "ortholog_one2many",
+          "genome": "macaca_fascicularis"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSMMUG00000060199",
+          "genome_display": "Macaque",
+          "orthology_type": "ortholog_one2many",
+          "genome": "macaca_mulatta"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSMNEG00000035418",
+          "genome_display": "Pig-tailed macaque",
+          "orthology_type": "ortholog_one2many",
+          "genome": "macaca_nemestrina"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSPANG00000030447",
+          "genome_display": "Olive baboon",
+          "orthology_type": "ortholog_one2many",
+          "genome": "papio_anubis"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSTGEG00000005796",
+          "genome_display": "Gelada",
+          "orthology_type": "ortholog_one2many",
+          "genome": "theropithecus_gelada"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSMLEG00000010101",
+          "genome_display": "Drill",
+          "orthology_type": "ortholog_one2many",
+          "genome": "mandrillus_leucophaeus"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSCCAG00000025979",
+          "genome_display": "Capuchin",
+          "orthology_type": "ortholog_one2many",
+          "genome": "cebus_capucinus"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSRROG00000004184",
+          "genome_display": "Golden snub-nosed monkey",
+          "orthology_type": "ortholog_one2many",
+          "genome": "rhinopithecus_roxellana"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSPTEG00000017964",
+          "genome_display": "Ugandan red Colobus",
+          "orthology_type": "ortholog_one2many",
+          "genome": "piliocolobus_tephrosceles"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSCANG00000042189",
+          "genome_display": "Angola colobus",
+          "orthology_type": "ortholog_one2many",
+          "genome": "colobus_angolensis_palliatus"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSSBOG00000029080",
+          "genome_display": "Bolivian squirrel monkey",
+          "orthology_type": "ortholog_one2many",
+          "genome": "saimiri_boliviensis_boliviensis"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSANAG00000020981",
+          "genome_display": "Ma's night monkey",
+          "orthology_type": "ortholog_one2many",
+          "genome": "aotus_nancymaae"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSRBIG00000003645",
+          "genome_display": "Black snub-nosed monkey",
+          "orthology_type": "ortholog_one2many",
+          "genome": "rhinopithecus_bieti"
+        },
+        {
+          "gene_tree_id": "ENSGT00850000133588",
+          "stable_id": "ENSG00000235699",
+          "genome_display": "Human",
+          "orthology_type": "within_species_paralog",
+          "genome": "homo_sapiens"
+        }
+      ],
+      "CCDS": [
+        "CCDS83498"
+      ],
+      "genome": "homo_sapiens",
+      "seq_region_name": "X",
+      "strand": "-1",
+      "Seg": [
+        "seg"
+      ],
+      "transcripts": [
+        {
+          "Interpro": [
+            "IPR040433"
+          ],
+          "CCDS": [
+            "CCDS83498"
+          ],
+          "seq_region_name": "X",
+          "MobiDBLite": [
+            "mobidb-lite"
+          ],
+          "Seg": [
+            "seg"
+          ],
+          "strand": "-1",
+          "exons": [
+            {
+              "seq_region_name": "X",
+              "strand": "-1",
+              "id": "ENSE00001620703",
+              "end": "146814401",
+              "start": "146814106"
+            },
+            {
+              "seq_region_name": "X",
+              "strand": "-1",
+              "id": "ENSE00001633368",
+              "end": "146814726",
+              "start": "146814592"
+            }
+          ],
+          "id": "ENST00000458472",
+          "RefSeq_peptide": [
+            "NP_001137536"
+          ],
+          "PANTHER": [
+            "PTHR37876"
+          ],
+          "RNAcentral": [
+            "URS00004E49CA"
+          ],
+          "Uniprot/SWISSPROT": [
+            "A0A1B0GTR3"
+          ],
+          "name": "CXorf51A-201",
+          "EMBL": [
+            "AL109836"
+          ],
+          "HGNC_trans_name": [
+            "CXorf51A-201"
+          ],
+          "biotype": "protein_coding",
+          "end": "146814726",
+          "UCSC": [
+            "uc065blc.2"
+          ],
+          "ncoils": [
+            "Coil"
+          ],
+          "UniParc": [
+            "UPI0000160F60"
+          ],
+          "translations": [
+            {
+              "PANTHER": [
+                "PTHR37876"
+              ],
+              "Interpro": [
+                "IPR040433"
+              ],
+              "Uniprot/SWISSPROT": [
+                "A0A1B0GTR3"
+              ],
+              "EMBL": [
+                "AL109836"
+              ],
+              "protein_features": [
+                {
+                  "ensembl_object_type": "protein_feature",
+                  "name": "Coil",
+                  "translation_id": "ENSP00000489806",
+                  "description": "Coil",
+                  "start": "86",
+                  "dbname": "ncoils",
+                  "end": "106"
+                },
+                {
+                  "interpro_name": "Spermatid_TP",
+                  "name": "PTHR37876",
+                  "description": "PROTEIN GAR2-LIKE",
+                  "interpro_description": "Spermatid nuclear transition protein",
+                  "interpro_ac": "IPR040433",
+                  "dbname": "PANTHER",
+                  "end": "106",
+                  "ensembl_object_type": "protein_feature",
+                  "translation_id": "ENSP00000489806",
+                  "start": "1"
+                },
+                {
+                  "ensembl_object_type": "protein_feature",
+                  "name": "mobidb-lite",
+                  "translation_id": "ENSP00000489806",
+                  "description": "disorder_prediction",
+                  "start": "1",
+                  "dbname": "MobiDBLite",
+                  "end": "108"
+                },
+                {
+                  "ensembl_object_type": "protein_feature",
+                  "name": "mobidb-lite",
+                  "translation_id": "ENSP00000489806",
+                  "description": "disorder_prediction",
+                  "start": "28",
+                  "dbname": "MobiDBLite",
+                  "end": "57"
+                },
+                {
+                  "ensembl_object_type": "protein_feature",
+                  "name": "mobidb-lite",
+                  "translation_id": "ENSP00000489806",
+                  "description": "disorder_prediction",
+                  "start": "84",
+                  "dbname": "MobiDBLite",
+                  "end": "108"
+                },
+                {
+                  "ensembl_object_type": "protein_feature",
+                  "name": "seg",
+                  "translation_id": "ENSP00000489806",
+                  "start": "19",
+                  "dbname": "Seg",
+                  "end": "38"
+                },
+                {
+                  "ensembl_object_type": "protein_feature",
+                  "name": "seg",
+                  "translation_id": "ENSP00000489806",
+                  "start": "90",
+                  "dbname": "Seg",
+                  "end": "101"
+                }
+              ],
+              "UniParc": [
+                "UPI0000160F60"
+              ],
+              "ncoils": [
+                "Coil"
+              ],
+              "Seg": [
+                "seg"
+              ],
+              "MobiDBLite": [
+                "mobidb-lite"
+              ],
+              "id": "ENSP00000489806",
+              "RefSeq_peptide": [
+                "NP_001137536"
+              ],
+              "xrefs": [
+                {
+                  "display_id": "AL109836",
+                  "primary_id": "AL109836",
+                  "db_display": "European Nucleotide Archive",
+                  "info_type": "DEPENDENT",
+                  "info_text": "",
+                  "dbname": "EMBL"
+                },
+                {
+                  "display_id": "NP_001137536.1",
+                  "primary_id": "NP_001137536",
+                  "db_display": "RefSeq peptide",
+                  "info_type": "DIRECT",
+                  "info_text": "Generated via otherfeatures",
+                  "dbname": "RefSeq_peptide"
+                },
+                {
+                  "display_id": "UPI0000160F60",
+                  "primary_id": "UPI0000160F60",
+                  "db_display": "UniParc",
+                  "info_type": "CHECKSUM",
+                  "info_text": "",
+                  "dbname": "UniParc"
+                },
+                {
+                  "display_id": "A0A1B0GTR3.28",
+                  "primary_id": "A0A1B0GTR3",
+                  "db_display": "UniProtKB/Swiss-Prot",
+                  "info_type": "DIRECT",
+                  "info_text": "Generated via direct",
+                  "description": "Uncharacterized protein CXorf51A ",
+                  "dbname": "Uniprot/SWISSPROT"
+                }
+              ]
+            }
+          ],
+          "RefSeq_mRNA": [
+            "NM_001144064"
+          ],
+          "start": "146814106",
+          "xrefs": [
+            {
+              "display_id": "uc065blc.2",
+              "primary_id": "uc065blc.2",
+              "db_display": "UCSC Stable ID",
+              "info_type": "COORDINATE_OVERLAP",
+              "info_text": "",
+              "dbname": "UCSC"
+            },
+            {
+              "display_id": "CCDS83498.1",
+              "primary_id": "CCDS83498",
+              "db_display": "CCDS",
+              "info_type": "DIRECT",
+              "info_text": "",
+              "dbname": "CCDS"
+            },
+            {
+              "display_id": "CXorf51A-201",
+              "primary_id": "CXorf51A-201",
+              "db_display": "Transcript name",
+              "info_type": "MISC",
+              "info_text": "",
+              "description": "chromosome X open reading frame 51A",
+              "dbname": "HGNC_trans_name"
+            },
+            {
+              "display_id": "NM_001144064.2",
+              "primary_id": "NM_001144064",
+              "db_display": "RefSeq mRNA",
+              "info_type": "DIRECT",
+              "info_text": "Generated via otherfeatures",
+              "dbname": "RefSeq_mRNA"
+            },
+            {
+              "display_id": "URS00004E49CA",
+              "primary_id": "URS00004E49CA",
+              "db_display": "RNAcentral",
+              "info_type": "CHECKSUM",
+              "info_text": "",
+              "dbname": "RNAcentral"
+            }
+          ]
+        }
+      ],
+      "Uniprot/SWISSPROT": [
+        "A0A1B0GTR3"
+      ],
+      "taxon_id": 9606,
+      "HGNC_trans_name": [
+        "CXorf51A-201"
+      ],
+      "biotype": "protein_coding",
+      "WikiGene": [
+        "100129239"
+      ],
+      "UCSC": [
+        "uc065blc.2"
+      ],
+      "xrefs": [
+        {
+          "display_id": "ENSG00000224440",
+          "primary_id": "ENSG00000224440",
+          "db_display": "Expression Atlas",
+          "info_type": "DIRECT",
+          "info_text": "",
+          "dbname": "ArrayExpress"
+        },
+        {
+          "display_id": "CXorf51A",
+          "primary_id": "100129239",
+          "db_display": "NCBI gene (formerly Entrezgene)",
+          "info_type": "DEPENDENT",
+          "info_text": "",
+          "description": "chromosome X open reading frame 51A",
+          "dbname": "EntrezGene"
+        },
+        {
+          "display_id": "CXorf51A",
+          "primary_id": "HGNC:30533",
+          "db_display": "HGNC Symbol",
+          "description": "chromosome X open reading frame 51A",
+          "dbname": "HGNC",
+          "synonyms": [
+            "CXorf51"
+          ],
+          "info_type": "DIRECT",
+          "info_text": "Generated via ensembl_manual"
+        },
+        {
+          "display_id": "CXorf51A",
+          "primary_id": "A0A1B0GTR3",
+          "db_display": "UniProtKB Gene Name",
+          "info_type": "DEPENDENT",
+          "info_text": "",
+          "dbname": "Uniprot_gn"
+        },
+        {
+          "display_id": "CXorf51A",
+          "primary_id": "100129239",
+          "db_display": "WikiGene",
+          "info_type": "DEPENDENT",
+          "info_text": "",
+          "description": "chromosome X open reading frame 51A",
+          "dbname": "WikiGene"
+        }
+      ]
+    },
+    {
+      "homologues": [],
+      "ArrayExpress": [
+        "ENSG00000276974"
+      ],
+      "genome": "homo_sapiens",
+      "seq_region_name": "CHR_HSCHR19KIR_ABC08_AB_HAP_T_P_CTG3_1",
+      "strand": "1",
+      "id": "ENSG00000276974",
+      "transcripts": [
+        {
+          "RNAcentral": [
+            "URS00008BFBB7"
+          ],
+          "end": "54704235",
+          "biotype": "unprocessed_pseudogene",
+          "seq_region_name": "CHR_HSCHR19KIR_ABC08_AB_HAP_T_P_CTG3_1",
+          "strand": "1",
+          "exons": [
+            {
+              "seq_region_name": "CHR_HSCHR19KIR_ABC08_AB_HAP_T_P_CTG3_1",
+              "strand": "1",
+              "id": "ENSE00003721353",
+              "end": "54704235",
+              "start": "54703952"
+            }
+          ],
+          "id": "ENST00000610626",
+          "start": "54703952",
+          "xrefs": [
+            {
+              "display_id": "URS00008BFBB7",
+              "primary_id": "URS00008BFBB7",
+              "db_display": "RNAcentral",
+              "info_type": "CHECKSUM",
+              "info_text": "",
+              "dbname": "RNAcentral"
+            }
+          ]
+        }
+      ],
+      "RNAcentral": [
+        "URS00008BFBB7"
+      ],
+      "taxon_id": 9606,
+      "description": "killer cell immunoglobulin-like receptor family pseudogene",
+      "biotype": "unprocessed_pseudogene",
+      "end": "54704235",
+      "lineage": [
+        6072,
+        7711,
+        7742,
+        7776,
+        8287,
+        9347,
+        9443,
+        9526,
+        9604,
+        9605,
+        9606,
+        32523,
+        32524,
+        32525,
+        33154,
+        33208,
+        33213,
+        33511,
+        40674,
+        89593,
+        117570,
+        117571,
+        207598,
+        314146,
+        314293,
+        314295,
+        376913,
+        1338369,
+        1437010,
+        1,
+        2759,
+        131567
+      ],
+      "GO": [],
+      "coord_system": {
+        "version": "GRCh38",
+        "name": "chromosome"
+      },
+      "genome_display": "Human",
+      "start": "54703952",
+      "xrefs": [
+        {
+          "display_id": "ENSG00000276974",
+          "primary_id": "ENSG00000276974",
+          "db_display": "Expression Atlas",
+          "info_type": "DIRECT",
+          "info_text": "",
+          "dbname": "ArrayExpress"
+        }
+      ]
+    },
+    {
+      "homologues": [],
+      "ArrayExpress": [
+        "ENSG00000261140"
+      ],
+      "genome": "homo_sapiens",
+      "seq_region_name": "16",
+      "strand": "-1",
+      "id": "ENSG00000261140",
+      "transcripts": [
+        {
+          "RNAcentral": [
+            "URS00002F14B9"
+          ],
+          "end": "2571936",
+          "biotype": "lncRNA",
+          "seq_region_name": "16",
+          "UCSC": [
+            "uc059pob.1"
+          ],
+          "strand": "-1",
+          "exons": [
+            {
+              "seq_region_name": "16",
+              "strand": "-1",
+              "id": "ENSE00002608979",
+              "end": "2569474",
+              "start": "2569043"
+            },
+            {
+              "seq_region_name": "16",
+              "strand": "-1",
+              "id": "ENSE00002628482",
+              "end": "2571936",
+              "start": "2571910"
+            }
+          ],
+          "id": "ENST00000562232",
+          "xrefs": [
+            {
+              "display_id": "uc059pob.1",
+              "primary_id": "uc059pob.1",
+              "db_display": "UCSC Stable ID",
+              "info_type": "COORDINATE_OVERLAP",
+              "info_text": "",
+              "dbname": "UCSC"
+            },
+            {
+              "display_id": "URS00002F14B9",
+              "primary_id": "URS00002F14B9",
+              "db_display": "RNAcentral",
+              "info_type": "CHECKSUM",
+              "info_text": "",
+              "dbname": "RNAcentral"
+            }
+          ],
+          "start": "2569043"
+        }
+      ],
+      "RNAcentral": [
+        "URS00002F14B9"
+      ],
+      "taxon_id": 9606,
+      "description": "novel transcript, antisense to PDPK1",
+      "biotype": "lncRNA",
+      "end": "2571936",
+      "lineage": [
+        6072,
+        7711,
+        7742,
+        7776,
+        8287,
+        9347,
+        9443,
+        9526,
+        9604,
+        9605,
+        9606,
+        32523,
+        32524,
+        32525,
+        33154,
+        33208,
+        33213,
+        33511,
+        40674,
+        89593,
+        117570,
+        117571,
+        207598,
+        314146,
+        314293,
+        314295,
+        376913,
+        1338369,
+        1437010,
+        1,
+        2759,
+        131567
+      ],
+      "UCSC": [
+        "uc059pob.1"
+      ],
+      "GO": [],
+      "coord_system": {
+        "version": "GRCh38",
+        "name": "chromosome"
+      },
+      "genome_display": "Human",
+      "start": "2569043",
+      "xrefs": [
+        {
+          "display_id": "ENSG00000261140",
+          "primary_id": "ENSG00000261140",
+          "db_display": "Expression Atlas",
+          "info_type": "DIRECT",
+          "info_text": "",
+          "dbname": "ArrayExpress"
+        }
+      ]
+    }
+  ]
+}
