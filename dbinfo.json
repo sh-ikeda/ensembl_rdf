@@ -120,6 +120,7 @@
   "external_synonym": {
     "filename": "external_synonym.txt.gz",
     "key_indices": [0],
+    "list": true,
     "values": [
       {"index": 1, "name": "synonym"}
     ]
