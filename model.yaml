@@ -15,10 +15,10 @@
     - ensg_label: "TSPAN6"
 
   # gene のテーブルにある display_xref_id から直接辿れるのは HGNC, Entrez, miRBase, RFAM のみ。
-  - rdfs:seeAlso+:
+  - rdfs:seeAlso*:
     - []:
       # external_db.select(db_name WHERE (external_db_id=xref.select(external_db_id WHERE (xref_id=gene.display_xref_id))))
-      - a: # #FIXME
+      - terms:id_of: # #FIXME
         - ensg_xref_database_origin: "EntrezGene"
       # xref.select(dbprimary_acc WHERE (xref_id=gene.display_xref_id))
       - dcterms:identifier:
@@ -67,6 +67,8 @@
             - ensg_strand: faldo:ForwardStrandPosition  # 現状はこのように書かれているので、クラスが変数になる。
           - faldo:position:
             - ensg_begin: 100627108
+          - faldo:reference:
+            - ensg_chromosome: <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/GRCh38/X>
       - faldo:end:
         - []:
           - a: faldo:ExactPosition
@@ -92,10 +94,10 @@
   - rdfs:label:
     - enst_label: "TEKT2-201"
 
-  - rdfs:seeAlso+:
+  - rdfs:seeAlso*:
     - []:
       # external_db.select(db_name WHERE (external_db_id=xref.select(external_db_id WHERE (xref_id=gene.display_xref_id))))
-      - a: # #FIXME
+      - terms:id_of: # #FIXME
         - enst_xref_database_origin: "EntrezGene"
       # xref.select(dbprimary_acc WHERE (xref_id=gene.display_xref_id))
       - dcterms:identifier:
@@ -118,14 +120,28 @@
   # transcript.gene_id
   - so:transcribed_from:
     - enst_transcribed_from: EnsemblGene
+  ## 一個あればいいのでは
+  # - so:part_of:
+  #   - enst_part_of: EnsemblGene
+  # - obo:BFO_0000050:
+  #   - enst_part_of: EnsemblGene
 
   # transcript.canonical_translation_id
   - so:translates_to+: # 旧 rdf-config では cardinality が "+" になっていたが、少なくとも今のデータを調べた限りではなさそう。
     - enst_translates_to: EnsemblProtein
 
   # canonical などのフラグ
+  # https://asia.ensembl.org/info/genome/genebuild/transcript_quality_tags.html
+  # FIXME
   - terms:transcript_flag*:
-    - enst_transcript_flag: "TSL1"  # FIXME
+    - []:
+      - a: terms:TranscriptFlag
+      - a:
+        - transcript_flag_type: terms:TSL
+      - sio:SIO_000300:
+        - transcript_flag_value: "tsl1"
+      - rdfs:comment*:
+        - transcript_flag_comment: "assigned to previous version 7"
 
   # exon_transcript.select(rank WHERE (transcript_id=transcript.transcript_id))
   - sio:SIO_000974+:
@@ -142,6 +158,8 @@
             - enst_strand: faldo:ForwardStrandPosition
           - faldo:position:
             - enst_begin: 36084094
+          - faldo:reference:
+            - enst_chromosome: <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/GRCh38/1>
       - faldo:end:
         - []:
           - a: faldo:ExactPosition
@@ -150,7 +168,7 @@
 
 # EnsemblExon
 - EnsemblExon ense:ENSE00002619687:
-  - a: terms:Exon
+  - a: terms:EnsemblExon
   - a: obo:SO_0000147   # exon
 
   # exon.stable_id
@@ -170,6 +188,8 @@
             - ense_strand: faldo:ReverseStrandPosition
           - faldo:position:
             - ense_begin: 18792879
+          - faldo:reference:
+            - ense_chromosome: <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/GRCh38/16>
       - faldo:end:
         - []:
           - a: faldo:ExactPosition
@@ -197,10 +217,10 @@
   - so:translation_of:
     - ensp_translation_of: EnsemblTranscript
 
-  - rdfs:seeAlso+:
+  - rdfs:seeAlso*:
     - []:
       # external_db.select(db_name WHERE (external_db_id=xref.select(external_db_id WHERE (xref_id=gene.display_xref_id))))
-      - a: # #FIXME
+      - terms:id_of: # #FIXME
         - ensp_xref_database_origin: "EntrezGene"
       # xref.select(dbprimary_acc WHERE (xref_id=gene.display_xref_id))
       - dcterms:identifier:
