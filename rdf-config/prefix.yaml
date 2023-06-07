@@ -1,7 +1,9 @@
 rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 faldo: <http://biohackathon.org/resource/faldo#>
 obo: <http://purl.obolibrary.org/obo/>
+so: <http://purl.obolibrary.org/obo/so#>
 dc: <http://purl.org/dc/elements/1.1/>
+dcterms: <http://purl.org/dc/terms/>
 owl: <http://www.w3.org/2002/07/owl#>
 ensg: <http://rdf.ebi.ac.uk/resource/ensembl/>
 terms: <http://rdf.ebi.ac.uk/terms/ensembl/>

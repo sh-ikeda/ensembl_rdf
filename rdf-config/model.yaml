@@ -1,5 +1,5 @@
 # ENSG
-- EnsemblGene ens_resource:ENSG00000000003:
+- EnsemblGene ensg:ENSG00000000003:
   - a: terms:EnsemblGene
 
   # gene.biotype
@@ -54,7 +54,7 @@
   #       - ensg_ortholog: EnsemblGene
 
   - so:part_of:
-    - ensg_chromosome: <http://identifiers.org/hco/21#GRCh37>
+    - ensg_chromosome: <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/GRCh38/X>
 
   # gene.select(seq_region_start, seq_region_end, seq_region_strand)
   - faldo:location:
@@ -67,8 +67,9 @@
             - ensg_strand: faldo:ForwardStrandPosition  # 現状はこのように書かれているので、クラスが変数になる。
           - faldo:position:
             - ensg_begin: 100627108
-          - faldo:reference:
-            - ensg_chromosome: <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/GRCh38/X>
+          ## so:part_of と同じ値なので、config 上は省略。
+          # - faldo:reference:
+          #   - ensg_chromosome: <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/GRCh38/X>
       - faldo:end:
         - []:
           - a: faldo:ExactPosition
@@ -197,7 +198,7 @@
             - ense_end: 18793370
 
 
-- EnsemblOrderedExon http://rdf.ebi.ac.uk/resource/ensembl.transcript/ENST00000623960#Exon_7:
+- EnsemblOrderedExon <http://rdf.ebi.ac.uk/resource/ensembl.transcript/ENST00000623960#Exon_7>:
   - a: terms:EnsemblOrderedExon
   - a: sio:SIO_001261 # ordered list item
   - sio:SIO_000628: # refers to
