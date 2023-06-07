@@ -179,6 +179,7 @@ class Ensembl2turtle:
             xref_id = gene[id][4]
 
             triple(sbj, "a", "terms:EnsemblGene")
+            triple(sbj, "a", "terms:"+gene[id][0])
             triple(sbj, "terms:biotype", "terms:"+gene[id][0])
             if xref_id == "\\N":
                 label = gene[id][6]  # Substitute ID for label
@@ -197,11 +198,13 @@ class Ensembl2turtle:
                 triple(sbj, "skos:altLabel", synonyms)
 
             # location
+            chromosome_url = seq_region_id_to_chr(gene[id][7])
             location = self.create_location_str(gene[id][1],
                                                 gene[id][2],
                                                 gene[id][3],
-                                                gene[id][7])
+                                                chromosome_url)
             triple(sbj, "faldo:location", location)
+            triple(sbj, "so:part_of", chromosome_url)
             i += 1
             if self.debug and i >= 10:
                 break
@@ -219,6 +222,7 @@ class Ensembl2turtle:
             xref_id = transcript[id][4]
 
             triple(sbj, "a", "terms:EnsemblTranscript")
+            triple(sbj, "a", "terms:"+transcript[id][5])
             triple(sbj, "terms:biotype", "terms:"+transcript[id][5])
             if xref_id == "\\N":
                 label = transcript[id][7]  # Substitute ID for label
@@ -232,10 +236,11 @@ class Ensembl2turtle:
                 triple(sbj, "so:translates_to", "ensp:"+translation[translates_to][1])
 
             # location
+            chromosome_url = seq_region_id_to_chr(transcript[id][8])
             location = self.create_location_str(transcript[id][1],
                                                 transcript[id][2],
                                                 transcript[id][3],
-                                                transcript[id][8])
+                                                chromosome_url)
             triple(sbj, "faldo:location", location)
 
             # flag
@@ -267,11 +272,7 @@ class Ensembl2turtle:
                 break
         return
 
-    def create_location_str(self, beg, end, strand, seq_region_id, level=1):
-        loc = Bnode()
-        loc_beg = Bnode()
-        loc_end = Bnode()
-
+    def seq_region_id_to_chr(self, seq_region_id):
         seq_region = self.dbs["seq_region"]
         coord_system = self.dbs["coord_system"]
         chromosome_name = seq_region[seq_region_id][0]
@@ -283,6 +284,12 @@ class Ensembl2turtle:
         # For LRG, <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/LRG_1>">"
         if coord_system[coord_system_id][1] == "lrg":
             chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+self.production_name+"/"+chromosome_name+">"
+        return chromosome_url
+
+    def create_location_str(self, beg, end, strand, chromosome_url, level=1):
+        loc = Bnode()
+        loc_beg = Bnode()
+        loc_end = Bnode()
 
         loc_beg.add(("a", "faldo:ExactPosition"))
         loc_beg.add(("a", strand2faldo(strand)))
@@ -326,10 +333,11 @@ class Ensembl2turtle:
             triple(sbj, "dcterms:identifier", quote(exon[id][3]))
 
             # location
+            chromosome_url = seq_region_id_to_chr(exon[id][4])
             location = self.create_location_str(exon[id][0],
                                                 exon[id][1],
                                                 exon[id][2],
-                                                exon[id][4])
+                                                chromosome_url)
             triple(sbj, "faldo:location", location)
             i += 1
             if self.debug and i >= 10:
