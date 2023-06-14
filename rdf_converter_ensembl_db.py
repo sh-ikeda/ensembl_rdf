@@ -1,9 +1,11 @@
 import gzip
 import sys
+import os
 import psutil
 import json
 import re
 import datetime
+import pprint
 
 input_dir = "./"
 
@@ -89,6 +91,9 @@ class Ensembl2turtle:
         self.production_name = self.get_production_name()
         self.flag_dic = {}
         self.init_flags()
+        self.xref_url_dic = {}
+        self.init_xref_url_dic()
+        self.xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
 
     # self.flag_dic は transcript_flags のキーを attrib_type_id で置換したもの
     # ただし、transcript_flags のキーは "name" として保存
@@ -99,6 +104,19 @@ class Ensembl2turtle:
             if vals[0] in Ensembl2turtle.transcript_flags:
                 self.flag_dic[id] = Ensembl2turtle.transcript_flags[vals[0]]
                 self.flag_dic[id]["name"] = vals[0]
+        return
+
+    def init_xref_url_dic(self):
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+        XREF_URL_DIC_TSV = "external_db_url.tsv"
+
+        with open(BASE_DIR+XREF_URL_DIC_TSV, "r") as input_table:
+            line = input_table.readline()
+            while (line):
+                line = line.rstrip('\n')
+                sep_line = line.split('\t')
+                self.xref_url_dic[sep_line[0]] = sep_line[1]
+                line = input_table.readline()
         return
 
     def get_ensembl_version(self):
@@ -381,19 +399,24 @@ class Ensembl2turtle:
         i = 0
         for id in object_xref:
             xref_id = object_xref[id][2]
-            target_id = object_xref[id][0]
-            if object_xref[id][1] == "Gene":
-                target_url = "ensg:" + gene[target_id][6]
-            elif object_xref[id][1] == "Transcript":
-                target_url = "enst:" + transcript[target_id][7]
-            elif object_xref[id][1] == "Translation":
-                target_url = "ensp:" + translation[target_id][1]
+            subject_id = object_xref[id][0]
+            subject_type = object_xref[id][1]
+            if subject_type == "Gene":
+                subject_url = "ensg:" + gene[subject_id][6]
+            elif subject_type == "Transcript":
+                subject_url = "enst:" + transcript[subject_id][7]
+            elif subject_type == "Translation":
+                subject_url = "ensp:" + translation[subject_id][1]
             else:
                 continue
-            xref_node = Bnode()
-            xref_node.add(("terms:id_of", quote(external_db[xref[xref_id][0]][0])))  # FIXME
-            xref_node.add(("dcterms:identifier", quote(xref[xref_id][1])))
-            triple(target_url, "rdfs:seeAlso", xref_node.serialize())
+            # xref_node = Bnode()
+            # xref_node.add(("terms:id_of", quote(external_db[xref[xref_id][0]][0])))  # FIXME
+            # xref_node.add(("dcterms:identifier", quote(xref[xref_id][1])))
+            # triple(subject_url, "rdfs:seeAlso", xref_node.serialize())
+            if self.xref_url_dic.get(xref[xref_id][0], "") != "":
+                xref_url = self.xref_url_dic[xref[xref_id][0]] + xref[xref_id][1]
+                triple(subject_url, "rdfs:seeAlso", xref_url)
+            self.xrefed_dbs[subject_type][external_db[xref[xref_id][0]][0]] = xref[xref_id][1]
             i += 1
             if self.debug and i >= 10:
                 break
@@ -424,6 +447,7 @@ class Ensembl2turtle:
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Output turtle: xref", file=sys.stderr)
         self.rdfize_xref()
+        pprint.pprint(self.xrefed_dbs, stream=sys.stderr)
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Done.", file=sys.stderr)
 
