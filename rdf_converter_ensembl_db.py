@@ -198,7 +198,7 @@ class Ensembl2turtle:
                 triple(sbj, "skos:altLabel", synonyms)
 
             # location
-            chromosome_url = seq_region_id_to_chr(gene[id][7])
+            chromosome_url = self.seq_region_id_to_chr(gene[id][7])
             location = self.create_location_str(gene[id][1],
                                                 gene[id][2],
                                                 gene[id][3],
@@ -236,7 +236,7 @@ class Ensembl2turtle:
                 triple(sbj, "so:translates_to", "ensp:"+translation[translates_to][1])
 
             # location
-            chromosome_url = seq_region_id_to_chr(transcript[id][8])
+            chromosome_url = self.seq_region_id_to_chr(transcript[id][8])
             location = self.create_location_str(transcript[id][1],
                                                 transcript[id][2],
                                                 transcript[id][3],
@@ -333,7 +333,7 @@ class Ensembl2turtle:
             triple(sbj, "dcterms:identifier", quote(exon[id][3]))
 
             # location
-            chromosome_url = seq_region_id_to_chr(exon[id][4])
+            chromosome_url = self.seq_region_id_to_chr(exon[id][4])
             location = self.create_location_str(exon[id][0],
                                                 exon[id][1],
                                                 exon[id][2],
