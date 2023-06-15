@@ -70,15 +70,30 @@ class Ensembl2turtle:
 
     # Keys are `code` of the attrib_type table to be used as transcript flags
     transcript_flags = {
-        "gencode_basic": {"is_bool": True, "term": "terms:GENCODEBasic"},
-        "appris": {"is_bool": False, "term": "terms:APPRIS"},
-        "TSL": {"is_bool": False, "term": "terms:TSL"},
-        "is_canonical": {"is_bool": True, "term": "terms:EnsemblCanonical"},
-        "MANE_Select": {"is_bool": True, "term": "terms:MANESelect"},
-        "mRNA_start_NF": {"is_bool": False, "term": "terms:Incomplete"},
-        "mRNA_end_NF": {"is_bool": False, "term": "terms:Incomplete"},
-        "cds_start_NF": {"is_bool": False, "term": "terms:Incomplete"},
-        "cds_end_NF": {"is_bool": False, "term": "terms:Incomplete"}
+        "gencode_basic": {"GENCODE basic": "terms:GENCODEBasic"},
+        "appris": {
+            "principal1": "terms:Principal1",
+            "principal2": "terms:Principal2",
+            "principal3": "terms:Principal3",
+            "principal4": "terms:Principal4",
+            "principal5": "terms:Principal5",
+            "alternative1": "terms:Alternative1",
+            "alternative2": "terms:Alternative2"
+        },
+        "TSL": {
+            "tsl1": "terms:TSL1",
+            "tsl2": "terms:TSL2",
+            "tsl3": "terms:TSL3",
+            "tsl4": "terms:TSL4",
+            "tsl5": "terms:TSL5",
+            "tslNA": "terms:TSLNA"
+        },
+        "is_canonical": {"1": "terms:EnsemblCanonical"},
+        "remark": {"MANE_select": "terms:MANESelect"},
+        "mRNA_start_NF": {"1": "terms:Incomplete"},
+        "mRNA_end_NF": {"1": "terms:Incomplete"},
+        "cds_start_NF": {"1": "terms:Incomplete"},
+        "cds_end_NF": {"1": "terms:Incomplete"}
     }
 
     def __init__(self, input_dbinfo_file):
@@ -89,22 +104,9 @@ class Ensembl2turtle:
         self.taxonomy_id = self.get_taxonomy_id()
         self.ensembl_version = self.get_ensembl_version()
         self.production_name = self.get_production_name()
-        self.flag_dic = {}
-        self.init_flags()
         self.xref_url_dic = {}
         self.init_xref_url_dic()
         self.xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
-
-    # self.flag_dic は transcript_flags のキーを attrib_type_id で置換したもの
-    # ただし、transcript_flags のキーは "name" として保存
-    def init_flags(self):
-        attrib_type = self.dbs["attrib_type"]
-        # {"428": ["TSL", "Transcript Support Level", "(desc)"]}
-        for id, vals in attrib_type.items():
-            if vals[0] in Ensembl2turtle.transcript_flags:
-                self.flag_dic[id] = Ensembl2turtle.transcript_flags[vals[0]]
-                self.flag_dic[id]["name"] = vals[0]
-        return
 
     def init_xref_url_dic(self):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
@@ -234,6 +236,7 @@ class Ensembl2turtle:
         xref = self.dbs["xref"]
         gene = self.dbs["gene"]
         translation = self.dbs["translation"]
+        attrib_type = self.dbs["attrib_type"]
         i = 0
         for id in transcript:
             sbj = "enst:" + transcript[id][7]
@@ -263,28 +266,27 @@ class Ensembl2turtle:
 
             # flag
             attribs = transcript_attrib.get(id, [])
+            flag_dic = Ensembl2turtle.transcript_flags
             for attrib in attribs:
-                flag = Bnode()
-                flag.add(("a", "terms:TranscriptFlag"))
-                if attrib[0] in self.flag_dic:
-                    flag.add(("a", self.flag_dic[attrib[0]]["term"]))
-                    if self.flag_dic[attrib[0]]["is_bool"]:
-                        flag.add(("sio:SIO_000300", quote("true")))
-                    elif self.flag_dic[attrib[0]]["name"] == "TSL":
-                        tsl = re.sub(r" .*", "", attrib[1])
+                attrib_code = attrib_type[attrib[0]][0]
+                if attrib_code in flag_dic:
+                    attrib_val = attrib[1]
+                    if attrib_code == "TSL":
                         comment = ""
-                        match = re.search(r'\((.*?)\)', attrib[1])
-                        if match:
-                            comment = match.group(1)
-                        flag.add(("sio:SIO_000300", quote(tsl)))
-                        if len(comment) > 0:
-                            flag.add(("rdfs:comment", quote(comment)))
-                    elif self.flag_dic[attrib[0]]["term"] == "terms:Incomplete":
-                        flag.add(("sio:SIO_000300", quote(self.flag_dic[attrib[0]]["name"])))
-                    else:
-                        flag.add(("sio:SIO_000300", quote(attrib[1])))
-                    triple(sbj, "terms:has_transcript_flag", flag.serialize())
-
+                        match = re.search(r'\((.*?)\)', attrib_val)
+                        attrib_val = re.sub(r" .*", "", attrib[1])
+                        ## comment は、書くなら reification で。一旦保留
+                        # if match:
+                        #     comment = match.group(1)
+                    elif attrib_code == "remark":
+                        if attrib_val != "MANE_select":
+                            continue
+                    triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
+                    # try:
+                    #     triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
+                    # except KeyError as e:
+                    #     print(sbj, attrib_code, attrib_val, file=sys.stderr)
+                    #     sys.exit()
             i += 1
             if self.debug and i >= 10:
                 break
