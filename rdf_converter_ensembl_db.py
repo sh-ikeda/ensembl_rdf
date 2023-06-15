@@ -107,6 +107,7 @@ class Ensembl2turtle:
         self.xref_url_dic = {}
         self.init_xref_url_dic()
         self.xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
+        self.not_xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
 
     def init_xref_url_dic(self):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
@@ -418,7 +419,9 @@ class Ensembl2turtle:
             if self.xref_url_dic.get(xref[xref_id][0], "") != "":
                 xref_url = self.xref_url_dic[xref[xref_id][0]] + xref[xref_id][1]
                 triple(subject_url, "rdfs:seeAlso", xref_url)
-            self.xrefed_dbs[subject_type][external_db[xref[xref_id][0]][0]] = xref[xref_id][1]
+                self.xrefed_dbs[subject_type][external_db[xref[xref_id][0]][0]] = [subject_url, xref_url]
+            else:
+                self.not_xrefed_dbs[subject_type][external_db[xref[xref_id][0]][0]] = [subject_url, xref[xref_id][1]]
             i += 1
             if self.debug and i >= 10:
                 break
@@ -449,7 +452,10 @@ class Ensembl2turtle:
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Output turtle: xref", file=sys.stderr)
         self.rdfize_xref()
+        print("Referred DBs in external_db_url.tsv", file=sys.stderr)
         pprint.pprint(self.xrefed_dbs, stream=sys.stderr)
+        print("Referred DBs NOT in external_db_url.tsv", file=sys.stderr)
+        pprint.pprint(self.not_xrefed_dbs, stream=sys.stderr)
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Done.", file=sys.stderr)
 
