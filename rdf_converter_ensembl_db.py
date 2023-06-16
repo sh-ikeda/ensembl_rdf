@@ -276,9 +276,14 @@ class Ensembl2turtle:
                         comment = ""
                         match = re.search(r'\((.*?)\)', attrib_val)
                         attrib_val = re.sub(r" .*", "", attrib[1])
-                        ## comment は、書くなら reification で。一旦保留
-                        # if match:
-                        #     comment = match.group(1)
+                        if match:
+                            comment = match.group(1)
+                            statement = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/#_" + transcript[id][7] + "-has_transcript_flag-"+attrib_val+">"
+                            triple(statement, "a", "rdf:Statement")
+                            triple(statement, "rdf:subject", sbj)
+                            triple(statement, "rdf:predicate", "terms:has_transcript_flag")
+                            triple(statement, "rdf:object", flag_dic[attrib_code][attrib_val])
+                            triple(statement, "rdfs:comment", quote(comment))
                     elif attrib_code == "remark":
                         if attrib_val != "MANE_select":
                             continue
