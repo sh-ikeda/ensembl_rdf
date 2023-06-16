@@ -421,12 +421,18 @@ class Ensembl2turtle:
             # xref_node.add(("terms:id_of", quote(external_db[xref[xref_id][0]][0])))  # FIXME
             # xref_node.add(("dcterms:identifier", quote(xref[xref_id][1])))
             # triple(subject_url, "rdfs:seeAlso", xref_node.serialize())
-            if self.xref_url_dic.get(xref[xref_id][0], "") != "":
-                xref_url = self.xref_url_dic[xref[xref_id][0]] + xref[xref_id][1]
-                triple(subject_url, "rdfs:seeAlso", xref_url)
-                self.xrefed_dbs[subject_type][external_db[xref[xref_id][0]][0]] = [subject_url, xref_url]
+            external_db_id = xref[xref_id][0]
+            external_db_code = external_db[external_db_id][0]
+            if self.xref_url_dic.get(external_db_id, "") != "":
+                xref_url = self.xref_url_dic[external_db_id] + xref[xref_id][1]
+                triple(subject_url, "rdfs:seeAlso", "<"+xref_url+">")
+                if external_db_code not in self.xrefed_dbs[subject_type]:
+                    self.xrefed_dbs[subject_type][external_db_code] = [subject_url, xref_url, 0]
+                self.xrefed_dbs[subject_type][external_db_code][2] += 1
             else:
-                self.not_xrefed_dbs[subject_type][external_db[xref[xref_id][0]][0]] = [subject_url, xref[xref_id][1]]
+                if external_db_code not in self.not_xrefed_dbs[subject_type]:
+                    self.not_xrefed_dbs[subject_type][external_db_code] = [subject_url, xref[xref_id][1], 0]
+                self.not_xrefed_dbs[subject_type][external_db_code][2] += 1
             i += 1
             if self.debug and i >= 10:
                 break
