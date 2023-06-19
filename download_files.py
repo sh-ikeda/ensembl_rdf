@@ -25,7 +25,7 @@ def process_directory(ftp, directory):
 
     subdirectories = ftp.nlst()
     for subdirectory in subdirectories:
-        if 'musculus_core_' in subdirectory:
+        if '_core_' in subdirectory:
             dt_now = datetime.datetime.now()
             print(f'[{dt_now}] {subdirectory}', file=sys.stderr)
             download_files(ftp, subdirectory)
@@ -35,7 +35,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 with open(BASE_DIR+"dbinfo.json", "r") as f:
     dbinfo = json.load(f)
 dbs = [dbinfo[k]["filename"] for k in dbinfo]
-print(dbs)
 ftp = FTP('ftp.ensembl.org')
 ftp.login()
 process_directory(ftp, '/pub/current_mysql/')
