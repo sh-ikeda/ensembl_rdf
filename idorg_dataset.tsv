@@ -1,0 +1,822 @@
+chebi	ChEBI	^CHEBI:\\d+$
+ec-code	Enzyme Nomenclature	^\\d+\\.-\\.-\\.-|\\d+\\.\\d+\\.-\\.-|\\d+\\.\\d+\\.\\d+\\.-|\\d+\\.\\d+\\.\\d+\\.(n)?\\d+$
+uniprot	UniProt Knowledgebase	^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\.\\d+)?$
+taxonomy	Taxonomy	^\\d+$
+biomodels.db	BioModels Database	^((BIOMD|MODEL)\\d{10})|(BMID\\d{12})$
+icd	ICD	^[A-Z]\\d+(\\.[-\\d+])?$
+intact	IntAct	^EBI\\-[0-9]+$
+interpro	InterPro	^IPR\\d{6}$
+kegg.pathway	KEGG Pathway	^\\w{2,4}\\d{5}$
+kegg.compound	KEGG Compound	^C\\d+$
+kegg.reaction	KEGG Reaction	^R\\d+$
+pubmed	PubMed	^\\d+$
+mim	OMIM	^[*#+%^]?\\d{6}$
+pirsf	PIRSF	^PIRSF\\d{6}$
+reactome	Reactome	(^R-[A-Z]{3}-\\d+(-\\d+)?(\\.\\d+)?$)|(^REACT_\\d+(\\.\\d+)?$)
+pdb	Protein Data Bank	^[0-9][A-Za-z0-9]{3}$
+go	Gene Ontology	^GO:\\d{7}$
+sgd	SGD	^((S\\d+$)|(Y[A-Z]{2}\\d{3}[a-zA-Z](\\-[A-Z])?))$
+sbo	Systems Biology Ontology	^SBO:\\d{7}$
+kegg.drug	KEGG Drug	^D\\d+$
+kegg.glycan	KEGG Glycan	^G\\d+$
+wb	WormBase	^WB[A-Z][a-z]+\\d+$
+doi	DOI	^(doi\\:)?10\\.\\d+/.*$
+ensembl	Ensembl	^((ENS[FPTG]\\d{11}(\\.\\d+)?)|(FB\\w{2}\\d{7})|(Y[A-Z]{2}\\d{3}[a-zA-Z](\\-[A-Z])?)|([A-Z_a-z0-9]+(\\.)?(t)?(\\d+)?([a-z])?))$
+pfam	Pfam	^PF\\d{5}$
+fb	FlyBase	^FB\\w{2}\\d{7}$
+wormpep	Wormpep	^CE\\d{5}$
+prosite	PROSITE	^PS\\d{5}$
+pubchem.substance	PubChem-substance	^\\d+$
+pubchem.compound	PubChem-compound	^\\d+$
+arxiv	arXiv	^(\\w+(\\-\\w+)?(\\.\\w+)?)?\\d{4,7}(\\.\\d+(v\\d+)?)?$
+arrayexpress	ArrayExpress	^[AEP]-\\w{4}-\\d+$
+mgi	Mouse Genome Database	^MGI:\\d+$
+sabiork.reaction	SABIO-RK Reaction	^\\d+$
+tcdb	Transport Classification Database	^\\d+(\\.[A-Z])?(\\.\\d+)?(\\.\\d+)?(\\.\\d+)?$
+uniparc	UniParc	^UPI[A-F0-9]{10}$
+mint	MINT	^MINT\\-\\d{1,7}$
+dip	Database of Interacting Proteins	^DIP(\\:)?\\-\\d{1,}[ENXS]$
+signaling-gateway	Signaling Gateway	A\\d{6}$
+resid	RESID	^AA\\d{4}$
+rgd	Rat Genome Database	^\\d{4,}$
+tair.protein	TAIR Protein	^AASequence:\\d{10}$
+tair.gene	TAIR Gene	^Gene:\\d{7}$
+tair.locus	TAIR Locus	^\\d{7}$
+hmdb	HMDB	^HMDB\\d+$
+insdc	Nucleotide Sequence Database	^([A-Z]\\d{5}|[A-Z]{2}\\d{6}|[A-Z]{4,6}\\d{8,10}|[A-J][A-Z]{2}\\d{5})(\\.\\d+)?$
+lipidmaps	LIPID MAPS	^LM(FA|GL|GP|SP|ST|PR|SL|PK)[0-9]{4}([0-9a-zA-Z]{4,6})?$
+peptideatlas	PeptideAtlas	^PAp[0-9]{8}$
+geo	GEO	^G(PL|SM|SE|DS)\\d+$
+eco	Evidence Code Ontology	ECO:\\d{7}$
+mod	Protein Modification Ontology	^MOD:\\d{5}
+sgd.pathways	Saccharomyces genome database pathways	^PWY\\w{2}\\-\\d{3}$
+biogrid	BioGRID	^\\d+$
+merops	MEROPS	^[SCTAGMNU]\\d{2}\\.([AB]\\d{2}|\\d{3})$
+panther.family	PANTHER Family	^PTHR\\d{5}(\\:SF\\d{1,3})?$
+prints	PRINTS	^PR\\d{5}$
+ligandexpo	Ligand Expo	^(\\w){3}$
+isbn	ISBN	^(ISBN)?(-13|-10)?[:]?[ ]?(\\d{2,3}[ -]?)?\\d{1,5}[ -]?\\d{1,7}[ -]?\\d{1,6}[ -]?(\\d|X)$
+pride	PRIDE	^\\d+$
+3dmet	3DMET	^B\\d{5}$
+fma	FMA	^FMA:\\d+$
+matrixdb.association	MatrixDB	^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])_.*|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9]_.*)|(GAG_.*)|(MULT_.*)|(PFRAG_.*)|(LIP_.*)|(CAT_.*)$
+ncbigene	NCBI Gene	^\\d+$
+kegg.genes	KEGG Genes	^\\w+:[\\w\\d\\.-]*$
+brenda	BRENDA	^((\\d+\\.-\\.-\\.-)|(\\d+\\.\\d+\\.-\\.-)|(\\d+\\.\\d+\\.\\d+\\.-)|(\\d+\\.\\d+\\.\\d+\\.\\d+))$
+pubchem.bioassay	PubChem-bioassay	^\\d+$
+bao	BioAssay Ontology	^\\d{7}$
+pathwaycommons	Pathway Commons	^\\d+$
+hovergen	HOVERGEN	^HBG\\d+$
+mmmp:biomaps	Melanoma Molecular Map Project Biomaps	^\\d+$
+macie	MACiE	^M\\d{4}$
+mirbase	miRBase Sequence	MI\\d{7}
+zfin	ZFIN Bioentity	^ZDB\\-\\w+\\-\\d+\\-\\d+$
+hgnc	HGNC	^((HGNC|hgnc):)?\\d{1,5}$
+so	Sequence Ontology	^SO:\\d{7}$
+chembl.compound	ChEMBL compound	^CHEMBL\\d+$
+chembl.target	ChEMBL target	^CHEMBL\\d+$
+sabiork.kineticrecord	SABIO-RK Kinetic Record	^\\d+$
+lgic	Ligand-Gated Ion Channel database	^\\w+$
+atc	Anatomical Therapeutic Chemical	^[A-Z](\\d+([A-Z]{1,2}(\\d+)?)?)?$
+pharmgkb.pathways	PharmGKB Pathways	^PA\\d+$
+pharmgkb.disease	PharmGKB Disease	^PA\\d+$
+wikipathways	WikiPathways	WP\\d{1,5}(\\_r\\d+)?$
+pharmgkb.drug	PharmGKB Drug	^PA\\d+$
+ttd.drug	TTD Drug	^DAP\\d+$
+ttd.target	TTD Target	^TTDS\\d+$
+neurondb	NeuronDB	^\\d+$
+neuromorpho	NeuroMorpho	^\\w+$
+chemidplus	ChemIDplus	^\\d+\\-\\d+\\-\\d+$
+biosystems	BioSystems	^\\d+$
+ctd.chemical	CTD Chemical	^[CD]\\d+$
+ctd.disease	CTD Disease	^D\\d+$
+ctd.gene	CTD Gene	^\\d+$
+bionumbers	BioNumbers	^\\d+$
+drugbank	DrugBank	^DB\\d{5}$
+t3db	T3DB	^T3D\\d+$
+smpdb	Small Molecule Pathway Database	^SMP\\d+$
+phosphosite.protein	PhosphoSite Protein	^\\d{5}$
+biomodels.teddy	TEDDY	^TEDDY_\\d{7}$
+biomodels.kisao	KiSAO	^KISAO_\\d+$
+cl	Cell Type Ontology	^CL:\\d{7}$
+bto	Brenda Tissue Ontology	^BTO:\\d{7}$
+pato	PATO	^PATO:\\d{7}$
+glycomedb	GlycomeDB	^\\w+$
+lipidbank	LipidBank	^\\w+\\d+$
+kegg.orthology	KEGG Orthology	^K\\d+$
+prodom	ProDom	^PD\\d+$
+smart	SMART	^SM\\d{5}$
+cdd	Conserved Domain Database	^(cd)?\\d{5}$
+ro	Relation Ontology	^RO_\\d{7}$
+mmdb	Molecular Modeling Database	^\\d{1,5}$
+imex	IMEx	^IM-\\d+(-?)(\\d+?)$
+irefweb	iRefWeb	^\\d+$
+mpid	Microbial Protein Interaction Database	^\\d+$
+phosphosite.residue	PhosphoSite Residue	^\\d+$
+neurolex	NeuroLex	^([Bb]irnlex_|Sao|nlx_|GO_|CogPO|HDO|nifext_)\\d+$
+obi	Ontology for Biomedical Investigations	(^OBI:\\d{7}$)|(^OBI_\\d{7}$)
+asap	ASAP	^[A-Za-z0-9-]+$
+sabiork.ec	SABIO-RK EC Record	^((\\d+)|(\\d+\\.\\d+)|(\\d+\\.\\d+\\.\\d+)|(\\d+\\.\\d+\\.\\d+\\.\\d+))$
+opb	Ontology of Physics for Biology	^OPB_\\d+$
+jws	JWS Online	^\\w+$
+modeldb	ModelDB	^\\d+$
+subtiwiki	SubtiWiki	^BSU\\d{5}$
+pid.pathway	NCI Pathway Interaction Database: Pathway	^\\w+$
+doqcs.model	Database of Quantitative Cellular Signaling: Model	^\\d+$
+doqcs.pathway	Database of Quantitative Cellular Signaling: Pathway	^\\d+$
+uo	Unit Ontology	^UO:\\d{7}?
+clinicaltrials	ClinicalTrials.gov	^NCT\\d{8}$
+chemspider	ChemSpider	^\\d+$
+ncit	NCIt	^C\\d+$
+biocatalogue.service	BioCatalogue	^\\d+$
+omia	OMIA	^\\d+$
+csa	CSA	^[0-9][A-Za-z0-9]{3}$
+cgd	Candida Genome Database	^CAL\\d{7}$
+antweb	AntWeb	^casent\\d+(\\-D\\d+)?$
+pmc	PMC International	PMC\\d+
+atcc	ATCC	^\\d+$
+amoebadb	AmoebaDB	^EDI_\\d+$
+cryptodb	CryptoDB	^\\w+
+plasmodb	PlasmoDB	^\\w+$
+giardiadb	GiardiaDB	^\\w+$
+microsporidia	MicrosporidiaDB	^\\w+$
+toxoplasma	ToxoDB	^\\w+$
+trichdb	TrichDB	^\\w+$
+tritrypdb	TriTrypDB	^\\w+(\\.)?\\w+(\\.)?\\w+
+bdgp.insertion	BDGP insertion DB	^\\w+$
+beetlebase	BeetleBase	^TC\\d+$
+bold.taxonomy	BOLD Taxonomy	^\\d+$
+dbest	dbEST	^([A-Z]+)?\\d+(\\.\\d+)?$
+dbprobe	dbProbe	^\\d+$
+dbsnp	dbSNP	^rs\\d+$
+unists	UniSTS	^\\d+$
+ecogene	EcoGene	^EG\\d+$
+bdgp.est	BDGP EST	^\\w+(\\.)?(\\d+)?$
+gabi	GABI	^\\w+$
+greengenes	GreenGenes	^\\d+$
+grin.taxonomy	GRIN Plant Taxonomy	^\\d+$
+hinv.locus	H-InvDb Locus	^HIX\\d{7}(\\.\\d+)?$
+hinv.transcript	H-InvDb Transcript	^HIT\\d{9}(\\.\\d+)?$
+hinv.protein	H-InvDb Protein	^HIP\\d{9}(\\.\\d+)?$
+homd.seq	HOMD Sequence Metainformation	^SEQF\\d+$
+homd.taxon	HOMD Taxonomy	^\\d+$
+ird.segment	IRD Segment Sequence	^\\w+(\\_)?\\d+(\\.\\d+)?$
+isfinder	ISFinder	^IS\\w+(\\-\\d)?$
+jcm	Japan Collection of Microorganisms	^\\d+$
+img.taxon	Integrated Microbial Genomes Taxon	^\\d+$
+img.gene	Integrated Microbial Genomes Gene	^\\d+$
+maizegdb.locus	MaizeGDB Locus	^\\d+$
+mycobank	MycoBank	^\\d+$
+nbrc	NITE Biological Research Center Catalogue	^\\d+$
+pseudomonas	Pseudomonas Genome Database	^P\\w+$
+gramene.protein	Gramene protein	^\\d+$
+gramene.gene	Gramene genes	^GR\\:\\d+$
+gramene.taxonomy	Gramene Taxonomy	^GR\\_tax\\:\\d+$
+gramene.qtl	Gramene QTL	^\\w+$
+sgn	Sol Genomics Network	^\\d+$
+bioportal	BioPortal	^\\d+$
+miriam.resource	MIRIAM Registry resource	^MIR:001\\d{5}$
+edam	EDAM Ontology	^(data|topic|operation|format)\\_\\d{4}$
+pmdb	Protein Model Database	^PM\\d{7}
+arachnoserver	ArachnoServer	^AS\\d{6}$
+biocyc	BioCyc	^[A-Z-0-9]+(\\:)?[A-Za-z0-9+_.%-:]+$
+cazy	CAZy	^(GT|GH|PL|CE|CBM)\\d+(\\_\\d+)?$
+goa	GOA	^(([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9]))|(URS[0-9A-F]{10}(_[0-9]+){0,1})|(EBI-[0-9]+)$
+paleodb	PaleoDB	^\\d+$
+compulyeast	Compulyeast	^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$
+echobase	EchoBASE	^EB\\d+$
+disprot	DisProt	^DP\\d{5}$
+eggnog	eggNOG	^\\w+$
+ensembl.bacteria	Ensembl Bacteria	^((EB\\w+)|([A-Z0-9]+\\_[A-Z0-9]+))$
+ensembl.protist	Ensembl Protists	^\\w+$
+ensembl.metazoa	Ensembl Metazoa	^\\w+(\\.)?\\d+$
+ensembl.plant	Ensembl Plants	^\\w+(\\.\\d+)?(\\.\\d+)?$
+ensembl.fungi	Ensembl Fungi	^[A-Z-a-z0-9]+$
+hcvdb	HCVDB	^M\\d{5}$
+genatlas	Genatlas	^\\w+$
+cath.superfamily	CATH superfamily	^\\d+(\\.\\d+(\\.\\d+(\\.\\d+)?)?)?$
+cath.domain	CATH domain	^\\w+$
+genefarm	GeneFarm	^\\d+$
+gpcrdb	GPCRDB	^\\w+$
+hogenom	HOGENOM	^\\w+$
+genetree	GeneTree	^ENSGT\\d+$
+hssp	HSSP	^\\w{4}$
+myco.tuber	MycoBrowser tuberculosis	^Rv\\d{4}(A|B|c)?$
+myco.lepra	MycoBrowser leprae	^ML\\w+$
+myco.marinum	MycoBrowser marinum	^MMAR\\_\\d+$
+myco.smeg	MycoBrowser smegmatis	^MSMEG\\w+$
+orphanet	Orphanet	^\\d+$
+orthodb	OrthoDB	^\\w+$
+peroxibase	Peroxibase	^\\d+$
+phylomedb	PhylomeDB	^\\w+$
+pmap.substratedb	SubstrateDB	^\\d+$
+pmap.cutdb	CutDB	^\\d+$
+protclustdb	ProtClustDB	^\\w+$
+pmp	PMP	^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$
+protonet.proteincard	ProtoNet ProteinCard	^\\d+$
+protonet.cluster	ProtoNet Cluster	^\\d+$
+rebase	REBASE	^\\d+$
+swiss-model	SWISS-MODEL Repository	^\\w+$
+vectorbase	VectorBase	^\\D{4}\\d{6}(\\-\\D{2})?$
+mirbase.mature	miRBase mature sequence	MIMAT\\d{7}
+nextprot	nextProt	^NX_\\w+
+cas	CAS	^\\d{1,7}\\-\\d{2}\\-\\d$
+kegg.genome	KEGG Genome	^(T0\\d+|\\w{3,5})$
+kegg.metagenome	KEGG Metagenome	^T3\\d+$
+narcis	NARCIS	^oai\\:cwi\\.nl\\:\\d+$
+jcsd	Japan Chemical Substance Dictionary	^J\\d{1,3}(\\.\\d{3})?(\\.\\d{1,3})?[A-Za-z]$
+pw	Pathway Ontology	^PW:\\d{7}$
+cco	Cell Cycle Ontology	^CCO:\\w+$
+insdc.sra	Sequence Read Archive	^[SED]R[APRSXZ]\\d+$
+scretf	ScerTF	^\\w+$
+pharmgkb.gene	PharmGKB Gene	^PA\\w+$
+mirnest	miRNEST	^MNEST\\d+$
+napp	NAPP	^\\d+$
+noncodev3	NONCODE v3	^\\d+$
+virsirna	VIRsiRNA	^virsi\\d+$
+elm	ELM	^[A-Za-z_0-9]+$
+mimodb	MimoDB	^\\d+$
+sitex	SitEx	^\\d+$
+bykdb	BYKdb	^[A-Z0-9]+$
+conoserver	Conoserver	^\\d+$
+topfind	TopFind	^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$
+mipmod	MIPModDB	^\\w+$
+cellimage	Cell Image Library	^\\d+$
+cabri	CABRI	^([A-Za-z]+)?(\\_)?([A-Za-z-]+)\\:([A-Za-z0-9 ]+)$
+huge	HUGE	^KIAA\\d{4}$
+bindingdb	BindingDB	^\\w\\d+$
+dictybase.gene	Dictybase Gene	^DDB_G\\d+$
+string	STRING	^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])|([0-9][A-Za-z0-9]{3})$
+stitch	STITCH	^\\w{14}$
+atcvet	Anatomical Therapeutic Chemical Vetinary	^Q[A-Z0-9]+$
+phenolexplorer	Phenol-Explorer	^\\d+$
+snomedct	SNOMED CT	^(\\w+)?\\d+$
+mesh.2012	MeSH 2012	^[A-Za-z0-9]+$
+cdpd	Canadian Drug Product Database	^\\d+$
+gmd	Golm Metabolome Database	^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$
+homologene	HomoloGene	^\\d+$
+umbbd.compound	UM-BBD Compound	^c\\d+$
+abs	ABS	^A\\d+$
+apd	APD	^\\d{5}$
+chemdb	ChemDB	^\\d+$
+dpv	DPV	^\\d+$
+iuphar.receptor	IUPHAR receptor	^\\d+$
+aceview.worm	Aceview Worm	^[a-z0-9-]+$
+massbank	MassBank	^MSBNK-[0-9a-zA-Z_]+-[A-Z0-9_]+$
+imgt.ligm	IMGT LIGM	^M\\d+$
+worfdb	Worfdb	^\\w+(\\.\\d+)?
+nextdb	NEXTDB	^[A-Za-z0-9]+$
+soybase	SoyBase	^\\w+(\\-)?\\w+(\\-)?\\w+$
+hamap	HAMAP	^MF_\\d+$
+rouge	Rouge	^m\\w+$
+arrayexpress.platform	ArrayExpress Platform	^[AEP]-\\w{4}-\\d+$
+cgsc	CGSC Strain	^\\d+$
+dragondb.dna	DragonDB DNA	^\\d\\w+$
+dragondb.protein	DragonDB Protein	^\\w+$
+dragondb.locus	DragonDB Locus	^\\w+$
+dragondb.allele	DragonDB Allele	^\\w+$
+issn	ISSN	^\\d{4}-\\d{3}[\\dX]$
+merops.family	MEROPS Family	^[SCTAGMNU]\\d+$
+mo	MGED Ontology	^\\w+$
+nasc	NASC code	^(\\w+)?\\d+$
+niaest	NIAEST	^\\w\\d{4}\\w\\d{2}(\\-[35])?$
+pazar	Pazar Transcription Factor	^TF\\w+$
+po	Plant Ontology	^PO:\\d+$
+rnamods	RNA Modification Database	^\\d{3}$
+treebase	TreeBASE	^TB[1,2]?:[A-Z][a-z]?\\d+$
+cst.ab	Cell Signaling Technology Antibody	^\\d+$
+tgd	Tetrahymena Genome Database	^TTHERM\\_\\d+$
+tigrfam	TIGRFAMS	^TIGR\\d+$
+atfdb.family	Animal TFDB Family	^\\w+$
+iuphar.family	IUPHAR family	^\\d+$
+dbg2introns	DBG2 Introns	^\\w{1,2}\\.(\\w{1,2}\\.)?[A-Za-z0-9]+$
+sdbs	Spectral Database for Organic Compounds	\\d+$
+vbase2	Vbase2	^\\w+$
+spike.map	SPIKE Map	^spike\\d{5}$
+metlin	METLIN	^\\d{4}$
+genecards	GeneCards	^[A-Za-z-0-9_]+(\\@)?$
+mmrrc	MMRRC	^\\d+$
+umbbd.reaction	UM-BBD Reaction	^r\\d+$
+umbbd.enzyme	UM-BBD Enzyme	^e\\d+$
+umbbd.pathway	UM-BBD Pathway	^\\w+$
+umbbd.rule	UM-BBD Biotransformation Rule	^bt\\d+$
+mirex	mirEX	^\\d+(\\w+)?$
+dictybase.est	Dictybase EST	^DDB\\d+$
+mobidb	MobiDB	^[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}$
+imgt.hla	IMGT HLA	^[A-Z0-9*:]+$
+bdsc	Bloomington Drosophila Stock Center	^\\d+$
+opm	OPM	^[0-9][A-Za-z0-9]{3}$
+allergome	Allergome	^\\d+$
+pombase	PomBase	^S\\w+(\\.)?\\w+(\\.)?$
+hpa	HPA	^ENSG\\d{11}$
+jaxmice	JAX Mice	^\\d+$
+ubio.namebank	uBio NameBank	^\\d+$
+yetfasco	YeTFasCo	^\\w+\\_\\d+(\\.\\d+)?$
+tarbase	TarBase	^[a-z]{3}\\-(mir|let|lin)\\-\\w+(\\-\\w+\\-\\w+)?
+charprot	CharProt	^CH_\\d+$
+oma.protein	OMA Protein	^[A-Z0-9]{5}\\d+$
+oma.grp	OMA Group	^[A-Z]+$
+ncbiprotein	NCBI Protein	^(\\w+\\d+(\\.\\d+)?)|(NP_\\d+)$
+genpept	GenPept	^\\w{3}\\d{5}(\\.\\d+)?$
+unigene	UniGene	^\\d+$
+bitterdb.rec	BitterDB Receptor	^\\d+$
+bitterdb.cpd	BitterDB Compound	^\\d+$
+bioproject	BioProject	^PRJ[DEN][A-Z]\\d+$
+biosample	BioSample	^SAM[NED](\\w)?\\d+$
+piroplasma	PiroplasmaDB	^TA\\d+$
+unite	Unite	^UDB\\d{6}$
+ncim	NCIm	^C\\d+$
+proglyc	ProGlycProt	^[A-Z]C\\d{1,3}$
+polbase	PolBase	^[A-Za-z-0-9]+$
+nuclearbd	NucleaRDB	^\\w+\\_\\w+$
+supfam	SUPFAM	^\\w+$
+ricegap	Rice Genome Annotation Project	^LOC\\_Os\\d{1,2}g\\d{5}$
+pina	PINA	^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])$
+tissuelist	Tissue List	^TS-\\d{4}$
+bacmap.biog	BacMap Biography	^\\d+$
+hgnc.symbol	HGNC Symbol	^[A-Za-z-0-9_]+(\\@)?$
+panther.pathway	PANTHER Pathway	^P\\d{5}$
+fairsharing	FAIRsharing	^bsg-[dscp]?\\d{6}$
+fungidb	FungiDB	^[A-Za-z_0-9]+$
+neurovault.image	NeuroVault Image	^[1-9][0-9]*$
+darc	DARC	^\\d+$
+drsc	DRSC	^DRSC\\d+$
+oridb.schizo	OriDB Schizosaccharomyces	^\\d+$
+oridb.sacch	OriDB Saccharomyces	^\\d+$
+pscdb	PSCDB	^\\d+$
+scop	SCOP	^\\d+$
+ena.embl	ENA	^[A-Z]+[0-9]+(\\.\\d+)?$
+dommino	DOMMINO	^[0-9][A-Za-z0-9]{3}$
+panther.node	PANTHER Node	^PTN\\d{9}$
+ccds	Consensus CDS	^CCDS\\d+\\.\\d+$
+hprd	HPRD	^\\d+$
+gxa.gene	GXA Gene	^\\w+$
+gxa.expt	GXA Expt	^[AEP]-\\w{4}-\\d+$
+metabolights	MetaboLights	^MTBLS\\d+$
+orcid	ORCID	^\\d{4}-\\d{4}-\\d{4}-\\d{3}(\\d|X)$
+inchi	InChI	^InChI\\=1S?\\/[A-Za-z0-9\\.]+(\\+[0-9]+)?(\\/[cnpqbtmsih][A-Za-z0-9\\-\\+\\(\\)\\,\\/\\?\\;\\.]+)*$
+wikipedia.en	Wikipedia (En)	^[A-Za-z-0-9_]+$
+phosphopoint.kinase	PhosphoPoint Kinase	^\\w+$
+phosphopoint.protein	PhosphoPoint Phosphoprotein	^\\w+$
+inchikey	InChIKey	^[A-Z]{14}\\-[A-Z]{10}(\\-[A-Z])?
+uniprot.isoform	UniProt Isoform	^([A-N,R-Z][0-9][A-Z][A-Z, 0-9][A-Z, 0-9][0-9])|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\-\\d+)$
+kegg.environ	KEGG Environ	^(ev\\:)?E\\d+$
+cldb	CLDB	^(cl|tum)\\d+$
+efo	Experimental Factor Ontology	^\\d{7}$
+hgmd	HGMD	^[A-Z_0-9]+$
+aphidbase.transcript	AphidBase Transcript	^ACYPI\\d{6}(-RA)?$
+affy.probeset	Affymetrix Probeset	\\d{4,}((_[asx])?_at)?
+treefam	TreeFam	^\\w{1,2}\\d+$
+caps	CAPS-DB	^\\d+$
+cubedb	Cube db	^[A-Za-z_0-9]+$
+ideal	IDEAL	^IID\\d+$
+stap	STAP	^[0-9][A-Za-z0-9]{3}$
+pocketome	Pocketome	^[A-Za-z_0-9]+
+bugbase.protocol	BugBase Protocol	^\\d+$
+bugbase.expt	BugBase Expt	^\\d+$
+tol	Tree of Life	^\\d+$
+vario	VariO	^VariO:\\d+$
+vipr	ViPR Strain	^[A-Za-z 0-9]+$
+epd	EPD	^[A-Z-_0-9]+$
+rfam	RFAM	^RF\\d{5}$
+fbol	Fungal Barcode	^\\d+$
+aftol.taxonomy	AFTOL	^\\d+$
+aspgd.locus	AspGD Locus	^[A-Za-z_0-9]+$
+aspgd.protein	AspGD Protein	^[A-Za-z_0-9]+$
+ndc	National Drug Code	^\\d+\\-\\d+\\-\\d+
+autdb	AutDB	^[A-Z]+[A-Z-0-9]{2,}$
+bacmap.map	BacMap Map	^\\w+(\\_)?\\d+(\\.\\d+)?$
+bgee.family	Bgee family	^(ENSFM|ENSGTV:)\\d+$
+bgee.gene	Bgee gene	^[A-Za-z]+\\d+$
+bgee.stage	Bgee stage	^(FBvd|XtroDO|HsapDO|MmusDO)\\:\\d+$
+bgee.organ	Bgee organ	^(XAO|ZFA|EHDAA|EMAPA|EV|MA)\\:\\d+$
+biocarta.pathway	BioCarta Pathway	^([hm]\\_)?\\w+Pathway$
+gmd.profile	Golm Metabolome Database Profile	^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$
+gmd.gcms	Golm Metabolome Database GC-MS spectra	^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$
+gmd.ref	Golm Metabolome Database Reference Substance	^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$
+gmd.analyte	Golm Metabolome Database Analyte	^([0-9a-fA-F]){8}(-([0-9a-fA-F]){4}){3}-([0-9a-fA-F]){12}$
+intact.molecule	IntAct Molecule	^EBI\\-[0-9]+$
+depod	DEPOD	^[A-Z0-9]+$
+cst	Cell Signaling Technology Pathways	^[A-Za-z0-9_-]+$
+phytozome.locus	Phytozome Locus	^[A-Za-z0-9]+$
+subtilist	SubtiList	^BG\\d+$
+dailymed	DailyMed	^[A-Za-z0-9-]+
+sider.drug	SIDER Drug	^\\d+$
+sider.effect	SIDER Side Effect	^C\\d+$
+wikigenes	WikiGenes	^\\d+$
+broad	Broad Fungal Genome Initiative	^S\\d+$
+coriell	Coriell Cell Repositories	^[A-Z]{2}\\d+$
+corum	CORUM	^\\d+$
+ecoliwiki	EcoliWiki	^[A-Za-z0-9-]+$
+genprop	Genome Properties	^GenProp\\d+$
+jstor	JSTOR	^\\d+$
+ma	Mouse Adult Gross Anatomy	^MA:\\d+$
+unimod	Unimod	^\\d+$
+vbrc	VBRC	^\\d+$
+viralzone	ViralZone	^\\d+$
+rgd.qtl	Rat Genome Database qTL	^\\d+$
+rgd.strain	Rat Genome Database strain	^\\d+$
+door	DOOR	^\\d+$
+degradome	Degradome Database	^[AMCST][0-9x][0-9]$
+dbd	DBD	^\\d+$
+datf	DATF	^AT[1-5]G\\d{5}(\\.\\d+)?$
+iuphar.ligand	IUPHAR ligand	^\\d+$
+molbase	Molbase	^(\\d{1,7}\\-\\d{2}\\-\\d)|([A-Za-z0-9\\+\\-\\_]+)$
+yrcpdr	YRC PDR	^\\d+$
+yid	Yeast Intron Database v3	^[A-Z0-9]+$
+funcbase.fly	FuncBase Fly	^\\d+$
+funcbase.human	FuncBase Human	^\\d+$
+funcbase.mouse	FuncBase Mouse	^\\d+$
+cbioportal	The cBioPortal for Cancer Genomics	^[a-z0-9\\_]+$
+funcbase.yeast	FuncBase Yeast	^\\d+$
+ydpm	YDPM	^Y[A-Z]{2}\\d+[CW]$
+wb.rnai	WormBase RNAi	^WBRNAi\\d{8}$
+pass2	PASS2	^\\d+$
+iceberg.element	ICEberg element	^\\d+$
+iceberg.family	ICEberg family	^\\d+$
+vfdb.genus	VFDB Genus	^\\w+$
+vfdb.gene	VFDB Gene	^\\w+$
+mesh.2013	MeSH 2013	^[A-Za-z0-9]+$
+kegg.module	KEGG Module	^([a-z]{3,5}_)?M\\d{5}$
+kegg.disease	KEGG Disease	^H\\d+$
+medlineplus	MedlinePlus	^\\d+$
+glycoepitope	GlycoEpitope	^EP\\d{4}$
+jcggdb	JCGGDB	^JCGG-STR\\d{6}$
+noncodev4.gene	NONCODE v4 Gene	^NONHSAG\\d{5}$
+vfb	Virtual Fly Brain	^[0-9a-zA-Z]{8}$
+noncodev4.rna	NONCODE v4 Transcript	^NONHSAT\\d{6}$
+oryzabase.gene	Oryzabase Gene	^\\d+$
+oryzabase.mutant	Oryzabase Mutant	^\\d+$
+oryzabase.strain	Oryzabase Strain	^\\d+$
+oryzabase.stage	Oryzabase Stage	^\\d+$
+otl	Oryza Tag Line	^A[A-Z]+\\d+$
+genewiki	Gene Wiki	^\\d+$
+paxdb.organism	PaxDb Organism	^\\d+$
+paxdb.protein	PaxDb Protein	^\\d+$
+pdb.ligand	Protein Data Bank Ligand	^[A-Za-z0-9]+$
+merops.inhibitor	MEROPS Inhibitor	^I\\d{2}\\.\\d{3}$
+adw	Animal Diversity Web	^[A-Z_a-z]+$
+glida.gpcr	GLIDA GPCR	^[A-Z-_0-9]+$
+glida.ligand	GLIDA Ligand	^L\\d+$
+grsdb	GRSDB	^\\d+$
+px	ProteomeXchange	^(R)?PXD\\d{6}$
+biomodels.vocabulary	SBML RDF Vocabulary	^[A-Za-z]+$
+fsnp	F-SNP	^rs\\d+$
+hdr	Homeodomain Research	^\\d+$
+norine	NORINE	^NOR\\d+$
+ordb	Olfactory Receptor Database	^\\d+$
+odor	Odor Molecules DataBase	^\\d+$
+p3db.protein	P3DB Protein	^\\d+$
+p3db.site	P3DB Site	^\\d+$
+topdb	TOPDB	^[A-Z0-9]+$
+cattleqtldb	Animal Genome Cattle QTL	^\\d+$
+chickenqtldb	Animal Genome Chicken QTL	^\\d+$
+pigqtldb	Animal Genome Pig QTL	^\\d+$
+sheepqtldb	Animal Genome Sheep QTL	^\\d+$
+mgnify.samp	MGnify Sample	^[A-Z]+[0-9]+$
+ega.study	European Genome-phenome Archive Study	^EGAS\\d{11}$
+ega.dataset	European Genome-phenome Archive Dataset	^EGAD\\d{11}$
+pride.project	PRIDE Project	^P(X|R)D\\d{6}$
+antibodyregistry	Antibody Registry	^\\d{6}$
+mamo	Mathematical Modelling Ontology	^MAMO_\\d{7}$
+eo	Plant Environment Ontology	^(P)?EO\\:\\d{7}$
+idot	Identifiers.org Terms	^[A-Za-z]+$
+yeastintron	Yeast Intron Database v4.3	^[A-Z0-9]+$
+ardb	Antibiotic Resistance Genes Database	^[A-Z_]{3}[0-9]{4,}$
+proteomicsdb.protein	ProteomicsDB Protein	^\\d+$
+proteomicsdb.peptide	ProteomicsDB Peptide	^\\d+$
+hpm.protein	Human Proteome Map Protein	^\\d+$
+hpm.peptide	Human Proteome Map Peptide	^\\d+$
+drugbankv4.target	DrugBank Target v4	^BE\\d{7}$
+zinc	ZINC	^(ZINC)?\\d+$
+foodb.compound	FooDB Compound	^FDB\\d+$
+unii	UNII	^[A-Z0-9]+$
+orphanet.ordo	Orphanet Rare Disease Ontology	^Orphanet(_|:)C?\\d+$
+psipar	Protein Affinity Reagents	^PAR:\\d+$
+clinvar.record	ClinVar Record	^RCV\\d+(\\.\\d+)?$
+mgnify.proj	MGnify Project	^[A-Z]+[0-9]+$
+euclinicaltrials	EU Clinical Trials	^\\d{4}\\-\\d{6}\\-\\d{2}$
+google.patent	Google Patents	^[A-Z]{2}\\d+([A-Z])?$
+uspto	USPTO	^(D|PP|R|T|H|X|AI)?\\d+$
+cpc	Cooperative Patent Classification	^([A-H,Y]|[A-H, Y]\\d{2}|[A-H, Y]\\d{2}[A-Z]|[A-H, Y]\\d{2}[A-Z]\\d{1,3}|[A-H, Y]\\d{2}[A-Z]\\d{1,3}(\\/)?\\d{2,})$
+gwascentral.study	GWAS Central Study	^HGVST\\d+$
+exac.variant	ExAC Variant	^\\d{1,2}\\-\\d+\\-[GATC]\\-[GATC]$
+gwascentral.marker	GWAS Central Marker	^HGVM\\d+$
+bigg.metabolite	BiGG Metabolite	^[a-z_A-Z0-9]+$
+lincs.cell	LINCS Cell	(^LCL-\\d+$)|(^LDC-\\d+$)|(^ES-\\d+$)|(^LSC-\\d+$)|(^LPC-\\d+$)
+lincs.protein	LINCS Protein	^\\d+$
+lincs.smallmolecule	LINCS Small Molecule	^LSM-\\d+$
+exac.transcript	ExAC Transcript	^ENST\\d{11}$
+exac.gene	ExAC Gene	^ENSG\\d{11}$
+unipathway.compound	UniPathway Compound	^UPC\\d{5}$
+seed	SEED Subsystem	^\\w+$
+seed.compound	SEED Compound	^cpd\\d+$
+bigg.model	BiGG Model	^[a-z_A-Z0-9]+$
+bigg.compartment	BiGG Compartment	^[a-z_A-Z]+$
+wikidata	Wikidata	^(Q|P)\\d+$
+bigg.reaction	BiGG Reaction	^[a-z_A-Z0-9]+$
+umls	UMLS	^C\\d+$
+mirtarbase	miRTarBase	^MIRT\\d{6}$
+meddra	MedDRA	^\\d+$
+dashr	DASHR	^(hsa-(let|mir)-\\w+(-\\w+)?)|(piR-\\d+)|(chr\\w+.tRNA\\d+-\\w+)|(chr\\w+.tRNA\\d+-\\w+-tRF\\d)|((SNORD|SNORA|ACA|HBII|HBI|U)(-)?\\w+)|(HY\\d\\+(-L\\d+)?)|((LSU|SSU|5S)(-rRNA_Hsa)?(-L\\d+)?)$
+dashr.expression	DASHR expression	^(hsa-(let|mir)-\\w+(-\\w+)?)|(piR-\\d+)|(chr\\w+.tRNA\\d+-\\w+)|(chr\\w+.tRNA\\d+-\\w+-tRF\\d)|((SNORD|SNORA|ACA|HBII|HBI|U)(-)?\\w+)|(HY\\d\\+(-L\\d+)?)|((LSU|SSU|5S)(-rRNA_Hsa)?(-L\\d+)?)$
+splash	SPLASH	^splash\\d[A-Z-a-z0-9]-[A-Za-z0-9]+-[A-Za-z0-9]+$
+mesh	MeSH	^(C|D)\\d{6,9}$
+metanetx.chemical	MetaNetX chemical	^(MNXM\\d+|BIOMASS|WATER)$
+metanetx.reaction	MetaNetX reaction	^(MNXR\\d+|EMPTY)$
+emdb	Electron Microscopy Data Bank	^EMD-\\d{4,5}$
+unipathway.reaction	UniPathway Reaction	^UCR\\d{5}$
+hp	Human Phenotype Ontology	^HP:\\d{7}$
+sasbdb	SASBDB	^[Ss][Aa][Ss][A-Za-z0-9]{3}[0-9]$
+hgnc.genefamily	HGNC gene family	^\\d+$
+mdm	MDM	^\\d+$
+probonto	ProbOnto	^PROB_c\\d+$
+apid.interactions	APID Interactomes	^([A-N,R-Z][0-9]([A-Z][A-Z, 0-9][A-Z, 0-9][0-9]){1,2})|([O,P,Q][0-9][A-Z, 0-9][A-Z, 0-9][A-Z, 0-9][0-9])(\\.\\d+)?$
+storedb	STOREDB	^STOREDB:(STUDY|FILE|DATASET)\\d+$
+kegg	Kyoto Encyclopedia of Genes and Genomes	^([CHDEGTMKR]\\d+)|(\\w+:[\\w\\d\\.-]*)|([a-z]{3,5})|(\\w{2,4}\\d{5})$
+planttfdb	Plant Transcription Factor Database	^[A-Z][a-z]{2}_([A-Za-z]{3}[0-9]{6})|([A-Za-z0-9\\._\\-#]*)$
+mp	Mammalian Phenotype Ontology	^MP:\\d{7}$
+worms	World Register of Marine Species	^\\d+$
+multicellds.collection	MultiCellDS collection	^MCDS_C_[a-zA-Z0-9]{1,10}$
+multicellds.snapshot	MultiCellDS Digital snapshot	^MCDS_S_[a-zA-Z0-9]{1,10}$
+multicellds.cell_line	MultiCellDS Digital Cell Line	^MCDS_L_[a-zA-Z0-9]{1,10}$
+ecyano.entity	E-cyanobacterium entity	^\\d+$
+ecyano.model	E-cyanobacterium model	^\\d+$
+ecyano.rule	E-cyanobacterium rule	^\\d+$
+lincs.data	LINCS Data	^[EL]D[SG]-\\d+$
+agricola	AGRICOLA	^\\d+$
+ms	Mass Spectrometry Controlled Vocabulary	^MS:\\d{7}$
+grid	GRID	^grid\\.[0-9]+\\.[a-f0-9]{1,2}$
+medgen	MedGen	^[CN]*\\d{4,7}$
+clinvar.submission	ClinVar Submission	^SCV\\d+(\\.\\d+)?$
+clinvar	ClinVar Variant	^\\d+$
+mir	Identifiers.org Registry	^MIR:\\d{8}$
+cosmic	COSMIC Gene	^[A-Z0-9]+$
+dbgap	dbGaP	^phs[0-9]{6}(.v\\d+.p\\d+)?$
+iao	Information Artifact Ontology	^\\d{7}$
+gdc	Genomic Data Commons Data Portal	^[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}$
+omit	OMIT	^\\d{7}$
+insdc.cds	INSDC CDS	^([A-Z]\\d{5}|[A-Z]{2}\\d{6}|[A-Z]{4}\\d{8}|[A-J][A-Z]{2}\\d{5})(\\.\\d+)?$
+glytoucan	GlyTouCan	^G[0-9]{5}[A-Z]{2}$
+d1id	DataONE	\\S+
+mmp.ref	MarRef	^MMP\\d+.\\d+$
+mmp.db	MarDB	^MMP\\d+.\\d+$
+mmp.cat	MarCat	^MMP\\d+.\\d+$
+aop	AOPWiki	^\\d+$
+ngl	NASA GeneLab	^GLDS-\\d+$
+cath	CATH Protein Structural Domain Superfamily	^[1-6]\\.[0-9]+\\.[0-9]+\\.[0-9]+$
+metacyc.compound	MetaCyc Compound	^[A-Za-z0-9+_.%-:]+$
+metacyc.reaction	MetaCyc Reaction	^[A-Za-z0-9+_.%-:]+$
+biotools	BioTools	^[-A-Za-z0-9\\_]*$
+cellosaurus	Cellosaurus	^CVCL_[A-Z0-9]{4}(\\.txt)?$
+erv	Human Endogenous Retrovirus Database	^[A-Za-z0-9\\-\\_]+$
+napdi	Natural Product-Drug Interaction Research Data Repository	^[0-9]+$
+arraymap	ArrayMap	^[\\w\\-:,]{3,64}$
+begdb	Benchmark Energy & Geometry Database	^[0-9]+$
+sisu	SISu	^[0-9]+:[0-9]+$
+mzspec	Universal Spectrum Identifier	^mzspec:.+$
+crisprdb	CRISPRdb	^[0-9]+$
+gnpis	GnpIS	^[A-Za-z0-9]+$
+licebase	LiceBase	^[A-Za-z0-9\\-\\/]+$
+sugarbind	SugarBind	^[A-Za-z]+\\/[0-9]+$
+rnacentral	RNAcentral	^URS[0-9A-F]{10}(\\_\\d+)?$
+microscope	MicroScope	^\\d+$
+swissregulon	SwissRegulon	^[A-Za-z0-9]+$
+validatordb	ValidatorDB	^[A-Za-z0-9\\/]+$
+biominder	Bio-MINDER Tissue Database	^[a-z0-9\\-]+$
+neurovault.collection	NeuroVault Collection	^[1-9][0-9]*$
+vmhmetabolite	VMH metabolite	[a-zA-Z0-9_\\(\\_\\)\\[\\]]+
+nmr	Nuclear Magnetic Resonance Controlled Vocabulary	^NMR:\\d+$
+vmhreaction	VMH reaction	[a-zA-Z0-9_\\(\\_\\)\\[\\]]+
+ascl	Astrophysics Source Code Library	^[0-9\\.]+$
+facebase	FaceBase Data Repository	^FB\\d{8}$
+gudmap	GUDMAP	^[-0-9a-zA-Z]+(@[-0-9a-zA-Z]+)?$
+eu89h	JRC Data Catalogue	^[a-z0-9\\-_]+$
+mw.study	Metabolomics Workbench Study	^ST[0-9]{6}$
+mw.project	Metabolomics Workbench Project	^PR[0-9]{6}$
+mex	Metabolome Express	^\\d+$
+gpmdb	GPMDB	^GPM\\d+$
+massive	MassIVE	^MSV\\d+$
+fplx	FamPlex	^[a-zA-Z0-9][A-Za-z0-9_]+$
+aop.events	AOPWiki (Key Event)	^\\d+$
+aop.relationships	AOPWiki (Key Event Relationship)	^\\d+$
+aop.stressor	AOPWiki (Stressor)	^\\d+$
+dev.ga4ghdos	Development Data Object Service	^[a-zA-Z0-9\\-:#\\.]+$
+complexportal	Complex Portal	^CPX-[0-9]+$
+comptox	CompTox Chemistry Dashboard	^DTXSID\\d+$
+rbk	Rebuilding a Kidney	^[-0-9a-zA-Z]+(@[-0-9a-zA-Z]+)?$
+ligandbook	LigandBook	^[0-9]+$
+kaggle	Kaggle	^[0-9a-zA-Z\\-]+\\/[0-9a-zA-Z\\-]+$
+idoo	Identifiers.org Ontology	^[0-9a-zA-Z]+$
+swh	Software Heritage	^swh:[1-9]:(cnt|dir|rel|rev|snp):[0-9a-f]+(;(origin|visit|anchor|path|lines)=\\S+)*$
+foodon	FoodOn Food Ontology	^FOODON:[0-9]{8}$
+encode	ENCODE: Encyclopedia of DNA Elements	^ENC[A-Za-z]{2}[0-9]{3}[A-Za-z]{3}$
+gtex	GTEx	^\\w.+$
+ricenetdb.gene	RiceNetDB Gene	^LOC\\_Os\\d{1,2}g\\d{5}\\.\\d$
+ricenetdb.protein	RiceNetDB Protein	^LOC\\_Os\\d{1,2}g\\d{5}$
+ricenetdb.compound	RiceNetDB Compound	^OSC\\d{4}$
+ricenetdb.reaction	RiceNetDB Reaction	^OSR\\d{4}$
+ricenetdb.mirna	RiceNetDB miRNA	^osa-miR\\d{3,5}[a-z]{0,1}$
+oclc	Online Computer Library Center (OCLC) WorldCat	^[0-9]+$
+asin	Amazon Standard Identification Number (ASIN)	^[0-9]{10}$
+ga4ghdos	Data Object Service	^[a-zA-Z0-9\\-:#/\\.]+$
+flowrepository	FlowRepository	^FR\\-FCM\\-\\w{4}$
+oid	OID Repository	^[\\d.]+$
+hpscreg	Human Pluripotent Stem Cell Registry	^[A-Z]{2,6}(e|i)[A-Za-z0-9]{3}-[A-Z]{1,2}(-[A-Za-z0-9]{1,2})?$
+addgene	Addgene Plasmid Repository	^[0-9]{5}(-[a-zA-Z0-9-]{0,7})?$|^[0-9]{10}$
+bacdive	Bacterial Diversity Metadatabase	^[0-9]+$
+ido	Infectious Disease Ontology	^[0-9]+$
+gdsc	Genomics of Drug Sensitivity in Cancer	^[0-9]+$
+isni	International Standard Name Identifier	^[0-9]{15}[0-9X]{1}$
+viaf	Virtual International Authority File	^\\d+$
+lei	Global LEI Index	^[0-9A-Z]{4}[0-9A-Z]{14}[0-9A-Z]{2}$
+spdx	SPDX License List	^[0-9A-Za-z\\-.]+$
+sabiork.compound	SABIO-RK Compound	^\\d+$
+oryzabase.reference	Oryzabase	^\\d+$
+peptideatlas.dataset	PeptideAtlas Dataset	^PASS\\d{5}$
+did	Decentralized Identifiers (DIDs)	^did:[a-z0-9]+:[A-Za-z0-9.\\-:]+$
+seed.reaction	SEED Reactions	^rxn\\d+$
+occ	OpenCitations Corpus	^[a-z][a-z]/[0-9]+$
+cadsr	Cancer Data Standards Registry and Repository	^[0-9]*$
+erm	European Registry of Materials	^ERM[0-9]{8}$
+classyfire	ClassyFire	^C[0-9]{7}$
+biostudies	BioStudies database	^S-[A-Z]{4}[\\-\\_A-Z\\d]+$
+ocid	Ontology Concept Identifiers	ocid:[0-9]{12}
+mmp.fun	MarFun	^MMP\\d+.\\d+$
+ecyano.experiment	E-cyanobacterium Experimental Data	^\\d+$
+dlxc	Circular double stranded DNA sequences composed	^[A-Z0-9]{6,7}$
+dlxb	Linear double stranded DNA sequences	^[A-Z0-9]{6,7}$
+cameo	CAMEO	^[0-9\\-_]+$
+nemo	Neuroscience Multi-Omic BRAIN Initiative Data	[a-z]{3}-[a-km-z0-9]{7}
+spp	Signaling Pathways Project	^10.\\w{4}/\\w{10}$
+bmrb	Biological Magnetic Resonance Data Bank	^(bmr|bmse|bmst)?[0-9]{1,6}$
+disprot.region	DisProt region	^DP\\d{5}r\\d{3}$
+vegbank	VegBank	^VB\\.[A-Za-z][A-Za-z]\\..*$
+minid.test	MINID Test	[A-Za-z0-9]+$
+idr	Image Data Resource	^[0-9]{4}$
+transyt	TranSyT	T[A-Z]\\d{7}
+insdc.gca	Genome assembly database	^GC[AF]_[0-9]{9}\\.[0-9]+$
+slm	SwissLipids	^SLM:\\d+$
+vgnc	VGNC	^((VGNC|vgnc):)?\\d{1,9}$
+datanator.metabolite	Datanator Metabolite	^[A-Z\\-]+$
+rrid	RRID	^RRID:[a-zA-Z]+.+$
+pr	Protein Ontology	^PR:P?\\d+$
+gold	Genomes OnLine Database (GOLD)	^[A-Z][a-z][0-9]+$
+nmrshiftdb2	NMR Shift Database	^[0-9]+$
+minid	Minimal Viable Identifier	^[A-Za-z0-9]+$
+snp2tfbs	SNP2TFBS	^rs[0-9]+$
+biolink	BioLink Model	^\\S+$
+rapdb.transcript	RAP-DB Transcript	^Os\\S+t\\d{7}-\\d{2}$
+rapdb.locus	RAP-DB Locus	^Os\\S+g\\d{7}$
+envipath	enviPath	^[\\w^_]{8}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{12}\\/[\\w-]+\\/[\\w^_]{8}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{4}-[\\w^_]{12}$
+gold.meta	GOLD metadata	^Gm\\d+$
+gold.genome	GOLD genome	^(Gi|Gc)\\d+$
+knapsack	KNApSAcK	^C\\d{8}
+pgs	Polygenic Score Catalog	^PGS[0-9]{6}$
+refseq	RefSeq	^(((WP|AC|AP|NC|NG|NM|NP|NR|NT|NW|XM|XP|XR|YP|ZP)_\\d+)|(NZ\\_[A-Z]{2,4}\\d+))(\\.\\d+)?$
+datanator.gene	Datanator Gene	^K[0-9]+$
+lrg	Locus Reference Genomic	^LRG_\\d+$
+miriam.collection	MIRIAM Registry collection	^MIR:000\\d{5}$
+xenbase	Xenbase	^XB\\-\\w+\\-\\d+$
+uniprot.chain	UniProt Chain	^PRO_[0-9]{10}$
+mi	Molecular Interactions Ontology	^MI:\\d{4}$
+molmedb	MolMeDB	^[m,M]{2}[0-9]{5}[0-9]*$
+odam	Open Data for Access and Mining	^[A-Za-z0-9]+$
+hgnc.family	HGNC Family	^[A-Z0-9-]+(#[A-Z0-9-]+)?$
+hgnc.genegroup	HGNC Gene Group	^\\d+$
+doid	Human Disease Ontology	^DOID:\\d+$
+go_ref	Gene Ontology Reference	^GO_REF:\\d{7}$
+gcst	GWAS Catalog	^GCST\\d{6}\\d*$
+pkdb	PK-DB	^PKDB[0-9]{5}$
+morpheus	Morpheus model repository	^M[0-9]{4,}$
+glycopost	GlycoPOST	^GPST[0-9]{6}$
+uberon	UBERON	^UBERON:\\d+$
+ped.ensemble	Protein Ensemble Database ensemble	^PED\\d{5}e\\d{3}$
+repeatsdb.structure	RepeatsDB Structure	^[0-9][A-Za-z0-9]{3}[A-Za-z0-9][A-Za-z0-9]?[0-9]?[0-9]?$
+biosimulators	BioSimulators	[a-zA-Z0-9-_]+
+gsso	Gender, Sex, and Sexual Orientation (GSSO) Ontology	^GSSO:\\d{6}$
+ligandbox	LigandBox	^(HTS|KSH)[0-9]{4}-[0-9]{8}|PDB_[0-9,A-Z]{2,3}|[CD][0-9]{5}$
+pgx	Progenetix	^\\w{3,15}[-_]\\w[\\w.-]{3,128}$
+covid19	SARS-CoV-2	^\\w+_COVID19_[-\\w]+$
+vmhgene	VMH Gene	^[0-9]+\\.[0-9]+
+gwascentral.phenotype	GWAS Central Phenotype	^HGVPM\\d+$
+clinvar.submitter	ClinVar Submitter	^\\d+$
+ped	Protein Ensemble Database	^PED\\d{5}$
+repeatsdb.protein	RepeatsDB Protein	^[OPQopq][0-9][A-Za-z0-9]{3}[0-9]|[A-Na-nR-Zr-z][0-9]([A-Za-z][A-Za-z0-9]{2}[0-9]){1,2}$
+gateway	gateway	^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$
+metanetx.compartment	MetaNetX compartment	^(MNX[CD]\\d+|BOUNDARY|IN|OUT)$
+qtldb	Animal Genome QTL	^\\d+$
+runbiosimulations	runBioSimulations	[0-9a-z]{24,24}
+chembl	ChEMBL	^CHEMBL\\d+$
+ito	Intelligence Task Ontology	^.+$
+odc.sci	Open Data Commons for Spinal Cord Injury	^[0-9]*$
+igsn	International Geo Sample Number	^[A-Za-z]{2,4}[A-Za-z0-9.-]{1,71}$
+signor	SIGNOR	^SIGNOR\\-[A-Z]+\\d+$
+envo	Environment Ontology	^ENVO:\\d{7,8}$
+ilx	InterLex	^[0-9]+$
+odc.tbi	Open Data Commons for Traumatic Brain Injury	^[0-9]*$
+ccdc	CCDC Number	^\\d{6,7}$
+csd	Cambridge Structural Database	^[A-Z]{6}(\\d{2})?$
+geogeo	Geographical Entity Ontology	^GEO_[0-9]{9}$
+rhea	Rhea	^\\d{5}$
+cellrepo	Cell Version Control Repository	^[0-9]+$
+mlc	MLCommons Association	^[0-9a-zA-Z\\.\\-\\_]+$
+corrdb	CorrDB	^[0-9]+$
+glyconavi	GlycoNAVI	^GN_[A-Za-z]*[_]*[A-Za-z0-9-:_]+$
+4dn	4D Nucleome	^4DN[A-Z]{2}[A-Z0-9]{7}$
+civic.aid	CIViC Assertion	^[0-9]+$
+nmdc	National Microbiome Data Collaborative	^[A-Za-z0-9._~\\-\\:]+$
+civic.eid	CIViC Evidence	^[0-9]+$
+sedml.format	SED-ML data format	^[a-z]+(\\..*?)?$
+sedml.language	SED-ML model format	^[a-z]+(\\..*?)?$
+pmr	Physiome Model Repository	^[a-z0-9]{32,32}$
+funderregistry	FunderRegistry	^\\d{9,9}$
+linguist	Linguist	^[a-zA-Z0-9 +#'*]+$
+sio	Semanticscience Integrated Ontology	^SIO_\\d{6,6}$
+github	github	^[a-zA-Z0-9-_]+/[a-zA-Z0-9-_]+$
+datanator.reaction	Datanator Reaction	^.*?--%3E.*?$
+identifiers.namespace	Identifiers.org namespace	^[a-z_\\.]+$
+dg.4dfc	NCI Data Commons Framework Services	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+re3data	re3data	^r3d\\d{9,9}$
+pypi	PyPI	^[a-zA-Z_][a-zA-Z0-9\\-_]+$
+iedb	Immune Epitope Database (IEDB)	^[0-9]+$
+lgai.cede	LG Chemical Entity Detection Dataset (LGCEDe)	^LGCEDe-S-\\d{9}$
+dg.4503	BioData Catalyst	[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.anv0	Anvil	[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
+dg.6vts	JCOIN	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+uniref	UniRef	^UniRef(100|90|50)_([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}|UPI[A-F0-9]{10})$
+biosimulations	biosimulations	^[a-zA-Z0-9_-]{3,}$
+assembly	Assembly	^[a-zA-Z0-9_\\.]+$
+nucleotide	Nucleotide	^[a-zA-Z0-9_\\.]+$
+dg.f82a1a	Kids First	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+bbtp	Blue Brain Project Topological sampling Knowledge Graph	\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b
+fcb	the FAIR Cookbook	^FCB\\d{3}
+vcell	VCell Published Models	^\\d{5,}$
+dg.5b0d	BloodPAC	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+bitbucket	Bitbucket	^[0-9A-Za-z-_\\.]+/[0-9A-Za-z-_\\.]+$
+bbkg	Blue Brain Project Knowledge Graph	^[-\\w]+(?:\\/[-\\w]+)(?:\\/\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b)$
+dg.80b6	GenoMEL Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.f738	Veterans Precision Oncology Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+modeldb.concept	ModelDB concept	\\d+
+civic.gid	CIViC Gene	^[0-9]+$
+civic.vid	CIViC Variant	^[0-9]+$
+gitlab	GitLab	^[0-9A-Za-z_][0-9A-Za-z-_()\\. ]*/[0-9A-Za-z_][0-9A-Za-z-_\\. ]*$
+rism	RISM Online	^[a-z]+/[0-9]+$
+crop2ml	CropMRepository	^[0-9]{9}$
+dg.nacd	https://accessclinicaldata.niaid.nih.gov/	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.4825	ACCOuNT Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.ea80	NIDDK IBD Genetics Consortium Portal	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+4503	BioData Catalyst	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.md1r	MIDRC Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+pmr.workspace	Physiome Model Repository workspace	^[a-zA-Z0-9_\\-]+(/.*?)?$
+dg.373f	The AnVIL	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.7c5b	Environmental Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+f82a1a	Kids First Data Catalog	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.712c	NHLBI BioData Catalyst	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.63d5	Chicago Pandemic Response Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+6vts	JCOIN Portal	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.nci35	NCI Data Commons Framework Services	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.c78ne	Canine Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.h34l	The HEAL platform	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.h35l	HEAL Data Platform	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+dg.um33r90	UMCCR AGHA Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+ps	Pennsieve	N:package:[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}
+icdc	Integrated Canine Data Commons	^\\d{6}$
+pdb-ccd	Chemical Component Dictionary	^\\w{1,3}$
+civic.sid	CIViC Source	^[0-9]+$
+civic.tid	CIViC Therapy	^[0-9]+$
+civic.did	CIViC Disease	^[0-9]+$
+metatlas	Metabolic Atlas	^MA[MR]\\d{5}[a-z]?$
+dandi	DANDI: Distributed Archives for Neurophysiology Data Integration	^\\d{6}(\\/\\d+\\.\\d+\\.\\d+)?$
+ror	ROR	^0[a-hj-km-np-tv-z|0-9]{6}[0-9]{2}$
+clb	ChecklistBank	^[0-9]+(LR)?$
+drugcentral	DrugCentral	^[0-9]+$
+skm	Stress Knowledge Map	^rx[0-9]{5}$
+col	Catalogue of Life	^[23456789BCDFGHJKLMNPQRSTVWXYZ]{1,6}$
+sciflection	Sciflection	^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+combine.specifications	COMBINE specifications	^\\w+(\\-|\\.|\\w)*$
+panther.pthcmp	PANTHER Pathway Component	^[GPUCS]\\d{5}$
+genedb	GeneDB	^[\\w\\d\\.-]*$
+mge	Aclame	^mge:\\d+$
+oma.hog	OMA HOGs	^HOG:[0-9]{7}(\\.[0-9a-z.]+)?(_[0-9]+)?$
+gro	Gramene Growth Stage Ontology	^GRO:\\d+$
+tair.name	TAIR gene name	^AT.G[0-9]{5}$
+civic.vgid	CIViC Variant Group	^[0-9]+$
+civic.mpid	CIViC Molecular Profile	^[0-9]+$
+clo	Cell Line Ontology	^\\d{7}$
+empiar	EMPIAR	EMPIAR-\\d{5,}
+ark	Archival Resource Key (ARK)	^(ark\\:)/*[0-9A-Za-z]+(?:/[\\w/.=*+@\\$-]*)?(?:\\?.*)?$
+nlfff	NLFFF Database	^[0-9]+$
+utrdb	UTRdb	([3-5][A-Z])\\w+[^A-Z][0-9]
+biokc	BioKC	bkc[0-9]*
+cstr	CSTR	^\\w{5}\\.\\d{2}\\..*$
+obv	Austrian Library Network	AC[0-9]{8}
+gnd	Gemeinsame Normdatei	[0-9X\\-]+
+omid	OpenCitations Meta Identifier	^[a-z][a-z]/06[1-9]*0[1-9][0-9]*$
+dg.vp07	Veterans Precision Oncology Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+togovar	TogoVar	^tgv[0-9]+$
+dg.va03	VA Data Commons	[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}
+nando	Nanbyo Disease Ontology	^NANDO:[0-9]+$
+oci	OCI	^0[1-9]+0[0-9]+-0[1-9]+0[0-9]+$
+drs.anv0	AnVIL DRS	^v2_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$
+nbn	National Bibliography Number	^(urn|URN):(nbn|NBN)(:[A-Za-z_0-9]+)*(:[A-Za-z_\\-\\.0-9]+)+$
