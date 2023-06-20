@@ -5,7 +5,6 @@ import psutil
 import json
 import re
 import datetime
-import pprint
 
 input_dir = "./"
 
@@ -463,10 +462,11 @@ class Ensembl2turtle:
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Output turtle: xref", file=sys.stderr)
         self.rdfize_xref()
-        print("Referred DBs in external_db_url.tsv", file=sys.stderr)
-        pprint.pprint(self.xrefed_dbs, stream=sys.stderr)
-        print("Referred DBs NOT in external_db_url.tsv", file=sys.stderr)
-        pprint.pprint(self.not_xrefed_dbs, stream=sys.stderr)
+
+        xref_report = {"xref": self.xrefed_dbs, "not_xref": self.not_xrefed_dbs}
+        with open("xref_report.json", "w") as f:
+            json.dump(xref_report, f, indent=4)
+
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Done.", file=sys.stderr)
 
