@@ -90,6 +90,10 @@ class Ensembl2turtle:
         "cds_end_NF": {"1": "terms:Incomplete"}
     }
 
+    hco_chr_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+                     "11", "12", "13", "14", "15", "16", "17", "18",
+                     "19", "20", "21", "22", "X", "Y", "MT"]
+
     def __init__(self, input_dbinfo_file):
         self.dbinfo = self.load_dbinfo(input_dbinfo_file)
         self.dbs = self.load_dbs()
@@ -215,13 +219,15 @@ class Ensembl2turtle:
                 self.triple(sbj, "skos:altLabel", synonyms)
 
             # location
-            chromosome_url = self.seq_region_id_to_chr(gene[id][7])
+            seq_region_id = gene[id][7]
+            chromosome_urls = self.seq_region_id_to_chr(seq_region_id)
             location = self.create_location_str(gene[id][1],
                                                 gene[id][2],
                                                 gene[id][3],
-                                                chromosome_url)
+                                                chromosome_urls)
             self.triple(sbj, "faldo:location", location)
-            self.triple(sbj, "so:part_of", chromosome_url)
+            for chromosome_url in chromosome_urls:
+                self.triple(sbj, "so:part_of", chromosome_url)
         self.output_file = sys.stdout
         f.close()
         return
@@ -255,11 +261,11 @@ class Ensembl2turtle:
                 self.triple(sbj, "so:translates_to", "ensp:"+translation[translates_to][1])
 
             # location
-            chromosome_url = self.seq_region_id_to_chr(transcript[id][8])
+            chromosome_urls = self.seq_region_id_to_chr(transcript[id][8])
             location = self.create_location_str(transcript[id][1],
                                                 transcript[id][2],
                                                 transcript[id][3],
-                                                chromosome_url)
+                                                chromosome_urls)
             self.triple(sbj, "faldo:location", location)
 
             # flag
@@ -299,6 +305,7 @@ class Ensembl2turtle:
         coord_system = self.dbs["coord_system"]
         chromosome_name = seq_region[seq_region_id][0]
         coord_system_id = seq_region[seq_region_id][1]
+        chromosome_urls = []
         # e.g. "GRCm38"
         coord_system_version = coord_system[coord_system_id][2]
         # e.g. <http://rdf.ebi.ac.uk/resource/ensembl/109/mus_musculus/GRCm38/Y>
@@ -306,9 +313,16 @@ class Ensembl2turtle:
         # For LRG, <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/LRG_1>">"
         if coord_system[coord_system_id][1] == "lrg":
             chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+self.production_name+"/"+chromosome_name+">"
-        return chromosome_url
+        chromosome_urls[0] = chromosome_url
 
-    def create_location_str(self, beg, end, strand, chromosome_url, level=1):
+        if self.taxonomy_id == "9606":
+            if chromosome_name in Ensembl2turtle.hco_chr_names:
+                hco_url = "<http://identifiers.org/hco/"+chromosome_name+"/GRCh38>"
+                chromosome_urls[1] = hco_url
+
+        return chromosome_urls
+
+    def create_location_str(self, beg, end, strand, chromosome_urls, level=1):
         loc = Bnode()
         loc_beg = Bnode()
         loc_end = Bnode()
@@ -316,11 +330,14 @@ class Ensembl2turtle:
         loc_beg.add(("a", "faldo:ExactPosition"))
         loc_beg.add(("a", strand2faldo(strand)))
         loc_beg.add(("faldo:position", beg))
-        loc_beg.add(("faldo:reference", chromosome_url))
         loc_end.add(("a", "faldo:ExactPosition"))
         loc_end.add(("a", strand2faldo(strand)))
         loc_end.add(("faldo:position", end))
-        loc_end.add(("faldo:reference", chromosome_url))
+
+        for chromosome_url in chromosome_urls:
+            loc_beg.add(("faldo:reference", chromosome_url))
+            loc_end.add(("faldo:reference", chromosome_url))
+
         loc.add(("a", "faldo:Region"))
         loc.add(("faldo:begin", loc_beg.serialize(level=level+1)))
         loc.add(("faldo:end", loc_end.serialize(level=level+1)))
@@ -358,11 +375,11 @@ class Ensembl2turtle:
             self.triple(sbj, "dcterms:identifier", quote(exon[id][3]))
 
             # location
-            chromosome_url = self.seq_region_id_to_chr(exon[id][4])
+            chromosome_urls = self.seq_region_id_to_chr(exon[id][4])
             location = self.create_location_str(exon[id][0],
                                                 exon[id][1],
                                                 exon[id][2],
-                                                chromosome_url)
+                                                chromosome_urls)
             self.triple(sbj, "faldo:location", location)
         self.output_file = sys.stdout
         f.close()
