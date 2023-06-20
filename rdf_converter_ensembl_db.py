@@ -115,7 +115,8 @@ class Ensembl2turtle:
             while (line):
                 line = line.rstrip('\n')
                 sep_line = line.split('\t')
-                self.xref_url_dic[sep_line[0]] = sep_line[1]
+                if sep_line[1] != "":
+                    self.xref_url_dic[sep_line[0]] = sep_line[1]
                 line = input_table.readline()
         return
 
