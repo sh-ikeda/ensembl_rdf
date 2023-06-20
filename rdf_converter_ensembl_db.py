@@ -10,11 +10,6 @@ import pprint
 input_dir = "./"
 
 
-def triple(s, p, o):
-    print(s, p, o, ".")
-    return
-
-
 def quote(string):
     return "\"" + string + "\""
 
@@ -108,6 +103,7 @@ class Ensembl2turtle:
         self.init_xref_url_dic()
         self.xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
         self.not_xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
+        self.output_file = sys.stdout
 
     def init_xref_url_dic(self):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
@@ -120,6 +116,10 @@ class Ensembl2turtle:
                 sep_line = line.split('\t')
                 self.xref_url_dic[sep_line[0]] = sep_line[1]
                 line = input_table.readline()
+        return
+
+    def triple(s, p, o):
+        print(s, p, o, ".", file=self.output_file)
         return
 
     def get_ensembl_version(self):
@@ -194,6 +194,9 @@ class Ensembl2turtle:
         xref = self.dbs["xref"]
         seq_region = self.dbs["seq_region"]
         external_synonym = self.dbs["external_synonym"]
+        f = open("gene.ttl", mode="w")
+        self.output_file = f
+        self.output_prefixes()
         i = 0
         for id in gene:
             sbj = "ensg:" + gene[id][6]
@@ -229,6 +232,8 @@ class Ensembl2turtle:
             i += 1
             if self.debug and i >= 10:
                 break
+        self.output_file = sys.stdout
+        close(f)
         return
 
     def rdfize_transcript(self):
@@ -238,6 +243,9 @@ class Ensembl2turtle:
         gene = self.dbs["gene"]
         translation = self.dbs["translation"]
         attrib_type = self.dbs["attrib_type"]
+        f = open("transcript.ttl", mode="w")
+        self.output_file = f
+        self.output_prefixes()
         i = 0
         for id in transcript:
             sbj = "enst:" + transcript[id][7]
@@ -296,6 +304,8 @@ class Ensembl2turtle:
             i += 1
             if self.debug and i >= 10:
                 break
+        self.output_file = sys.stdout
+        close(f)
         return
 
     def seq_region_id_to_chr(self, seq_region_id):
@@ -334,6 +344,9 @@ class Ensembl2turtle:
         transcript = self.dbs["transcript"]
         xref = self.dbs["xref"]
         translation = self.dbs["translation"]
+        f = open("translation.ttl", mode="w")
+        self.output_file = f
+        self.output_prefixes()
         i = 0
         for id in translation:
             sbj = "ensp:" + translation[id][1]
@@ -344,12 +357,17 @@ class Ensembl2turtle:
             i += 1
             if self.debug and i >= 10:
                 break
+        self.output_file = sys.stdout
+        close(f)
         return
 
     def rdfize_exon(self):
         transcript = self.dbs["transcript"]
         exon = self.dbs["exon"]
         translation = self.dbs["translation"]
+        f = open("exon.ttl", mode="w")
+        self.output_file = f
+        self.output_prefixes()
         i = 0
         for id in exon:
             sbj = "ense:" + exon[id][3]
@@ -368,12 +386,17 @@ class Ensembl2turtle:
             i += 1
             if self.debug and i >= 10:
                 break
+        self.output_file = sys.stdout
+        close(f)
         return
 
     def rdfize_exon_transcript(self):
         exon_transcript = self.dbs["exon_transcript"]
         transcript = self.dbs["transcript"]
         exon = self.dbs["exon"]
+        f = open("exon_transcript.ttl", mode="w")
+        self.output_file = f
+        self.output_prefixes()
         i = 0
         for id in exon_transcript:
             exon_id = id[0]
@@ -395,6 +418,8 @@ class Ensembl2turtle:
             i += 1
             if self.debug and i >= 10:
                 break
+        self.output_file = sys.stdout
+        close(f)
         return
 
     def rdfize_xref(self):
@@ -404,6 +429,9 @@ class Ensembl2turtle:
         xref = self.dbs["xref"]
         object_xref = self.dbs["object_xref"]
         external_db = self.dbs["external_db"]
+        f = open("xref.ttl", mode="w")
+        self.output_file = f
+        self.output_prefixes()
         i = 0
         for id in object_xref:
             xref_id = object_xref[id][2]
@@ -436,6 +464,8 @@ class Ensembl2turtle:
             i += 1
             if self.debug and i >= 10:
                 break
+        self.output_file = sys.stdout
+        close(f)
         return
 
     def output_prefixes(self):
@@ -444,7 +474,6 @@ class Ensembl2turtle:
         return
 
     def output_turtle(self):
-        self.output_prefixes()
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Output turtle: gene", file=sys.stderr)
         self.rdfize_gene()
