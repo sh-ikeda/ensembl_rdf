@@ -116,7 +116,7 @@ class Ensembl2turtle:
                 line = input_table.readline()
         return
 
-    def triple(s, p, o):
+    def triple(self, s, p, o):
         print(s, p, o, ".", file=self.output_file)
         return
 
@@ -196,24 +196,24 @@ class Ensembl2turtle:
             sbj = "ensg:" + gene[id][6]
             xref_id = gene[id][4]
 
-            triple(sbj, "a", "terms:EnsemblGene")
-            triple(sbj, "a", "terms:"+gene[id][0])
-            triple(sbj, "terms:biotype", "terms:"+gene[id][0])
+            self.triple(sbj, "a", "terms:EnsemblGene")
+            self.triple(sbj, "a", "terms:"+gene[id][0])
+            self.triple(sbj, "terms:biotype", "terms:"+gene[id][0])
             if xref_id == "\\N":
                 label = gene[id][6]  # Substitute ID for label
             else:
                 label = xref[xref_id][2]
-            triple(sbj, "rdfs:label", quote(label))
+            self.triple(sbj, "rdfs:label", quote(label))
             description = gene[id][5]
             if description == "\\N":
                 description = ""
-            triple(sbj, "dcterms:description", quote(description))
-            triple(sbj, "dcterms:identifier", quote(gene[id][6]))
-            triple(sbj, "obo:RO_0002162", "taxonomy:"+self.taxonomy_id)
+            self.triple(sbj, "dcterms:description", quote(description))
+            self.triple(sbj, "dcterms:identifier", quote(gene[id][6]))
+            self.triple(sbj, "obo:RO_0002162", "taxonomy:"+self.taxonomy_id)
             # synonym
             synonyms = ", ".join([quote(v[0]) for v in external_synonym.get(xref_id, [])])
             if len(synonyms) >= 1:
-                triple(sbj, "skos:altLabel", synonyms)
+                self.triple(sbj, "skos:altLabel", synonyms)
 
             # location
             chromosome_url = self.seq_region_id_to_chr(gene[id][7])
@@ -221,10 +221,10 @@ class Ensembl2turtle:
                                                 gene[id][2],
                                                 gene[id][3],
                                                 chromosome_url)
-            triple(sbj, "faldo:location", location)
-            triple(sbj, "so:part_of", chromosome_url)
+            self.triple(sbj, "faldo:location", location)
+            self.triple(sbj, "so:part_of", chromosome_url)
         self.output_file = sys.stdout
-        close(f)
+        f.close()
         return
 
     def rdfize_transcript(self):
@@ -241,19 +241,19 @@ class Ensembl2turtle:
             sbj = "enst:" + transcript[id][7]
             xref_id = transcript[id][4]
 
-            triple(sbj, "a", "terms:EnsemblTranscript")
-            triple(sbj, "a", "terms:"+transcript[id][5])
-            triple(sbj, "terms:biotype", "terms:"+transcript[id][5])
+            self.triple(sbj, "a", "terms:EnsemblTranscript")
+            self.triple(sbj, "a", "terms:"+transcript[id][5])
+            self.triple(sbj, "terms:biotype", "terms:"+transcript[id][5])
             if xref_id == "\\N":
                 label = transcript[id][7]  # Substitute ID for label
             else:
                 label = xref[xref_id][2]
-            triple(sbj, "rdfs:label", quote(label))
-            triple(sbj, "dcterms:identifier", quote(transcript[id][7]))
-            triple(sbj, "so:transcribed_from", "ensg:"+gene[transcript[id][0]][6])
+            self.triple(sbj, "rdfs:label", quote(label))
+            self.triple(sbj, "dcterms:identifier", quote(transcript[id][7]))
+            self.triple(sbj, "so:transcribed_from", "ensg:"+gene[transcript[id][0]][6])
             translates_to = transcript[id][6]
             if translates_to != "\\N":
-                triple(sbj, "so:translates_to", "ensp:"+translation[translates_to][1])
+                self.triple(sbj, "so:translates_to", "ensp:"+translation[translates_to][1])
 
             # location
             chromosome_url = self.seq_region_id_to_chr(transcript[id][8])
@@ -261,7 +261,7 @@ class Ensembl2turtle:
                                                 transcript[id][2],
                                                 transcript[id][3],
                                                 chromosome_url)
-            triple(sbj, "faldo:location", location)
+            self.triple(sbj, "faldo:location", location)
 
             # flag
             attribs = transcript_attrib.get(id, [])
@@ -277,22 +277,22 @@ class Ensembl2turtle:
                         if match:
                             comment = match.group(1)
                             statement = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/#_" + transcript[id][7] + "-has_transcript_flag-"+attrib_val+">"
-                            triple(statement, "a", "rdf:Statement")
-                            triple(statement, "rdf:subject", sbj)
-                            triple(statement, "rdf:predicate", "terms:has_transcript_flag")
-                            triple(statement, "rdf:object", flag_dic[attrib_code][attrib_val])
-                            triple(statement, "rdfs:comment", quote(comment))
+                            self.triple(statement, "a", "rdf:Statement")
+                            self.triple(statement, "rdf:subject", sbj)
+                            self.triple(statement, "rdf:predicate", "terms:has_transcript_flag")
+                            self.triple(statement, "rdf:object", flag_dic[attrib_code][attrib_val])
+                            self.triple(statement, "rdfs:comment", quote(comment))
                     elif attrib_code == "remark":
                         if attrib_val != "MANE_select":
                             continue
-                    triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
+                    self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
                     # try:
-                    #     triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
+                    #     self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
                     # except KeyError as e:
                     #     print(sbj, attrib_code, attrib_val, file=sys.stderr)
                     #     sys.exit()
         self.output_file = sys.stdout
-        close(f)
+        f.close()
         return
 
     def seq_region_id_to_chr(self, seq_region_id):
@@ -337,11 +337,11 @@ class Ensembl2turtle:
         for id in translation:
             sbj = "ensp:" + translation[id][1]
 
-            triple(sbj, "a", "terms:EnsemblProtein")
-            triple(sbj, "dcterms:identifier", quote(translation[id][1]))
-            triple(sbj, "so:translation_of", "enst:"+transcript[translation[id][0]][7])
+            self.triple(sbj, "a", "terms:EnsemblProtein")
+            self.triple(sbj, "dcterms:identifier", quote(translation[id][1]))
+            self.triple(sbj, "so:translation_of", "enst:"+transcript[translation[id][0]][7])
         self.output_file = sys.stdout
-        close(f)
+        f.close()
         return
 
     def rdfize_exon(self):
@@ -354,9 +354,9 @@ class Ensembl2turtle:
         for id in exon:
             sbj = "ense:" + exon[id][3]
 
-            triple(sbj, "a", "terms:EnsemblExon")
-            triple(sbj, "a", "obo:SO_0000147")
-            triple(sbj, "dcterms:identifier", quote(exon[id][3]))
+            self.triple(sbj, "a", "terms:EnsemblExon")
+            self.triple(sbj, "a", "obo:SO_0000147")
+            self.triple(sbj, "dcterms:identifier", quote(exon[id][3]))
 
             # location
             chromosome_url = self.seq_region_id_to_chr(exon[id][4])
@@ -364,9 +364,9 @@ class Ensembl2turtle:
                                                 exon[id][1],
                                                 exon[id][2],
                                                 chromosome_url)
-            triple(sbj, "faldo:location", location)
+            self.triple(sbj, "faldo:location", location)
         self.output_file = sys.stdout
-        close(f)
+        f.close()
         return
 
     def rdfize_exon_transcript(self):
@@ -386,15 +386,15 @@ class Ensembl2turtle:
             exon_uri = "ense:" + exon_stable_id
             transcript_uri = "enst:" + transcript_stable_id
 
-            triple(ordered_exon_uri, "a", "terms:EnsemblOrderedExon")
-            triple(ordered_exon_uri, "a", "sio:SIO_001261")
-            triple(ordered_exon_uri, "sio:SIO_000628", exon_uri)
-            triple(ordered_exon_uri, "sio:SIO_000300", rank)
+            self.triple(ordered_exon_uri, "a", "terms:EnsemblOrderedExon")
+            self.triple(ordered_exon_uri, "a", "sio:SIO_001261")
+            self.triple(ordered_exon_uri, "sio:SIO_000628", exon_uri)
+            self.triple(ordered_exon_uri, "sio:SIO_000300", rank)
 
-            triple(transcript_uri, "so:has_part", exon_uri)
-            triple(transcript_uri, "sio:SIO_000974", ordered_exon_uri)
+            self.triple(transcript_uri, "so:has_part", exon_uri)
+            self.triple(transcript_uri, "sio:SIO_000974", ordered_exon_uri)
         self.output_file = sys.stdout
-        close(f)
+        f.close()
         return
 
     def rdfize_xref(self):
@@ -422,12 +422,12 @@ class Ensembl2turtle:
             # xref_node = Bnode()
             # xref_node.add(("terms:id_of", quote(external_db[xref[xref_id][0]][0])))  # FIXME
             # xref_node.add(("dcterms:identifier", quote(xref[xref_id][1])))
-            # triple(subject_url, "rdfs:seeAlso", xref_node.serialize())
+            # self.triple(subject_url, "rdfs:seeAlso", xref_node.serialize())
             external_db_id = xref[xref_id][0]
             external_db_code = external_db[external_db_id][0]
             if self.xref_url_dic.get(external_db_id, "") != "":
                 xref_url = self.xref_url_dic[external_db_id] + xref[xref_id][1]
-                triple(subject_url, "rdfs:seeAlso", "<"+xref_url+">")
+                self.triple(subject_url, "rdfs:seeAlso", "<"+xref_url+">")
                 if external_db_code not in self.xrefed_dbs[subject_type]:
                     self.xrefed_dbs[subject_type][external_db_code] = [subject_url, xref_url, 0]
                 self.xrefed_dbs[subject_type][external_db_code][2] += 1
@@ -436,12 +436,12 @@ class Ensembl2turtle:
                     self.not_xrefed_dbs[subject_type][external_db_code] = [subject_url, xref[xref_id][1], 0]
                 self.not_xrefed_dbs[subject_type][external_db_code][2] += 1
         self.output_file = sys.stdout
-        close(f)
+        f.close()
         return
 
     def output_prefixes(self):
         for prefix in Ensembl2turtle.prefixes:
-            triple("@prefix", prefix[0], prefix[1])
+            self.triple("@prefix", prefix[0], prefix[1])
         return
 
     def output_turtle(self):
