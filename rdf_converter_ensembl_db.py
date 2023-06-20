@@ -313,12 +313,12 @@ class Ensembl2turtle:
         # For LRG, <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/LRG_1>">"
         if coord_system[coord_system_id][1] == "lrg":
             chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+self.production_name+"/"+chromosome_name+">"
-        chromosome_urls[0] = chromosome_url
+        chromosome_urls.append(chromosome_url)
 
         if self.taxonomy_id == "9606":
             if chromosome_name in Ensembl2turtle.hco_chr_names:
                 hco_url = "<http://identifiers.org/hco/"+chromosome_name+"/GRCh38>"
-                chromosome_urls[1] = hco_url
+                chromosome_urls.append(hco_url)
 
         return chromosome_urls
 
