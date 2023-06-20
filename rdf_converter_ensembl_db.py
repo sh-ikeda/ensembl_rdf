@@ -92,8 +92,6 @@ class Ensembl2turtle:
     }
 
     def __init__(self, input_dbinfo_file):
-        self.flg = True
-        self.debug = False
         self.dbinfo = self.load_dbinfo(input_dbinfo_file)
         self.dbs = self.load_dbs()
         self.taxonomy_id = self.get_taxonomy_id()
@@ -169,9 +167,6 @@ class Ensembl2turtle:
                         dic[key].append(vals)
                     else:
                         dic[key] = [vals]
-                    # if self.flg:
-                    #     print(db, key, vals, file=sys.stderr)
-                    #     self.flg = False
                 else:
                     dic[key] = vals
 
@@ -197,7 +192,6 @@ class Ensembl2turtle:
         f = open("gene.ttl", mode="w")
         self.output_file = f
         self.output_prefixes()
-        i = 0
         for id in gene:
             sbj = "ensg:" + gene[id][6]
             xref_id = gene[id][4]
@@ -229,9 +223,6 @@ class Ensembl2turtle:
                                                 chromosome_url)
             triple(sbj, "faldo:location", location)
             triple(sbj, "so:part_of", chromosome_url)
-            i += 1
-            if self.debug and i >= 10:
-                break
         self.output_file = sys.stdout
         close(f)
         return
@@ -246,7 +237,6 @@ class Ensembl2turtle:
         f = open("transcript.ttl", mode="w")
         self.output_file = f
         self.output_prefixes()
-        i = 0
         for id in transcript:
             sbj = "enst:" + transcript[id][7]
             xref_id = transcript[id][4]
@@ -301,9 +291,6 @@ class Ensembl2turtle:
                     # except KeyError as e:
                     #     print(sbj, attrib_code, attrib_val, file=sys.stderr)
                     #     sys.exit()
-            i += 1
-            if self.debug and i >= 10:
-                break
         self.output_file = sys.stdout
         close(f)
         return
@@ -347,16 +334,12 @@ class Ensembl2turtle:
         f = open("translation.ttl", mode="w")
         self.output_file = f
         self.output_prefixes()
-        i = 0
         for id in translation:
             sbj = "ensp:" + translation[id][1]
 
             triple(sbj, "a", "terms:EnsemblProtein")
             triple(sbj, "dcterms:identifier", quote(translation[id][1]))
             triple(sbj, "so:translation_of", "enst:"+transcript[translation[id][0]][7])
-            i += 1
-            if self.debug and i >= 10:
-                break
         self.output_file = sys.stdout
         close(f)
         return
@@ -368,7 +351,6 @@ class Ensembl2turtle:
         f = open("exon.ttl", mode="w")
         self.output_file = f
         self.output_prefixes()
-        i = 0
         for id in exon:
             sbj = "ense:" + exon[id][3]
 
@@ -383,9 +365,6 @@ class Ensembl2turtle:
                                                 exon[id][2],
                                                 chromosome_url)
             triple(sbj, "faldo:location", location)
-            i += 1
-            if self.debug and i >= 10:
-                break
         self.output_file = sys.stdout
         close(f)
         return
@@ -397,7 +376,6 @@ class Ensembl2turtle:
         f = open("exon_transcript.ttl", mode="w")
         self.output_file = f
         self.output_prefixes()
-        i = 0
         for id in exon_transcript:
             exon_id = id[0]
             transcript_id = id[1]
@@ -415,9 +393,6 @@ class Ensembl2turtle:
 
             triple(transcript_uri, "so:has_part", exon_uri)
             triple(transcript_uri, "sio:SIO_000974", ordered_exon_uri)
-            i += 1
-            if self.debug and i >= 10:
-                break
         self.output_file = sys.stdout
         close(f)
         return
@@ -432,7 +407,6 @@ class Ensembl2turtle:
         f = open("xref.ttl", mode="w")
         self.output_file = f
         self.output_prefixes()
-        i = 0
         for id in object_xref:
             xref_id = object_xref[id][2]
             subject_id = object_xref[id][0]
@@ -461,9 +435,6 @@ class Ensembl2turtle:
                 if external_db_code not in self.not_xrefed_dbs[subject_type]:
                     self.not_xrefed_dbs[subject_type][external_db_code] = [subject_url, xref[xref_id][1], 0]
                 self.not_xrefed_dbs[subject_type][external_db_code][2] += 1
-            i += 1
-            if self.debug and i >= 10:
-                break
         self.output_file = sys.stdout
         close(f)
         return
