@@ -10,7 +10,7 @@ input_dir = "./"
 
 
 def quote(string):
-    return "\"" + string + "\""
+    return "\"" + string.replace("\"", "\\\"") + "\""
 
 
 def escape(string):
