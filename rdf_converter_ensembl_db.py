@@ -485,9 +485,15 @@ class Ensembl2turtle:
         print(f"[{dt_now}] Output turtle: xref", file=sys.stderr)
         self.rdfize_xref()
 
-        xref_report = {"xref": self.xrefed_dbs, "not_xref": self.not_xrefed_dbs}
-        with open("xref_report.json", "w") as f:
-            json.dump(xref_report, f, indent=4)
+        with open("xref_report.tsv", "w") as f:
+            for subject_type, dbs in self.xrefed_dbs.items():
+                for db in dbs:
+                    print(self.production_name, "ref", subject_type, db,
+                          dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
+            for subject_type, dbs in self.not_xrefed_dbs.items():
+                for db in dbs:
+                    print(self.production_name, "not_ref", subject_type, db,
+                          dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
 
         dt_now = datetime.datetime.now()
         print(f"[{dt_now}] Done.", file=sys.stderr)
