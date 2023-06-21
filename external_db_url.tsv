@@ -49,7 +49,7 @@
 1830	http://identifiers.org/refseq/
 2000	http://identifiers.org/uniprot/
 2200	http://identifiers.org/uniprot/
-2202	http://identifiers.org/uniprot/
+2202	http://identifiers.org/uniprot.isoform/
 2250	http://identifiers.org/uniprot/
 2300	
 2310	
@@ -187,7 +187,7 @@
 20309	
 20310	
 20311	
-20312	
+20312	http://identifiers.org/sgd/
 20313	
 20317	
 20320	
@@ -360,7 +360,7 @@
 50752	http://identifiers.org/pride/
 50753	
 50755	http://identifiers.org/bindingdb/
-50756	http://identifiers.org/string/
+50756	
 50757	http://identifiers.org/unipathway.reaction/
 50759	http://identifiers.org/swiss-model/
 50762	
