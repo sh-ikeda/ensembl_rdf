@@ -13,6 +13,10 @@ def quote(string):
     return "\"" + string + "\""
 
 
+def escape(string):
+    return re.sub(r"([()])", r"\\\1", string)
+
+
 def strand2faldo(s):
     if s == "1":
         return "faldo:ForwardStrandPosition"
@@ -197,7 +201,7 @@ class Ensembl2turtle:
         self.output_file = f
         self.output_prefixes()
         for id in gene:
-            sbj = "ensg:" + gene[id][6]
+            sbj = "ensg:" + escape(gene[id][6])
             xref_id = gene[id][4]
 
             self.triple(sbj, "a", "terms:EnsemblGene")
@@ -244,7 +248,7 @@ class Ensembl2turtle:
         self.output_file = f
         self.output_prefixes()
         for id in transcript:
-            sbj = "enst:" + transcript[id][7]
+            sbj = "enst:" + escape(transcript[id][7])
             xref_id = transcript[id][4]
 
             self.triple(sbj, "a", "terms:EnsemblTranscript")
@@ -256,10 +260,10 @@ class Ensembl2turtle:
                 label = xref[xref_id][2]
             self.triple(sbj, "rdfs:label", quote(label))
             self.triple(sbj, "dcterms:identifier", quote(transcript[id][7]))
-            self.triple(sbj, "so:transcribed_from", "ensg:"+gene[transcript[id][0]][6])
+            self.triple(sbj, "so:transcribed_from", "ensg:"+escape(gene[transcript[id][0]][6]))
             translates_to = transcript[id][6]
             if translates_to != "\\N":
-                self.triple(sbj, "so:translates_to", "ensp:"+translation[translates_to][1])
+                self.triple(sbj, "so:translates_to", "ensp:"+escape(translation[translates_to][1]))
 
             # location
             chromosome_urls = self.seq_region_id_to_chr(transcript[id][8])
@@ -352,11 +356,11 @@ class Ensembl2turtle:
         self.output_file = f
         self.output_prefixes()
         for id in translation:
-            sbj = "ensp:" + translation[id][1]
+            sbj = "ensp:" + escape(translation[id][1])
 
             self.triple(sbj, "a", "terms:EnsemblProtein")
             self.triple(sbj, "dcterms:identifier", quote(translation[id][1]))
-            self.triple(sbj, "so:translation_of", "enst:"+transcript[translation[id][0]][7])
+            self.triple(sbj, "so:translation_of", "enst:"+escape(transcript[translation[id][0]][7]))
         self.output_file = sys.stdout
         f.close()
         return
@@ -369,7 +373,7 @@ class Ensembl2turtle:
         self.output_file = f
         self.output_prefixes()
         for id in exon:
-            sbj = "ense:" + exon[id][3]
+            sbj = "ense:" + escape(exon[id][3])
 
             self.triple(sbj, "a", "terms:EnsemblExon")
             self.triple(sbj, "a", "obo:SO_0000147")
@@ -400,8 +404,8 @@ class Ensembl2turtle:
             transcript_stable_id = transcript[transcript_id][7]
             rank = exon_transcript[id][0]
             ordered_exon_uri = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/"+transcript_stable_id+"#Exon_"+rank+">"
-            exon_uri = "ense:" + exon_stable_id
-            transcript_uri = "enst:" + transcript_stable_id
+            exon_uri = "ense:" + escape(exon_stable_id)
+            transcript_uri = "enst:" + escape(transcript_stable_id)
 
             self.triple(ordered_exon_uri, "a", "terms:EnsemblOrderedExon")
             self.triple(ordered_exon_uri, "a", "sio:SIO_001261")
@@ -429,11 +433,11 @@ class Ensembl2turtle:
             subject_id = object_xref[id][0]
             subject_type = object_xref[id][1]
             if subject_type == "Gene":
-                subject_url = "ensg:" + gene[subject_id][6]
+                subject_url = "ensg:" + escape(gene[subject_id][6])
             elif subject_type == "Transcript":
-                subject_url = "enst:" + transcript[subject_id][7]
+                subject_url = "enst:" + escape(transcript[subject_id][7])
             elif subject_type == "Translation":
-                subject_url = "ensp:" + translation[subject_id][1]
+                subject_url = "ensp:" + escape(translation[subject_id][1])
             else:
                 continue
             # xref_node = Bnode()
