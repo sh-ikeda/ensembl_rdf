@@ -1,479 +1,479 @@
-211	
-212	
-213	
-230	
-250	
-400	
-410	
-420	
-700	http://identifiers.org/ena.embl/
-701	http://identifiers.org/ena.embl/
-800	http://identifiers.org/fb/
-801	http://identifiers.org/fb/
-804	
-805	
-808	http://identifiers.org/fb/
-812	
-821	
-824	
-825	
-826	
-827	
-828	
-829	http://identifiers.org/biogrid/
-831	
-832	
-833	
-883	http://identifiers.org/reactome/
-1000	http://purl.obolibrary.org/obo/GO_
-1001	http://identifiers.org/go_ref/
-1100	http://identifiers.org/hgnc/
-1200	http://identifiers.org/interpro/
-1300	http://identifiers.org/ncbigene/
-1400	http://identifiers.org/mgi/
-1510	http://identifiers.org/mim/
-1520	
-1600	http://identifiers.org/pdb/
-1700	http://identifiers.org/insdc/
-1701	http://identifiers.org/insdc/
-1800	http://identifiers.org/refseq/
-1801	http://identifiers.org/refseq/
-1803	http://identifiers.org/refseq/
-1805	http://identifiers.org/refseq/
-1806	http://identifiers.org/refseq/
-1808	http://identifiers.org/refseq/
-1810	http://identifiers.org/refseq/
-1815	http://identifiers.org/refseq/
-1820	http://identifiers.org/refseq/
-1825	http://identifiers.org/refseq/
-1830	http://identifiers.org/refseq/
-2000	http://purl.uniprot.org/uniprot/
-2200	http://purl.uniprot.org/uniprot/
-2202	http://purl.uniprot.org/isoforms/
-2250	http://purl.uniprot.org/uniprot/
-2300	
-2310	
-2320	
-2400	http://identifiers.org/wb/
-2410	
-2420	http://identifiers.org/wormpep/
-2440	http://identifiers.org/wb/
-2510	http://identifiers.org/zfin/
-2530	http://identifiers.org/zfin/
-2600	http://identifiers.org/genedb/
-2601	
-2602	
-2610	
-2611	
-2700	http://identifiers.org/ensembl/
-2710	http://identifiers.org/ensembl/
-2720	http://identifiers.org/ensembl/
-2800	http://identifiers.org/rgd/
-2900	
-2910	
-2920	
-2930	
-2940	
-2950	
-3300	http://identifiers.org/mirbase/
-3400	http://identifiers.org/sgd/
-3500	
-3800	http://identifiers.org/ccds/
-3900	http://identifiers.org/pubmed/
-4100	http://identifiers.org/unigene/
-4200	http://identifiers.org/rfam/
-4400	http://identifiers.org/xenbase/
-4600	
-4610	
-4620	
-4670	
-4680	
-4690	http://identifiers.org/ensembl/
-4700	
-4810	http://identifiers.org/ensembl/
-4820	http://identifiers.org/ensembl/
-5010	http://identifiers.org/ensembl/
-5020	http://identifiers.org/ensembl/
-5100	
-5300	
-5400	
-5500	
-5720	http://identifiers.org/ensembl/
-5810	http://identifiers.org/ensembl/
-5820	http://identifiers.org/ensembl/
-6400	http://identifiers.org/ensembl/
-6410	http://identifiers.org/ensembl/
-6420	http://identifiers.org/ensembl/
-6500	
-6820	http://identifiers.org/ensembl/
-6900	http://identifiers.org/ensembl/
-7170	
-7180	
-7200	
-7201	
-7300	http://identifiers.org/ensembl/
-7400	http://identifiers.org/ensembl/
-7620	http://identifiers.org/ensembl/
-8100	
-8200	
-8300	
-8400	
-8500	
-8600	
-8700	
-8800	
-8900	
-9200	
-9400	
-9410	
-9420	
-9450	
-9460	
-9500	
-9600	
-9700	
-10000	http://identifiers.org/wb/
-10100	http://identifiers.org/epd/
-10300	http://identifiers.org/merops/
-10500	
-11000	
-12310	
-12315	
-12410	
-12415	
-12500	
-12505	
-12510	http://identifiers.org/hpa/
-12600	http://identifiers.org/wikigenes/
-12601	
-12620	
-12630	
-12700	
-12710	
-20005	http://identifiers.org/uniparc/
-20008	http://identifiers.org/brenda//
-20009	http://identifiers.org/biocyc/
-20013	http://identifiers.org/echobase/
-20014	http://identifiers.org/ecogene/
-20040	http://identifiers.org/subtilist/
-20043	
-20046	
-20059	http://identifiers.org/dip/
-20061	http://identifiers.org/disprot/
-20062	http://identifiers.org/drugbank/
-20066	http://identifiers.org/hamap/
-20071	http://identifiers.org/hssp/
-20072	http://identifiers.org/intact/
-20074	http://identifiers.org/kegg/
-20078	
-20082	http://identifiers.org/peroxibase/
-20085	http://identifiers.org/rebase/
-20088	http://identifiers.org/reactome/
-20097	
-20101	http://identifiers.org/ec-code/
-20200	
-20215	
-20216	
-20217	
-20220	
-20221	
-20228	
-20301	
-20302	
-20303	http://identifiers.org/dictybase.gene/
-20306	http://identifiers.org/aspgd.locus/
-20307	
-20308	
-20309	
-20310	
-20311	
-20312	http://identifiers.org/sgd/
-20313	
-20317	
-20320	
-20325	
-20329	
-20330	
-20331	
-20334	
-20337	
-20338	
-20339	
-20340	
-20343	
-20344	
-20345	
-20348	
-20354	
-20355	
-20356	
-20357	
-20358	
-20359	
-20360	
-20362	
-20363	
-20364	
-20365	
-20368	
-20372	
-20377	
-20378	
-20380	
-20381	
-20382	http://identifiers.org/cgd/
-20383	
-20385	
-20386	
-20388	
-20389	
-20390	
-20391	
-20392	
-50000	
-50005	http://identifiers.org/ec-code/
-50010	
-50035	
-50040	
-50050	
-50090	
-50110	
-50120	
-50140	
-50160	
-50170	
-50180	
-50185	
-50190	http://identifiers.org/po/
-50196	http://purl.obolibrary.org/obo/GO_
-50200	http://identifiers.org/gro/
-50541	http://identifiers.org/lrg/
-50542	http://identifiers.org/ensembl/
-50543	http://identifiers.org/ensembl/
-50607	
-50608	
-50609	
-50610	
-50611	
-50620	
-50621	http://purl.uniprot.org/uniprot/
-50622	
-50623	
-50624	http://identifiers.org/pfam/
-50625	
-50626	
-50627	
-50628	
-50629	
-50630	
-50631	
-50632	
-50633	
-50634	
-50635	
-50637	
-50640	
-50641	
-50642	
-50643	http://identifiers.org/pombase/
-50644	
-50645	
-50646	
-50647	
-50648	
-50649	
-50650	
-50651	
-50653	
-50654	
-50655	
-50656	
-50658	
-50660	http://identifiers.org/so/
-50661	
-50662	
-50663	
-50664	
-50666	
-50667	
-50668	
-50669	
-50672	
-50673	
-50674	
-50677	
-50678	
-50679	
-50682	
-50683	
-50684	http://identifiers.org/eo/
-50687	
-50688	http://identifiers.org/insdc/
-50690	
-50691	
-50692	
-50693	
-50694	
-50695	
-50696	
-50697	
-50698	
-50700	
-50701	
-50703	
-50708	
-50709	
-50710	
-50711	
-50713	
-50715	
-50717	
-50718	
-50719	
-50720	
-50721	
-50722	
-50723	
-50726	
-50727	
-50728	
-50730	
-50731	
-50732	
-50733	
-50734	
-50735	
-50736	
-50737	
-50738	
-50739	
-50740	
-50742	http://identifiers.org/pmc/
-50743	http://identifiers.org/pfam/
-50744	
-50745	
-50746	
-50747	
-50748	http://identifiers.org/ensembl.plant/
-50749	http://identifiers.org/chembl.target/
-50750	
-50752	http://identifiers.org/pride/
-50753	
-50755	http://identifiers.org/bindingdb/
-50756	
-50757	http://identifiers.org/unipathway.reaction/
-50759	http://identifiers.org/swiss-model/
-50762	
-50770	
-50771	
-50772	
-50775	
-50776	
-50777	
-50778	
-50779	
-50780	
-50782	
-50783	
-50784	http://identifiers.org/ensembl.metazoa/
-50785	
-50786	
-50788	
-50789	http://identifiers.org/pr/
-50790	
-50792	http://identifiers.org/cl/
-50793	http://identifiers.org/chebi/
-50794	
-50795	
-50796	http://identifiers.org/pato/
-50797	
-50798	
-50799	
-50801	
-50802	
-50803	
-50808	http://identifiers.org/doi/
-50809	
-50814	
-50815	http://identifiers.org/ensembl.fungi/
-50817	http://identifiers.org/rnacentral/
-50818	
-50819	
-50820	
-50821	
-50822	
-50823	
-50824	http://identifiers.org/reactome/
-50825	http://identifiers.org/reactome/
-50826	http://identifiers.org/pb.ref/
-50827	http://identifiers.org/geo/
-50828	
-20350	
-50831	http://identifiers.org/efo/
-50832	
-50833	http://identifiers.org/vgnc/
-50834	
-50741	http://identifiers.org/dbsnp/
-50835	http://identifiers.org/vectorbase/
-50836	http://identifiers.org/ensembl.protist/
-50837	
-50838	
-50839	
-50840	http://identifiers.org/refseq/
-50841	
-50842	http://identifiers.org/ensembl.plants/
-50843	http://identifiers.org/maizegdb.locus/
-50845	
-50846	
-50847	http://identifiers.org/pubmed/
-50848	
-50849	
-50850	
-50851	http://identifiers.org/oryzabase.gene/
-50852	http://identifiers.org/rapdb.transcript/
-50853	
-50854	
-50855	
-50856	
-50857	
-50858	
-50859	
-50860	
-50861	
-50862	
-50863	
-50864	
-50865	
-50866	
-50867	
-50868	
-50869	http://purl.uniprot.org/isoforms/
-50870	
-50873	
-50872	
-50871	
-50874	
-50875	
-50877	
-50882	
-50878	http://identifiers.org/ensembl.metazoa/
-50881	http://identifiers.org/insdc/
-50879	http://identifiers.org/ensembl.metazoa/
-50883	
-50876	
-50880	http://identifiers.org/insdc/
-50886	
-50885	
-50884	
-50887	
-50889	
-50888	
-50893	
-50892	
-50891	
-50890	
-50894	
-50896	
-50897	
-50895	
-50898	http://identifiers.org/genecards/
+211		
+212		
+213		
+230		
+250		
+400		
+410		
+420		
+700	http://identifiers.org/ena.embl/	
+701	http://identifiers.org/ena.embl/	
+800	http://identifiers.org/fb/	
+801	http://identifiers.org/fb/	
+804		
+805		
+808	http://identifiers.org/fb/	
+812		
+821		
+824		
+825		
+826		
+827		
+828		
+829	http://identifiers.org/biogrid/	
+831		
+832		
+833		
+883	http://identifiers.org/reactome/	
+1000	http://purl.obolibrary.org/obo/GO_	GO:
+1001	http://identifiers.org/go_ref/	
+1100	http://identifiers.org/hgnc/	
+1200	http://identifiers.org/interpro/	
+1300	http://identifiers.org/ncbigene/	
+1400	http://identifiers.org/mgi/	
+1510	http://identifiers.org/mim/	
+1520		
+1600	http://identifiers.org/pdb/	
+1700	http://identifiers.org/insdc/	
+1701	http://identifiers.org/insdc/	
+1800	http://identifiers.org/refseq/	
+1801	http://identifiers.org/refseq/	
+1803	http://identifiers.org/refseq/	
+1805	http://identifiers.org/refseq/	
+1806	http://identifiers.org/refseq/	
+1808	http://identifiers.org/refseq/	
+1810	http://identifiers.org/refseq/	
+1815	http://identifiers.org/refseq/	
+1820	http://identifiers.org/refseq/	
+1825	http://identifiers.org/refseq/	
+1830	http://identifiers.org/refseq/	
+2000	http://purl.uniprot.org/uniprot/	
+2200	http://purl.uniprot.org/uniprot/	
+2202	http://purl.uniprot.org/isoforms/	
+2250	http://purl.uniprot.org/uniprot/	
+2300		
+2310		
+2320		
+2400	http://identifiers.org/wb/	
+2410		
+2420	http://identifiers.org/wormpep/	
+2440	http://identifiers.org/wb/	
+2510	http://identifiers.org/zfin/	
+2530	http://identifiers.org/zfin/	
+2600	http://identifiers.org/genedb/	
+2601		
+2602		
+2610		
+2611		
+2700	http://identifiers.org/ensembl/	
+2710	http://identifiers.org/ensembl/	
+2720	http://identifiers.org/ensembl/	
+2800	http://identifiers.org/rgd/	
+2900		
+2910		
+2920		
+2930		
+2940		
+2950		
+3300	http://identifiers.org/mirbase/	
+3400	http://identifiers.org/sgd/	
+3500		
+3800	http://identifiers.org/ccds/	
+3900	http://identifiers.org/pubmed/	
+4100	http://identifiers.org/unigene/	
+4200	http://identifiers.org/rfam/	
+4400	http://identifiers.org/xenbase/	
+4600		
+4610		
+4620		
+4670		
+4680		
+4690	http://identifiers.org/ensembl/	
+4700		
+4810	http://identifiers.org/ensembl/	
+4820	http://identifiers.org/ensembl/	
+5010	http://identifiers.org/ensembl/	
+5020	http://identifiers.org/ensembl/	
+5100		
+5300		
+5400		
+5500		
+5720	http://identifiers.org/ensembl/	
+5810	http://identifiers.org/ensembl/	
+5820	http://identifiers.org/ensembl/	
+6400	http://identifiers.org/ensembl/	
+6410	http://identifiers.org/ensembl/	
+6420	http://identifiers.org/ensembl/	
+6500		
+6820	http://identifiers.org/ensembl/	
+6900	http://identifiers.org/ensembl/	
+7170		
+7180		
+7200		
+7201		
+7300	http://identifiers.org/ensembl/	
+7400	http://identifiers.org/ensembl/	
+7620	http://identifiers.org/ensembl/	
+8100		
+8200		
+8300		
+8400		
+8500		
+8600		
+8700		
+8800		
+8900		
+9200		
+9400		
+9410		
+9420		
+9450		
+9460		
+9500		
+9600		
+9700		
+10000	http://identifiers.org/wb/	
+10100	http://identifiers.org/epd/	
+10300	http://identifiers.org/merops/	
+10500		
+11000		
+12310		
+12315		
+12410		
+12415		
+12500		
+12505		
+12510	http://identifiers.org/hpa/	
+12600	http://identifiers.org/wikigenes/	
+12601		
+12620		
+12630		
+12700		
+12710		
+20005	http://identifiers.org/uniparc/	
+20008	http://identifiers.org/brenda//	
+20009	http://identifiers.org/biocyc/	
+20013	http://identifiers.org/echobase/	
+20014	http://identifiers.org/ecogene/	
+20040	http://identifiers.org/subtilist/	
+20043		
+20046		
+20059	http://identifiers.org/dip/	
+20061	http://identifiers.org/disprot/	
+20062	http://identifiers.org/drugbank/	
+20066	http://identifiers.org/hamap/	
+20071	http://identifiers.org/hssp/	
+20072	http://identifiers.org/intact/	
+20074	http://identifiers.org/kegg/	
+20078		
+20082	http://identifiers.org/peroxibase/	
+20085	http://identifiers.org/rebase/	
+20088	http://identifiers.org/reactome/	
+20097		
+20101	http://identifiers.org/ec-code/	
+20200		
+20215		
+20216		
+20217		
+20220		
+20221		
+20228		
+20301		
+20302		
+20303	http://identifiers.org/dictybase.gene/	
+20306	http://identifiers.org/aspgd.locus/	
+20307		
+20308		
+20309		
+20310		
+20311		
+20312	http://identifiers.org/sgd/	
+20313		
+20317		
+20320		
+20325		
+20329		
+20330		
+20331		
+20334		
+20337		
+20338		
+20339		
+20340		
+20343		
+20344		
+20345		
+20348		
+20354		
+20355		
+20356		
+20357		
+20358		
+20359		
+20360		
+20362		
+20363		
+20364		
+20365		
+20368		
+20372		
+20377		
+20378		
+20380		
+20381		
+20382	http://identifiers.org/cgd/	
+20383		
+20385		
+20386		
+20388		
+20389		
+20390		
+20391		
+20392		
+50000		
+50005	http://identifiers.org/ec-code/	
+50010		
+50035		
+50040		
+50050		
+50090		
+50110		
+50120		
+50140		
+50160		
+50170		
+50180		
+50185		
+50190	http://identifiers.org/po/	
+50196	http://purl.obolibrary.org/obo/GO_	GO:
+50200	http://identifiers.org/gro/	
+50541	http://identifiers.org/lrg/	
+50542	http://identifiers.org/ensembl/	
+50543	http://identifiers.org/ensembl/	
+50607		
+50608		
+50609		
+50610		
+50611		
+50620		
+50621	http://purl.uniprot.org/uniprot/	
+50622		
+50623		
+50624	http://identifiers.org/pfam/	
+50625		
+50626		
+50627		
+50628		
+50629		
+50630		
+50631		
+50632		
+50633		
+50634		
+50635		
+50637		
+50640		
+50641		
+50642		
+50643	http://identifiers.org/pombase/	
+50644		
+50645		
+50646		
+50647		
+50648		
+50649		
+50650		
+50651		
+50653		
+50654		
+50655		
+50656		
+50658		
+50660	http://identifiers.org/so/	
+50661		
+50662		
+50663		
+50664		
+50666		
+50667		
+50668		
+50669		
+50672		
+50673		
+50674		
+50677		
+50678		
+50679		
+50682		
+50683		
+50684	http://identifiers.org/eo/	
+50687		
+50688	http://identifiers.org/insdc/	
+50690		
+50691		
+50692		
+50693		
+50694		
+50695		
+50696		
+50697		
+50698		
+50700		
+50701		
+50703		
+50708		
+50709		
+50710		
+50711		
+50713		
+50715		
+50717		
+50718		
+50719		
+50720		
+50721		
+50722		
+50723		
+50726		
+50727		
+50728		
+50730		
+50731		
+50732		
+50733		
+50734		
+50735		
+50736		
+50737		
+50738		
+50739		
+50740		
+50742	http://identifiers.org/pmc/	
+50743	http://identifiers.org/pfam/	
+50744		
+50745		
+50746		
+50747		
+50748	http://identifiers.org/ensembl.plant/	
+50749	http://identifiers.org/chembl.target/	
+50750		
+50752	http://identifiers.org/pride/	
+50753		
+50755	http://identifiers.org/bindingdb/	
+50756		
+50757	http://identifiers.org/unipathway.reaction/	
+50759	http://identifiers.org/swiss-model/	
+50762		
+50770		
+50771		
+50772		
+50775		
+50776		
+50777		
+50778		
+50779		
+50780		
+50782		
+50783		
+50784	http://identifiers.org/ensembl.metazoa/	
+50785		
+50786		
+50788		
+50789	http://identifiers.org/pr/	
+50790		
+50792	http://identifiers.org/cl/	
+50793	http://identifiers.org/chebi/	
+50794		
+50795		
+50796	http://identifiers.org/pato/	
+50797		
+50798		
+50799		
+50801		
+50802		
+50803		
+50808	http://identifiers.org/doi/	
+50809		
+50814		
+50815	http://identifiers.org/ensembl.fungi/	
+50817	http://identifiers.org/rnacentral/	
+50818		
+50819		
+50820		
+50821		
+50822		
+50823		
+50824	http://identifiers.org/reactome/	
+50825	http://identifiers.org/reactome/	
+50826	http://identifiers.org/pb.ref/	
+50827	http://identifiers.org/geo/	
+50828		
+20350		
+50831	http://identifiers.org/efo/	
+50832		
+50833	http://identifiers.org/vgnc/	
+50834		
+50741	http://identifiers.org/dbsnp/	
+50835	http://identifiers.org/vectorbase/	
+50836	http://identifiers.org/ensembl.protist/	
+50837		
+50838		
+50839		
+50840	http://identifiers.org/refseq/	
+50841		
+50842	http://identifiers.org/ensembl.plants/	
+50843	http://identifiers.org/maizegdb.locus/	
+50845		
+50846		
+50847	http://identifiers.org/pubmed/	
+50848		
+50849		
+50850		
+50851	http://identifiers.org/oryzabase.gene/	
+50852	http://identifiers.org/rapdb.transcript/	
+50853		
+50854		
+50855		
+50856		
+50857		
+50858		
+50859		
+50860		
+50861		
+50862		
+50863		
+50864		
+50865		
+50866		
+50867		
+50868		
+50869	http://purl.uniprot.org/isoforms/	
+50870		
+50873		
+50872		
+50871		
+50874		
+50875		
+50877		
+50882		
+50878	http://identifiers.org/ensembl.metazoa/	
+50881	http://identifiers.org/insdc/	
+50879	http://identifiers.org/ensembl.metazoa/	
+50883		
+50876		
+50880	http://identifiers.org/insdc/	
+50886		
+50885		
+50884		
+50887		
+50889		
+50888		
+50893		
+50892		
+50891		
+50890		
+50894		
+50896		
+50897		
+50895		
+50898	http://identifiers.org/genecards/	
