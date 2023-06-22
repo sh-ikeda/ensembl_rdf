@@ -25,7 +25,7 @@
 832	
 833	
 883	http://identifiers.org/reactome/
-1000	http://identifiers.org/go/
+1000	http://purl.obolibrary.org/obo/GO_
 1001	http://identifiers.org/go_ref/
 1100	http://identifiers.org/hgnc/
 1200	http://identifiers.org/interpro/
@@ -47,16 +47,16 @@
 1820	http://identifiers.org/refseq/
 1825	http://identifiers.org/refseq/
 1830	http://identifiers.org/refseq/
-2000	http://identifiers.org/uniprot/
-2200	http://identifiers.org/uniprot/
-2202	http://identifiers.org/uniprot.isoform/
-2250	http://identifiers.org/uniprot/
+2000	http://purl.uniprot.org/uniprot/
+2200	http://purl.uniprot.org/uniprot/
+2202	http://purl.uniprot.org/isoforms/
+2250	http://purl.uniprot.org/uniprot/
 2300	
 2310	
 2320	
 2400	http://identifiers.org/wb/
-2410	http://identifiers.org/wb/
-2420	
+2410	
+2420	http://identifiers.org/wormpep/
 2440	http://identifiers.org/wb/
 2510	http://identifiers.org/zfin/
 2530	http://identifiers.org/zfin/
@@ -80,7 +80,7 @@
 3500	
 3800	http://identifiers.org/ccds/
 3900	http://identifiers.org/pubmed/
-4100	
+4100	http://identifiers.org/unigene/
 4200	http://identifiers.org/rfam/
 4400	http://identifiers.org/xenbase/
 4600	
@@ -133,17 +133,17 @@
 9600	
 9700	
 10000	http://identifiers.org/wb/
-10100	
+10100	http://identifiers.org/epd/
 10300	http://identifiers.org/merops/
 10500	
 11000	
 12310	
-12315	http://identifiers.org/ensembl/
+12315	
 12410	
-12415	http://identifiers.org/ensembl/
+12415	
 12500	
 12505	
-12510	
+12510	http://identifiers.org/hpa/
 12600	http://identifiers.org/wikigenes/
 12601	
 12620	
@@ -245,7 +245,7 @@
 50180	
 50185	
 50190	http://identifiers.org/po/
-50196	http://identifiers.org/go/
+50196	http://purl.obolibrary.org/obo/GO_
 50200	http://identifiers.org/gro/
 50541	http://identifiers.org/lrg/
 50542	http://identifiers.org/ensembl/
@@ -256,7 +256,7 @@
 50610	
 50611	
 50620	
-50621	http://identifiers.org/uniprot/
+50621	http://purl.uniprot.org/uniprot/
 50622	
 50623	
 50624	http://identifiers.org/pfam/
@@ -284,12 +284,12 @@
 50649	
 50650	
 50651	
-50653	http://identifiers.org/so/
+50653	
 50654	
 50655	
 50656	
 50658	
-50660	
+50660	http://identifiers.org/so/
 50661	
 50662	
 50663	
@@ -308,7 +308,7 @@
 50683	
 50684	http://identifiers.org/eo/
 50687	
-50688	
+50688	http://identifiers.org/insdc/
 50690	
 50691	
 50692	
@@ -389,7 +389,7 @@
 50797	
 50798	
 50799	
-50801	http://identifiers.org/kegg.pathway/
+50801	
 50802	
 50803	
 50808	http://identifiers.org/doi/
@@ -447,7 +447,7 @@
 50866	
 50867	
 50868	
-50869	http://identifiers.org/uniprot.isoform/
+50869	http://purl.uniprot.org/isoforms/
 50870	
 50873	
 50872	
@@ -461,7 +461,7 @@
 50879	http://identifiers.org/ensembl.metazoa/
 50883	
 50876	
-50880	http://identifiers.org/ensembl.metazoa/
+50880	http://identifiers.org/insdc/
 50886	
 50885	
 50884	
