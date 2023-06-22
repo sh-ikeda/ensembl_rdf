@@ -105,6 +105,7 @@ class Ensembl2turtle:
         self.ensembl_version = self.get_ensembl_version()
         self.production_name = self.get_production_name()
         self.xref_url_dic = {}
+        self.xref_prefix_dic = {}
         self.init_xref_url_dic()
         self.xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
         self.not_xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
@@ -121,6 +122,8 @@ class Ensembl2turtle:
                 sep_line = line.split('\t')
                 if sep_line[1] != "":
                     self.xref_url_dic[sep_line[0]] = sep_line[1]
+                if sep_line[2] != "":
+                    self.xref_prefix_dic[sep_line[0]] = sep_line[2]
                 line = input_table.readline()
         return
 
@@ -447,7 +450,10 @@ class Ensembl2turtle:
             external_db_id = xref[xref_id][0]
             external_db_code = external_db[external_db_id][0]
             if self.xref_url_dic.get(external_db_id, "") != "":
-                xref_url = self.xref_url_dic[external_db_id] + xref[xref_id][1]
+                dbprimary_acc = xref[xref_id][1]
+                if external_db_id in self.xref_prefix_dic:
+                    dbprimary_acc = dbprimary_acc.replace(self.xref_prefix_dic[external_db_id], "")
+                xref_url = self.xref_url_dic[external_db_id] + dbprimary_acc
                 self.triple(subject_url, "rdfs:seeAlso", "<"+xref_url+">")
                 if external_db_code not in self.xrefed_dbs[subject_type]:
                     self.xrefed_dbs[subject_type][external_db_code] = [subject_url, xref_url, 0]
