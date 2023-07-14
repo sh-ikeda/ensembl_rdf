@@ -55,6 +55,7 @@ class Ensembl2turtle:
         ['dcterms:', '<http://purl.org/dc/terms/>'],
         ['owl:', '<http://www.w3.org/2002/07/owl#>'],
         ['ensg:', '<http://rdf.ebi.ac.uk/resource/ensembl/>'],
+        ['ensgloss:', '<http://ensembl.org/glossary/>'],
         ['terms:', '<http://rdf.ebi.ac.uk/terms/ensembl/>'],
         ['ense:', '<http://rdf.ebi.ac.uk/resource/ensembl.exon/>'],
         ['ensp:', '<http://rdf.ebi.ac.uk/resource/ensembl.protein/>'],
@@ -68,30 +69,30 @@ class Ensembl2turtle:
 
     # Keys are `code` of the attrib_type table to be used as transcript flags
     transcript_flags = {
-        "gencode_basic": {"GENCODE basic": "terms:GENCODEBasic"},
+        "gencode_basic": {"GENCODE basic": "ensgloss:ENSGLOSSARY_0000020"},
         "appris": {
-            "principal1": "terms:Principal1",
-            "principal2": "terms:Principal2",
-            "principal3": "terms:Principal3",
-            "principal4": "terms:Principal4",
-            "principal5": "terms:Principal5",
-            "alternative1": "terms:Alternative1",
-            "alternative2": "terms:Alternative2"
+            "principal1": "ensgloss:ENSGLOSSARY_0000013",
+            "principal2": "ensgloss:ENSGLOSSARY_0000014",
+            "principal3": "ensgloss:ENSGLOSSARY_0000015",
+            "principal4": "ensgloss:ENSGLOSSARY_0000016",
+            "principal5": "ensgloss:ENSGLOSSARY_0000017",
+            "alternative1": "ensgloss:ENSGLOSSARY_0000018",
+            "alternative2": "ensgloss:ENSGLOSSARY_0000019"
         },
         "TSL": {
-            "tsl1": "terms:TSL1",
-            "tsl2": "terms:TSL2",
-            "tsl3": "terms:TSL3",
-            "tsl4": "terms:TSL4",
-            "tsl5": "terms:TSL5",
-            "tslNA": "terms:TSLNA"
+            "tsl1": "ensgloss:ENSGLOSSARY_0000006",
+            "tsl2": "ensgloss:ENSGLOSSARY_0000007",
+            "tsl3": "ensgloss:ENSGLOSSARY_0000008",
+            "tsl4": "ensgloss:ENSGLOSSARY_0000009",
+            "tsl5": "ensgloss:ENSGLOSSARY_0000010",
+            "tslNA": "ensgloss:ENSGLOSSARY_0000011"
         },
-        "is_canonical": {"1": "terms:EnsemblCanonical"},
-        "remark": {"MANE_select": "terms:MANESelect"},
-        "mRNA_start_NF": {"1": "terms:Incomplete"},
-        "mRNA_end_NF": {"1": "terms:Incomplete"},
-        "cds_start_NF": {"1": "terms:Incomplete"},
-        "cds_end_NF": {"1": "terms:Incomplete"}
+        "is_canonical": {"1": "ensgloss:ENSGLOSSARY_0000023"},
+        "remark": {"MANE_select": "ensgloss:ENSGLOSSARY_0000365"},
+        "mRNA_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
+        "mRNA_end_NF": {"1": "ensgloss:ENSGLOSSARY_0000022"},
+        "cds_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
+        "cds_end_NF": {"1": "ensgloss:ENSGLOSSARY_0000022"}
     }
 
     hco_chr_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
