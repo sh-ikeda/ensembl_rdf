@@ -1,0 +1,83 @@
+@prefix : <http://rdf.ebi.ac.uk/terms/ensembl/>
+@prefix ensgloss: <http://ensembl.org/glossary/> .
+
+
+<http://rdf.ebi.ac.uk/terms/ensembl/> a owl:Ontology .
+
+:EnsemblGene
+    a owl:Class ;
+    rdfs:label "Ensembl gene" .
+
+:EnsemblExon
+    a owl:Class ;
+    rdfs:label "Ensembl exon" .
+
+:EnsemblTranscript
+    a owl:Class ;
+    rdfs:label "Ensembl transcript" .
+
+:EnsemblProtein
+    a owl:Class ;
+    rdfs:label "Ensembl protein" .
+
+:EnsemblOrderedExon
+    a owl:Class ;
+    rdfs:label "Ensembl ordered exon" .
+
+
+:Biotype
+    a owl:Class ;
+    rdfs:label "Biotype" .
+
+:Artifact a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "artifact" .
+
+:IG_D_Pseudogene a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "IG D pseudogene" .
+
+:IG_LV_Gene a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "IG LV gene" .
+
+:LRG_Gene a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "LRG gene" .
+
+:Unknown_Likely_Coding a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "unknown likely coding" .
+
+:MiRNA_Primary_Transcript a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "miRNA primary transcript" .
+
+:Protein_Coding_LoF a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "protein coding LoF" .
+
+
+:has_biotype
+    a owl:ObjectProperty ;
+    rdfs:domain [
+        a owl:Class ;
+        owl:unionOf (
+            :EnsemblGene
+            :EnsemblTranscript
+            )
+        ] ;
+    rdfs:range [
+        a owl:Class ;
+        owl:unionOf (
+            ensgloss:ENSGLOSSARY_0000025  # Biotype
+            :Biotype
+            )
+        ] ;
+    rdfs:label "has biotype" .
+
+:has_transcript_flag
+    a owl:ObjectProperty ;
+    rdfs:domain :EnsemblTranscript ;
+    rdfs:range ensgloss:ENSGLOSSARY_0000003 ;  # Transcript
+    rdfs:label "has transcript flag" .
