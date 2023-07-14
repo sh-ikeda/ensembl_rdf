@@ -99,6 +99,8 @@ class Ensembl2turtle:
                      "11", "12", "13", "14", "15", "16", "17", "18",
                      "19", "20", "21", "22", "X", "Y", "MT"]
 
+    base_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
+
     def __init__(self, input_dbinfo_file):
         self.dbinfo = self.load_dbinfo(input_dbinfo_file)
         self.dbs = self.load_dbs()
@@ -111,12 +113,25 @@ class Ensembl2turtle:
         self.xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
         self.not_xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
         self.output_file = sys.stdout
+        self.biotype_url_dic = {}
+        self.init_biotype_url_dic()
+
+    def init_biotype_url_dic(self):
+        biotype_url_dic_tsv = "ontology/biotype_url.tsv"
+        with open(Ensembl2turtle.base_dir+biotype_url_dic_tsv, "r") as input_table:
+            line = input_table.readline()
+            while (line):
+                line = line.rstrip('\n')
+                sep_line = line.split('\t')
+                if sep_line[1] != "":
+                    self.biotype_url_dic[sep_line[0]] = sep_line[1]
+                line = input_table.readline()
+        return
 
     def init_xref_url_dic(self):
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
-        XREF_URL_DIC_TSV = "external_db_url.tsv"
+        xref_url_dic_tsv = "external_db_url.tsv"
 
-        with open(BASE_DIR+XREF_URL_DIC_TSV, "r") as input_table:
+        with open(Ensembl2turtle.base_dir+xref_url_dic_tsv, "r") as input_table:
             line = input_table.readline()
             while (line):
                 line = line.rstrip('\n')
@@ -210,7 +225,7 @@ class Ensembl2turtle:
 
             self.triple(sbj, "a", "terms:EnsemblGene")
             self.triple(sbj, "a", "terms:"+gene[id][0])
-            self.triple(sbj, "terms:biotype", "terms:"+gene[id][0])
+            self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[gene[id][0]])
             if xref_id == "\\N":
                 label = gene[id][6]  # Substitute ID for label
             else:
@@ -256,8 +271,8 @@ class Ensembl2turtle:
             xref_id = transcript[id][4]
 
             self.triple(sbj, "a", "terms:EnsemblTranscript")
-            self.triple(sbj, "a", "terms:"+transcript[id][5])
-            self.triple(sbj, "terms:biotype", "terms:"+transcript[id][5])
+            self.triple(sbj, "a", self.biotype_url_dic[transcript[id][5]])
+            self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[transcript[id][5]])
             if xref_id == "\\N":
                 label = transcript[id][7]  # Substitute ID for label
             else:
