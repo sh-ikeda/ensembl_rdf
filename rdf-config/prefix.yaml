@@ -10,8 +10,10 @@ terms: <http://rdf.ebi.ac.uk/terms/ensembl/>
 ense: <http://rdf.ebi.ac.uk/resource/ensembl.exon/>
 ensp: <http://rdf.ebi.ac.uk/resource/ensembl.protein/>
 enst: <http://rdf.ebi.ac.uk/resource/ensembl.transcript/>
+ensgloss: <http://ensembl.org/glossary/>
 ensi: <http://identifiers.org/ensembl/>
 taxonomy: <http://identifiers.org/taxonomy/>
 uniprot: <http://purl.uniprot.org/uniprot/>
 sio: <http://semanticscience.org/resource/>
 skos: <http://www.w3.org/2004/02/skos/core#>
+uniprot: <http://purl.uniprot.org/uniprot/>
