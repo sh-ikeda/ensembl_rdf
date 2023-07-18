@@ -9,7 +9,7 @@
   - rdfs:label:
     - ensg_label: "TSPAN6"
   # gene.description
-  - dcterms:description?:
+  - dcterms:description:
     - ensg_description: "tetraspanin 6 [Source:HGNC Symbol;Acc:HGNC:11858]"
   # gene.gene_id
   - dcterms:identifier:
@@ -17,7 +17,7 @@
   # meta.select(meta_value WHERE (meta_key=species.taxonomy_id))
   - obo:RO_0002162:
     - ensg_taxonomy: taxonomy:9606
-  - so:part_of:
+  - so:part_of+:
     - ensg_chromosome: <http://rdf.ebi.ac.uk/resource/ensembl/110/homo_sapiens/GRCh38/X>
     ## In addition, human genes have an HCO term.
   # gene.select(seq_region_start, seq_region_end, seq_region_strand)
@@ -69,7 +69,7 @@
   - so:transcribed_from:
     - enst_transcribed_from: EnsemblGene
   # transcript.canonical_translation_id
-  - so:translates_to:
+  - so:translates_to?:
     - enst_translates_to: EnsemblProtein
   # flag
   ## https://asia.ensembl.org/info/genome/genebuild/transcript_quality_tags.html
