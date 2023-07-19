@@ -224,8 +224,12 @@ class Ensembl2turtle:
             xref_id = gene[id][4]
 
             self.triple(sbj, "a", "terms:EnsemblGene")
-            self.triple(sbj, "a", self.biotype_url_dic[gene[id][0]])
-            self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[gene[id][0]])
+            biotype = gene[id][0]
+            if biotype not in self.biotype_url_dic:
+                print(f'Warning: Unknown biotype `{biotype}`', file=sys.stderr)
+            else:
+                self.triple(sbj, "a", self.biotype_url_dic[biotype])
+                self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[biotype])
             if xref_id == "\\N":
                 label = gene[id][6]  # Substitute ID for label
             else:
@@ -271,8 +275,12 @@ class Ensembl2turtle:
             xref_id = transcript[id][4]
 
             self.triple(sbj, "a", "terms:EnsemblTranscript")
-            self.triple(sbj, "a", self.biotype_url_dic[transcript[id][5]])
-            self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[transcript[id][5]])
+            biotype = transcript[id][5]
+            if biotype not in self.biotype_url_dic:
+                print(f'Warning: Unknown biotype `{biotype}`', file=sys.stderr)
+            else:
+                self.triple(sbj, "a", self.biotype_url_dic[biotype])
+                self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[biotype])
             if xref_id == "\\N":
                 label = transcript[id][7]  # Substitute ID for label
             else:
