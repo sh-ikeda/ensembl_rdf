@@ -104,9 +104,12 @@ class Ensembl2turtle:
     def __init__(self, input_dbinfo_file):
         self.dbinfo = self.load_dbinfo(input_dbinfo_file)
         self.dbs = self.load_dbs()
-        self.taxonomy_id = self.get_taxonomy_id()
+        # self.taxonomy_id = self.get_taxonomy_id()
         self.ensembl_version = self.get_ensembl_version()
-        self.production_name = self.get_production_name()
+        # self.production_name = self.get_production_name()
+        self.species_id2taxonomy_id = self.get_species_id2taxonomy_id()
+        print(self.species_id2taxonomy_id)
+        self.species_id2production_name = self.get_species_id2production_name()
         self.xref_url_dic = {}
         self.xref_prefix_dic = {}
         self.init_xref_url_dic()
@@ -163,6 +166,12 @@ class Ensembl2turtle:
     def get_production_name(self):
         production_names = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'species.production_name']
         return production_names[0]
+
+    def get_species_id2production_name(self):
+        return {v[0]: v[2] for v in self.dbs["meta"].values() if v[1] == 'species.production_name'}
+
+    def get_species_id2taxonomy_id(self):
+        return {v[0]: v[2] for v in self.dbs["meta"].values() if v[1] == 'species.taxonomy_id'}
 
     def load_dbinfo(self, input_dbinfo_file):
         dbinfo_dict = {}
@@ -222,6 +231,7 @@ class Ensembl2turtle:
         for id in gene:
             sbj = "ensg:" + escape(gene[id][6])
             xref_id = gene[id][4]
+            seq_region_id = gene[id][7]
 
             self.triple(sbj, "a", "terms:EnsemblGene")
             biotype = gene[id][0]
@@ -240,14 +250,14 @@ class Ensembl2turtle:
                 description = ""
             self.triple(sbj, "dcterms:description", quote(description))
             self.triple(sbj, "dcterms:identifier", quote(gene[id][6]))
-            self.triple(sbj, "obo:RO_0002162", "taxonomy:"+self.taxonomy_id)
+            self.triple(sbj, "obo:RO_0002162", "taxonomy:"+self.seq_region_id_to_taxonomy_id(seq_region_id))
+
             # synonym
             synonyms = ", ".join([quote(v[0]) for v in external_synonym.get(xref_id, [])])
             if len(synonyms) >= 1:
                 self.triple(sbj, "skos:altLabel", synonyms)
 
             # location
-            seq_region_id = gene[id][7]
             chromosome_urls = self.seq_region_id_to_chr(seq_region_id)
             location = self.create_location_str(gene[id][1],
                                                 gene[id][2],
@@ -332,22 +342,37 @@ class Ensembl2turtle:
         f.close()
         return
 
+    def seq_region_id_to_taxonomy_id(self, seq_region_id):
+        seq_region = self.dbs["seq_region"]
+        coord_system = self.dbs["coord_system"]
+        coord_system_id = seq_region[seq_region_id][1]
+        species_id = coord_system[coord_system_id][0]
+        return self.species_id2taxonomy_id[species_id]
+
+    def seq_region_id_to_production_name(self, seq_region_id):
+        seq_region = self.dbs["seq_region"]
+        coord_system = self.dbs["coord_system"]
+        coord_system_id = seq_region[seq_region_id][1]
+        species_id = coord_system[coord_system_id][0]
+        return self.species_id2production_name[species_id]
+
     def seq_region_id_to_chr(self, seq_region_id):
         seq_region = self.dbs["seq_region"]
         coord_system = self.dbs["coord_system"]
         chromosome_name = seq_region[seq_region_id][0]
         coord_system_id = seq_region[seq_region_id][1]
+        production_name = self.seq_region_id_to_production_name(seq_region_id)
         chromosome_urls = []
         # e.g. "GRCm38"
         coord_system_version = coord_system[coord_system_id][2]
         # e.g. <http://rdf.ebi.ac.uk/resource/ensembl/109/mus_musculus/GRCm38/Y>
-        chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+self.production_name+"/"+coord_system_version+"/"+chromosome_name+">"
+        chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+production_name+"/"+coord_system_version+"/"+chromosome_name+">"
         # For LRG, <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/LRG_1>">"
         if coord_system[coord_system_id][1] == "lrg":
-            chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+self.production_name+"/"+chromosome_name+">"
+            chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+production_name+"/"+chromosome_name+">"
         chromosome_urls.append(chromosome_url)
 
-        if self.taxonomy_id == "9606":
+        if self.seq_region_id_to_taxonomy_id(seq_region_id) == "9606":
             if chromosome_name in Ensembl2turtle.hco_chr_names:
                 hco_url = "<http://identifiers.org/hco/"+chromosome_name+"/GRCh38>"
                 chromosome_urls.append(hco_url)
@@ -516,13 +541,15 @@ class Ensembl2turtle:
         self.rdfize_xref()
 
         with open("xref_report.tsv", "w") as f:
+            cwd = os.getcwd()
+            dir_prod_name = re.sub(r"(.*/)|(_core_[^/]+$)", "", cwd)
             for subject_type, dbs in self.xrefed_dbs.items():
                 for db in dbs:
-                    print(self.production_name, "ref", subject_type, db,
+                    print(dir_prod_name, "xref", subject_type, db,
                           dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
             for subject_type, dbs in self.not_xrefed_dbs.items():
                 for db in dbs:
-                    print(self.production_name, "not_ref", subject_type, db,
+                    print(dir_prod_name, "unknown", subject_type, db,
                           dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
 
         dt_now = datetime.datetime.now()
