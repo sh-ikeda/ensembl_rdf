@@ -66,3 +66,14 @@ LRG_gene	terms:LRG_Gene
 unknown_likely_coding	terms:Unknown_Likely_Coding
 miRNA_primary_transcript	terms:MiRNA_Primary_Transcript
 protein_coding_LoF	terms:Protein_Coding_LoF
+RNase_P_RNA	obo:SO_0000386
+SRP_RNA	obo:SO_0000590
+RNase_MRP_RNA	obo:SO_0000385
+antitoxin	terms:Antitoxin
+guide_RNA	obo:SO_0000602
+misc_non_coding	ensgloss:ENSGLOSSARY_0000046
+non_coding	ensgloss:ENSGLOSSARY_0000037
+nontranslating_CDS	terms:Nontranslating_CDS
+pseudogene_with_CDS	terms:Pseudogene_With_CDS
+telomerase_RNA	obo:SO_0000390
+tmRNA	obo:SO_0000584

@@ -57,6 +57,17 @@
     rdfs:subClassOf :Biotype ;
     rdfs:label "protein coding LoF" .
 
+:Antitoxin a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "antitoxin" .
+
+:Nontranslating_CDS a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "nontranslating CDS" .
+
+:Pseudogene_With_CDS a owl:Class ;
+    rdfs:subClassOf :Biotype ;
+    rdfs:label "pseudogene with CDS" .
 
 :has_biotype
     a owl:ObjectProperty ;
