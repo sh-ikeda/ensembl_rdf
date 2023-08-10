@@ -108,7 +108,7 @@ class Ensembl2turtle:
         self.ensembl_version = self.get_ensembl_version()
         # self.production_name = self.get_production_name()
         self.species_id2taxonomy_id = self.get_species_id2taxonomy_id()
-        print(self.species_id2taxonomy_id)
+        # print(self.species_id2taxonomy_id)
         self.species_id2production_name = self.get_species_id2production_name()
         self.xref_url_dic = {}
         self.xref_prefix_dic = {}
