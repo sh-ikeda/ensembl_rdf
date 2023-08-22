@@ -5,6 +5,7 @@ import psutil
 import json
 import re
 import datetime
+import urllib.parse
 
 input_dir = "./"
 
@@ -502,7 +503,7 @@ class Ensembl2turtle:
                 dbprimary_acc = xref[xref_id][1]
                 if external_db_id in self.xref_prefix_dic:
                     dbprimary_acc = dbprimary_acc.replace(self.xref_prefix_dic[external_db_id], "")
-                xref_url = self.xref_url_dic[external_db_id] + dbprimary_acc
+                xref_url = self.xref_url_dic[external_db_id] + urllib.parse.quote(dbprimary_acc, safe=":/")
                 self.triple(subject_url, "rdfs:seeAlso", "<"+xref_url+">")
                 if external_db_code not in self.xrefed_dbs[subject_type]:
                     self.xrefed_dbs[subject_type][external_db_code] = [subject_url, xref_url, 0]
