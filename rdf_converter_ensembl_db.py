@@ -64,6 +64,7 @@ class Ensembl2turtle:
         ['ensi:', '<http://identifiers.org/ensembl/>'],
         ['taxonomy:', '<http://identifiers.org/taxonomy/>'],
         ['uniprot:', '<http://purl.uniprot.org/uniprot/>'],
+        ['refseq:', '<http://identifiers.org/refseq/>'],
         ['sio:', '<http://semanticscience.org/resource/>'],
         ['skos:', '<http://www.w3.org/2004/02/skos/core#>']
     ]
