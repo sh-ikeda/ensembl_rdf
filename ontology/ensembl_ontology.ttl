@@ -24,6 +24,10 @@
     a owl:Class ;
     rdfs:label "Ensembl ordered exon" .
 
+:VersionedTranscript
+    a owl:Class ;
+    rdfs:label "Versioned transcript" .
+
 
 :Biotype
     a owl:Class ;
@@ -92,3 +96,20 @@
     rdfs:domain :EnsemblTranscript ;
     rdfs:range ensgloss:ENSGLOSSARY_0000003 ;  # Transcript
     rdfs:label "has transcript flag" .
+
+:has_versioned_transcript
+    a owl:ObjectProperty ;
+    rdfs:domain :EnsemblTranscript ;
+    rdfs:range :VersionedTranscript ;
+    rdfs:label "has versioned transcript" .
+
+:has_version
+    a owl:DatatypeProperty ;
+    rdfs:domain :VersionedTranscript ;
+    rdfs:label "has version" .
+
+:has_counterpart
+    a owl:ObjectProperty ;
+    rdfs:domain :VersionedTranscript ;
+    rdfs:range :VersionedTranscript ;
+    rdfs:label "has counterpart" .
