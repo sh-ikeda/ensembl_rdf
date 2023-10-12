@@ -89,7 +89,7 @@ class Ensembl2turtle:
             "tslNA": "ensgloss:ENSGLOSSARY_0000011"
         },
         "is_canonical": {"1": "ensgloss:ENSGLOSSARY_0000023"},
-        "remark": {"MANE_select": "ensgloss:ENSGLOSSARY_0000365"},
+        # "remark": {"MANE_select": "ensgloss:ENSGLOSSARY_0000365"},
         "MANE_Select": {},
         "mRNA_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
         "mRNA_end_NF": {"1": "ensgloss:ENSGLOSSARY_0000022"},
