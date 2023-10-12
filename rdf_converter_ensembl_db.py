@@ -90,6 +90,7 @@ class Ensembl2turtle:
         },
         "is_canonical": {"1": "ensgloss:ENSGLOSSARY_0000023"},
         "remark": {"MANE_select": "ensgloss:ENSGLOSSARY_0000365"},
+        "MANE_Select": {},
         "mRNA_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
         "mRNA_end_NF": {"1": "ensgloss:ENSGLOSSARY_0000022"},
         "cds_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
@@ -282,7 +283,8 @@ class Ensembl2turtle:
         self.output_file = f
         self.output_prefixes()
         for id in transcript:
-            sbj = "enst:" + escape(transcript[id][7])
+            stable_id = transcript[id][7]
+            sbj = "enst:" + escape(stable_id)
             xref_id = transcript[id][4]
 
             self.triple(sbj, "a", "terms:EnsemblTranscript")
@@ -293,11 +295,11 @@ class Ensembl2turtle:
                 self.triple(sbj, "a", self.biotype_url_dic[biotype])
                 self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[biotype])
             if xref_id == "\\N":
-                label = transcript[id][7]  # Substitute ID for label
+                label = stable_id  # Substitute ID for label
             else:
                 label = xref[xref_id][2]
             self.triple(sbj, "rdfs:label", quote(label))
-            self.triple(sbj, "dcterms:identifier", quote(transcript[id][7]))
+            self.triple(sbj, "dcterms:identifier", quote(stable_id))
             self.triple(sbj, "so:transcribed_from", "ensg:"+escape(gene[transcript[id][0]][6]))
             translates_to = transcript[id][6]
             if translates_to != "\\N":
@@ -324,15 +326,30 @@ class Ensembl2turtle:
                         attrib_val = re.sub(r" .*", "", attrib[1])
                         if match:
                             comment = match.group(1)
-                            statement = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/#_" + transcript[id][7] + "-has_transcript_flag-"+attrib_val+">"
+                            statement = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/#_" + stable_id + "-has_transcript_flag-"+attrib_val+">"
                             self.triple(statement, "a", "rdf:Statement")
                             self.triple(statement, "rdf:subject", sbj)
                             self.triple(statement, "rdf:predicate", "terms:has_transcript_flag")
                             self.triple(statement, "rdf:object", flag_dic[attrib_code][attrib_val])
                             self.triple(statement, "rdfs:comment", quote(comment))
-                    elif attrib_code == "remark":
-                        if attrib_val != "MANE_select":
-                            continue
+                    # elif attrib_code == "remark":
+                    #     if attrib_val != "MANE_select":
+                        #     continue
+                        # else:
+                    elif attrib_code == "MANE_Select":
+                        version = transcript[id][9]
+                        versioned_id = escape(stable_id) + "." + version
+                        versioned_sbj = "enst:" + versioned_id
+                        self.triple(sbj, "terms:has_transcript_flag", "ensgloss:ENSGLOSSARY_0000365")
+                        self.triple(sbj, "terms:has_versioned_transcript", versioned_sbj)
+                        self.triple(versioned_sbj, "a", "terms:VersionedTranscript")
+                        self.triple(versioned_sbj, "terms:has_version", version)
+                        self.triple(versioned_sbj, "dcterms:identifier", versioned_id)
+                        self.triple(versioned_sbj, "terms:has_transcript_flag", "ensgloss:ENSGLOSSARY_0000365")
+                        counterpart = "refseq:" + attrib_val
+                        self.triple(versioned_sbj, "terms:has_counterpart", counterpart)
+                        self.triple(re.sub(r"\.[0-9]+$", "", counterpart), "terms:has_versioned_transcript", counterpart)
+                        continue
                     self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
                     # try:
                     #     self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])

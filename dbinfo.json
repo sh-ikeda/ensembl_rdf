@@ -70,7 +70,8 @@
       {"index": 9, "name": "biotype"},
       {"index": 12, "name": "canonical_translation_id"},
       {"index": 13, "name": "stable_id"},
-      {"index": 3, "name": "seq_region_id"}
+      {"index": 3, "name": "seq_region_id"},
+      {"index": 14, "name": "version"}
     ]
   },
   "transcript_attrib": {
