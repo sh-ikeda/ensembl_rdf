@@ -345,7 +345,7 @@ class Ensembl2turtle:
                         self.triple(sbj, "terms:has_versioned_transcript", versioned_sbj)
                         self.triple(versioned_sbj, "a", "terms:VersionedTranscript")
                         self.triple(versioned_sbj, "terms:has_version", version)
-                        self.triple(versioned_sbj, "dcterms:identifier", versioned_id)
+                        self.triple(versioned_sbj, "dcterms:identifier", quote(versioned_id))
                         self.triple(versioned_sbj, "terms:has_transcript_flag", "ensgloss:ENSGLOSSARY_0000365")
                         counterpart = "refseq:" + attrib_val
                         self.triple(versioned_sbj, "terms:has_counterpart", counterpart)
