@@ -71,7 +71,10 @@ class Ensembl2turtle:
 
     # Keys are `code` of the attrib_type table to be used as transcript flags
     transcript_flags = {
-        "gencode_basic": {"GENCODE basic": "ensgloss:ENSGLOSSARY_0000020"},
+        "gencode_basic": {
+            "GENCODE basic": "ensgloss:ENSGLOSSARY_0000020",
+            "1": "ensgloss:ENSGLOSSARY_0000020"
+        },
         "appris": {
             "principal1": "ensgloss:ENSGLOSSARY_0000013",
             "principal2": "ensgloss:ENSGLOSSARY_0000014",
@@ -351,12 +354,11 @@ class Ensembl2turtle:
                         self.triple(versioned_sbj, "terms:has_counterpart", counterpart)
                         self.triple(re.sub(r"\.[0-9]+$", "", counterpart), "terms:has_versioned_transcript", counterpart)
                         continue
-                    self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
-                    # try:
-                    #     self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
-                    # except KeyError as e:
-                    #     print(sbj, attrib_code, attrib_val, file=sys.stderr)
-                    #     sys.exit()
+                    # self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
+                    try:
+                        self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
+                    except KeyError as e:
+                        print(f"Warning: KeyError: {e}; {sbj} {attrib_code} {attrib_val}", file=sys.stderr)
         self.output_file = sys.stdout
         f.close()
         return
