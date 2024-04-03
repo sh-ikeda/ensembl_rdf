@@ -1,5 +1,7 @@
-@prefix : <http://rdf.ebi.ac.uk/terms/ensembl/>
+@prefix : <http://rdf.ebi.ac.uk/terms/ensembl/> .
 @prefix ensgloss: <http://ensembl.org/glossary/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 
 
 <http://rdf.ebi.ac.uk/terms/ensembl/> a owl:Ontology .
