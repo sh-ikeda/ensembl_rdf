@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 set -euo pipefail
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
+CONFIG_DIR=$SCRIPT_DIR/../config
 
 for d in $( ls . | grep "_core_" ); do
     if [ ! -d $d ]; then
@@ -8,7 +9,7 @@ for d in $( ls . | grep "_core_" ); do
     fi
     cd $d
     echo $d 1>&2
-    python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $SCRIPT_DIR/dbinfo.json
+    python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json
 
     #echo "Validating turtle files..."
     for f in gene transcript translation exon exon_transcript xref ; do
