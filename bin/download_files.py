@@ -32,10 +32,11 @@ def process_directory(ftp, directory):
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
+CONFIG_DIR = os.path.dirname(os.path.abspath(__file__)) + "/../config/"
 ftp_url = sys.argv[1]  # e.g. 'ftp.ensembl.org'
 ftp_dir = sys.argv[2]  # e.g. '/pub/current_mysql/'
 
-with open(BASE_DIR+"dbinfo.json", "r") as f:
+with open(CONFIG_DIR+"dbinfo.json", "r") as f:
     dbinfo = json.load(f)
 dbs = [dbinfo[k]["filename"] for k in dbinfo]
 ftp = FTP(ftp_url)

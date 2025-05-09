@@ -95,6 +95,7 @@ class Ensembl2turtle:
         "is_canonical": {"1": "ensgloss:ENSGLOSSARY_0000023"},
         # "remark": {"MANE_select": "ensgloss:ENSGLOSSARY_0000365"},
         "MANE_Select": {},
+        "MANE_Plus_Clinical": {},
         "mRNA_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
         "mRNA_end_NF": {"1": "ensgloss:ENSGLOSSARY_0000022"},
         "cds_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
@@ -105,7 +106,7 @@ class Ensembl2turtle:
                      "11", "12", "13", "14", "15", "16", "17", "18",
                      "19", "20", "21", "22", "X", "Y", "MT"]
 
-    base_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
+    base_dir = os.path.dirname(os.path.abspath(__file__)) + "/../"
 
     def __init__(self, input_dbinfo_file):
         self.dbinfo = self.load_dbinfo(input_dbinfo_file)
@@ -138,7 +139,7 @@ class Ensembl2turtle:
         return
 
     def init_xref_url_dic(self):
-        xref_url_dic_tsv = "external_db_url.tsv"
+        xref_url_dic_tsv = "config/external_db_url.tsv"
 
         with open(Ensembl2turtle.base_dir+xref_url_dic_tsv, "r") as input_table:
             line = input_table.readline()
@@ -283,6 +284,7 @@ class Ensembl2turtle:
         gene = self.dbs["gene"]
         translation = self.dbs["translation"]
         attrib_type = self.dbs["attrib_type"]
+        unknown_flags = set()
         f = open("transcript.ttl", mode="w")
         self.output_file = f
         self.output_prefixes()
@@ -340,16 +342,21 @@ class Ensembl2turtle:
                     #     if attrib_val != "MANE_select":
                         #     continue
                         # else:
-                    elif attrib_code == "MANE_Select":
+                    ## For the MANE transcripts, triples with a versioned transcript is added.
+                    elif attrib_code == "MANE_Select" or attrib_code == "MANE_Plus_Clinical":
+                        if attrib_code == "MANE_Select":
+                            ensgloss_term = "ensgloss:ENSGLOSSARY_0000365"
+                        else:
+                            ensgloss_term = "ensgloss:ENSGLOSSARY_0000375"
                         version = transcript[id][9]
                         versioned_id = escape(stable_id) + "." + version
                         versioned_sbj = "enst:" + versioned_id
-                        self.triple(sbj, "terms:has_transcript_flag", "ensgloss:ENSGLOSSARY_0000365")
+                        self.triple(sbj, "terms:has_transcript_flag", ensgloss_term)
                         self.triple(sbj, "terms:has_versioned_transcript", versioned_sbj)
                         self.triple(versioned_sbj, "a", "terms:VersionedTranscript")
                         self.triple(versioned_sbj, "terms:has_version", version)
                         self.triple(versioned_sbj, "dcterms:identifier", quote(versioned_id))
-                        self.triple(versioned_sbj, "terms:has_transcript_flag", "ensgloss:ENSGLOSSARY_0000365")
+                        self.triple(versioned_sbj, "terms:has_transcript_flag", ensgloss_term)
                         counterpart = "refseq:" + attrib_val
                         self.triple(versioned_sbj, "terms:has_counterpart", counterpart)
                         self.triple(re.sub(r"\.[0-9]+$", "", counterpart), "terms:has_versioned_transcript", counterpart)
@@ -359,6 +366,10 @@ class Ensembl2turtle:
                         self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
                     except KeyError as e:
                         print(f"Warning: KeyError: {e}; {sbj} {attrib_code} {attrib_val}", file=sys.stderr)
+                else:
+                    if attrib[0] not in unknown_flags:
+                        print(f"Warning: Attribute not treated as flag: {attrib[0]} {attrib_code}", file=sys.stderr)
+                        unknown_flags.add(attrib[0])
         self.output_file = sys.stdout
         f.close()
         return
