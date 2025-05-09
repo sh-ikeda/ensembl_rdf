@@ -105,7 +105,7 @@ class Ensembl2turtle:
                      "11", "12", "13", "14", "15", "16", "17", "18",
                      "19", "20", "21", "22", "X", "Y", "MT"]
 
-    base_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
+    base_dir = os.path.dirname(os.path.abspath(__file__)) + "/../"
 
     def __init__(self, input_dbinfo_file):
         self.dbinfo = self.load_dbinfo(input_dbinfo_file)
@@ -138,7 +138,7 @@ class Ensembl2turtle:
         return
 
     def init_xref_url_dic(self):
-        xref_url_dic_tsv = "external_db_url.tsv"
+        xref_url_dic_tsv = "config/external_db_url.tsv"
 
         with open(Ensembl2turtle.base_dir+xref_url_dic_tsv, "r") as input_table:
             line = input_table.readline()
