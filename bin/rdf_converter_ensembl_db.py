@@ -95,6 +95,7 @@ class Ensembl2turtle:
         "is_canonical": {"1": "ensgloss:ENSGLOSSARY_0000023"},
         # "remark": {"MANE_select": "ensgloss:ENSGLOSSARY_0000365"},
         "MANE_Select": {},
+        "MANE_Plus_Clinical": {},
         "mRNA_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
         "mRNA_end_NF": {"1": "ensgloss:ENSGLOSSARY_0000022"},
         "cds_start_NF": {"1": "ensgloss:ENSGLOSSARY_0000021"},
@@ -341,16 +342,21 @@ class Ensembl2turtle:
                     #     if attrib_val != "MANE_select":
                         #     continue
                         # else:
-                    elif attrib_code == "MANE_Select":
+                    ## For the MANE transcripts, triples with a versioned transcript is added.
+                    elif attrib_code == "MANE_Select" or attrib_code == "MANE_Plus_Clinical":
+                        if attrib_code == "MANE_Select":
+                            ensgloss_term = "ensgloss:ENSGLOSSARY_0000365"
+                        else:
+                            ensgloss_term = "ensgloss:ENSGLOSSARY_0000375"
                         version = transcript[id][9]
                         versioned_id = escape(stable_id) + "." + version
                         versioned_sbj = "enst:" + versioned_id
-                        self.triple(sbj, "terms:has_transcript_flag", "ensgloss:ENSGLOSSARY_0000365")
+                        self.triple(sbj, "terms:has_transcript_flag", ensgloss_term)
                         self.triple(sbj, "terms:has_versioned_transcript", versioned_sbj)
                         self.triple(versioned_sbj, "a", "terms:VersionedTranscript")
                         self.triple(versioned_sbj, "terms:has_version", version)
                         self.triple(versioned_sbj, "dcterms:identifier", quote(versioned_id))
-                        self.triple(versioned_sbj, "terms:has_transcript_flag", "ensgloss:ENSGLOSSARY_0000365")
+                        self.triple(versioned_sbj, "terms:has_transcript_flag", ensgloss_term)
                         counterpart = "refseq:" + attrib_val
                         self.triple(versioned_sbj, "terms:has_counterpart", counterpart)
                         self.triple(re.sub(r"\.[0-9]+$", "", counterpart), "terms:has_versioned_transcript", counterpart)
