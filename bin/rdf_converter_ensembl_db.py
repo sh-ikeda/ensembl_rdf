@@ -283,6 +283,7 @@ class Ensembl2turtle:
         gene = self.dbs["gene"]
         translation = self.dbs["translation"]
         attrib_type = self.dbs["attrib_type"]
+        unknown_flags = set()
         f = open("transcript.ttl", mode="w")
         self.output_file = f
         self.output_prefixes()
@@ -359,6 +360,10 @@ class Ensembl2turtle:
                         self.triple(sbj, "terms:has_transcript_flag", flag_dic[attrib_code][attrib_val])
                     except KeyError as e:
                         print(f"Warning: KeyError: {e}; {sbj} {attrib_code} {attrib_val}", file=sys.stderr)
+                else:
+                    if attrib[0] not in unknown_flags:
+                        print(f"Warning: Attribute not treated as flag: {attrib[0]} {attrib_code}", file=sys.stderr)
+                        unknown_flags.add(attrib[0])
         self.output_file = sys.stdout
         f.close()
         return
