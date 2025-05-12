@@ -2,20 +2,14 @@
 set -euo pipefail
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 CONFIG_DIR=$SCRIPT_DIR/../config
-pattern="_core_"
+
 # 分割処理の最大行数
 SPLIT_THRESHOLD=20000000
 
-while getopts "ta" opt; do
-  case "$opt" in
-    t)
-      pattern="homo_sapiens_core_"
-      ;;
-    a)
-      pattern="acanthochromis_polyacanthus_core_"
-      ;;
-  esac
-done
+if [ "$#" -eq 0 ]; then
+    echo "Usage: $0 <dir1> [dir2 ...]" >&2
+    exit 1
+fi
 
 # Turtle ファイルを分割して rapper で処理する関数
 process_turtle_file() {
@@ -69,12 +63,14 @@ process_turtle_file() {
     fi
 }
 
-for d in $( ls . | grep "$pattern" ); do
-    if [ ! -d $d ]; then
+for d in "$@"; do
+    if [ ! -d "$d" ]; then
+        echo "Warning: '$d' is not a directory or does not exist, skipping." >&2
         continue
     fi
-    cd $d
-    echo $d 1>&2
+
+    echo "$d" 1>&2
+    cd "$d"
     python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json
     #echo "Validating turtle files..."
     for f in gene transcript translation exon exon_transcript xref; do
