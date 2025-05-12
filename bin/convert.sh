@@ -14,14 +14,14 @@ fi
 # Turtle ファイルを分割して rapper で処理する関数
 process_turtle_file() {
     local file=$1
-    echo "Processing $file..."
+    echo "Processing $file..." >&2
 
     # ファイルの行数を取得
     local line_count=$(wc -l < "$file")
-    echo "$file contains $line_count lines"
+    echo "$file contains $line_count lines" >&2
 
     if [ "$line_count" -gt "$SPLIT_THRESHOLD" ]; then
-        echo "File is large, splitting into chunks of $SPLIT_THRESHOLD lines"
+        echo "File is large, splitting into chunks of $SPLIT_THRESHOLD lines" >&2
 
         # 一時ディレクトリを作成
         local tmp_dir="tmp_split_$(basename "$file" .ttl)"
@@ -37,7 +37,7 @@ process_turtle_file() {
         grep -E "^@prefix|^@base" "$file" > "${tmp_dir}/prefixes.ttl"
 
         for chunk in "$tmp_dir"/chunk_*; do
-            echo "Processing chunk $chunk"
+            echo "Processing chunk $chunk" >&2
 
             # プレフィックスをチャンクの先頭に追加して rapper で処理
             cat "${tmp_dir}/prefixes.ttl" "$chunk" > "${chunk}.with_prefix"
@@ -69,7 +69,7 @@ for d in "$@"; do
         continue
     fi
 
-    echo "$d" 1>&2
+    echo "$d" >&2
     cd "$d"
     python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json
     #echo "Validating turtle files..."
@@ -78,7 +78,7 @@ for d in "$@"; do
             process_turtle_file "$f.ttl"
             gzip -f "$f.ttl"
         else
-            echo "Warning: $f.ttl not found"
+            echo "Warning: $f.ttl not found" >&2
         fi
     done
     cd ..
