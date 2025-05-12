@@ -2,8 +2,9 @@
 set -euo pipefail
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 CONFIG_DIR=$SCRIPT_DIR/../config
-
 pattern="_core_"
+# 分割処理の最大行数
+SPLIT_THRESHOLD=20000000
 
 while getopts "ta" opt; do
   case "$opt" in
@@ -16,6 +17,58 @@ while getopts "ta" opt; do
   esac
 done
 
+# Turtle ファイルを分割して rapper で処理する関数
+process_turtle_file() {
+    local file=$1
+    echo "Processing $file..."
+
+    # ファイルの行数を取得
+    local line_count=$(wc -l < "$file")
+    echo "$file contains $line_count lines"
+
+    if [ "$line_count" -gt "$SPLIT_THRESHOLD" ]; then
+        echo "File is large, splitting into chunks of $SPLIT_THRESHOLD lines"
+
+        # 一時ディレクトリを作成
+        local tmp_dir="tmp_split_$(basename "$file" .ttl)"
+        mkdir -p "$tmp_dir"
+
+        # ファイルを分割
+        split -l "$SPLIT_THRESHOLD" "$file" "$tmp_dir/chunk_"
+
+        # 分割されたファイルを処理して結合
+        > "${file}.processed"
+
+        # プレフィックス部分を保存（通常ファイルの先頭部分）
+        grep -E "^@prefix|^@base" "$file" > "${tmp_dir}/prefixes.ttl"
+
+        for chunk in "$tmp_dir"/chunk_*; do
+            echo "Processing chunk $chunk"
+
+            # プレフィックスをチャンクの先頭に追加して rapper で処理
+            cat "${tmp_dir}/prefixes.ttl" "$chunk" > "${chunk}.with_prefix"
+            rapper -i turtle -o turtle "${chunk}.with_prefix" > "${chunk}.processed"
+
+            # プレフィックス部分を除去して結合（最初のチャンクを除く）
+            if [ "$chunk" = "$tmp_dir/chunk_aa" ]; then
+                cat "${chunk}.processed" >> "${file}.processed"
+            else
+                grep -v -E "^@prefix|^@base" "${chunk}.processed" >> "${file}.processed"
+            fi
+        done
+
+        # 元のファイルを置き換え
+        mv "${file}.processed" "$file"
+
+        # 一時ディレクトリを削除
+        rm -rf "$tmp_dir"
+    else
+        # サイズが閾値以下なら通常処理
+        rapper -i turtle -o turtle "$file" > "${file}.rapper.ttl"
+        mv "${file}.rapper.ttl" "$file"
+    fi
+}
+
 for d in $( ls . | grep "$pattern" ); do
     if [ ! -d $d ]; then
         continue
@@ -23,12 +76,14 @@ for d in $( ls . | grep "$pattern" ); do
     cd $d
     echo $d 1>&2
     python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json
-
     #echo "Validating turtle files..."
-    for f in gene transcript translation exon exon_transcript xref ; do
-        rapper -i turtle -o turtle $f.ttl > $f.rapper.ttl
-        mv $f.rapper.ttl $f.ttl
-        gzip -f $f.ttl
+    for f in gene transcript translation exon exon_transcript xref; do
+        if [ -f "$f.ttl" ]; then
+            process_turtle_file "$f.ttl"
+            gzip -f "$f.ttl"
+        else
+            echo "Warning: $f.ttl not found"
+        fi
     done
     cd ..
 done
