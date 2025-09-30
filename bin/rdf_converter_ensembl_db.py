@@ -11,11 +11,14 @@ input_dir = "./"
 
 
 def quote(string):
+    # Enclose a string with double-quotation marks.
+    # Double-quotation marks within the input string are escaped with backslashes.
     return "\"" + string.replace("\"", "\\\"") + "\""
 
 
 def escape(string):
-    return re.sub(r"([()])", r"\\\1", string)
+    #return re.sub(r"([()])", r"\\\1", string)
+    return urllib.parse.quote(string)
 
 
 def strand2faldo(s):
@@ -487,7 +490,7 @@ class Ensembl2turtle:
             exon_stable_id = exon[exon_id][3]
             transcript_stable_id = transcript[transcript_id][7]
             rank = exon_transcript[id][0]
-            ordered_exon_uri = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/"+transcript_stable_id+"#Exon_"+rank+">"
+            ordered_exon_uri = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/"+escape(transcript_stable_id)+"#Exon_"+rank+">"
             exon_uri = "ense:" + escape(exon_stable_id)
             transcript_uri = "enst:" + escape(transcript_stable_id)
 
