@@ -403,7 +403,7 @@ class Ensembl2turtle:
         # e.g. <http://rdf.ebi.ac.uk/resource/ensembl/109/mus_musculus/GRCm38/Y>
         chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+production_name+"/"+coord_system_version+"/"+chromosome_name+">"
         # For LRG, <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/LRG_1>">"
-        if coord_system[coord_system_id][1] == "lrg":
+        if coord_system_version == "\\N":
             chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+production_name+"/"+chromosome_name+">"
         chromosome_urls.append(chromosome_url)
 
