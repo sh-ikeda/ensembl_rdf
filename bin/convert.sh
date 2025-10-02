@@ -74,7 +74,7 @@ for d in "$@"; do
         echo "$d" >&2
         cd "$d"
         python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json
-        echo "Exit code: $?" >&2
+
         for f in gene transcript translation exon exon_transcript xref; do
             if [ -f "$f.ttl" ]; then
                 process_turtle_file "$f.ttl"
