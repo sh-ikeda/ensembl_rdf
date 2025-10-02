@@ -128,6 +128,7 @@ class Ensembl2turtle:
         self.output_file = sys.stdout
         self.biotype_url_dic = {}
         self.init_biotype_url_dic()
+        self.used_coord_system_wo_version = set()
 
     def init_biotype_url_dic(self):
         biotype_url_dic_tsv = "ontology/biotype_url.tsv"
@@ -405,6 +406,9 @@ class Ensembl2turtle:
         # For LRG, <http://rdf.ebi.ac.uk/resource/ensembl/109/homo_sapiens/LRG_1>">"
         if coord_system_version == "\\N":
             chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+production_name+"/"+chromosome_name+">"
+            if coord_system_id not in self.used_coord_system_wo_version:
+                self.used_coord_system_wo_version.add(coord_system_id)
+                print(f'Warning: coord_system without version is used. ID: `{coord_system_id}`, name: `{coord_system[coord_system_id][1]}`', file=sys.stderr)
         chromosome_urls.append(chromosome_url)
 
         if self.seq_region_id_to_taxonomy_id(seq_region_id) == "9606":
