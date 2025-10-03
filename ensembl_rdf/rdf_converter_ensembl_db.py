@@ -10,13 +10,13 @@ import urllib.parse
 input_dir = "./"
 
 
-def quote(string):
+def quote_str(string):
     # Enclose a string with double-quotation marks.
     # Double-quotation marks within the input string are escaped with backslashes.
     return "\"" + string.replace("\"", "\\\"") + "\""
 
 
-def escape(string):
+def percent_encode(string):
     #return re.sub(r"([()])", r"\\\1", string)
     return urllib.parse.quote(string)
 
@@ -240,7 +240,7 @@ class Ensembl2turtle:
         self.output_file = f
         self.output_prefixes()
         for id in gene:
-            sbj = "ensg:" + escape(gene[id][6])
+            sbj = "ensg:" + percent_encode(gene[id][6])
             xref_id = gene[id][4]
             seq_region_id = gene[id][7]
 
@@ -255,16 +255,16 @@ class Ensembl2turtle:
                 label = gene[id][6]  # Substitute ID for label
             else:
                 label = xref[xref_id][2]
-            self.triple(sbj, "rdfs:label", quote(label))
+            self.triple(sbj, "rdfs:label", quote_str(label))
             description = gene[id][5]
             if description == "\\N":
                 description = ""
-            self.triple(sbj, "dcterms:description", quote(description))
-            self.triple(sbj, "dcterms:identifier", quote(gene[id][6]))
+            self.triple(sbj, "dcterms:description", quote_str(description))
+            self.triple(sbj, "dcterms:identifier", quote_str(gene[id][6]))
             self.triple(sbj, "obo:RO_0002162", "taxonomy:"+self.seq_region_id_to_taxonomy_id(seq_region_id))
 
             # synonym
-            synonyms = ", ".join([quote(v[0]) for v in external_synonym.get(xref_id, [])])
+            synonyms = ", ".join([quote_str(v[0]) for v in external_synonym.get(xref_id, [])])
             if len(synonyms) >= 1:
                 self.triple(sbj, "skos:altLabel", synonyms)
 
@@ -294,7 +294,7 @@ class Ensembl2turtle:
         self.output_prefixes()
         for id in transcript:
             stable_id = transcript[id][7]
-            sbj = "enst:" + escape(stable_id)
+            sbj = "enst:" + percent_encode(stable_id)
             xref_id = transcript[id][4]
 
             self.triple(sbj, "a", "terms:EnsemblTranscript")
@@ -308,12 +308,12 @@ class Ensembl2turtle:
                 label = stable_id  # Substitute ID for label
             else:
                 label = xref[xref_id][2]
-            self.triple(sbj, "rdfs:label", quote(label))
-            self.triple(sbj, "dcterms:identifier", quote(stable_id))
-            self.triple(sbj, "so:transcribed_from", "ensg:"+escape(gene[transcript[id][0]][6]))
+            self.triple(sbj, "rdfs:label", quote_str(label))
+            self.triple(sbj, "dcterms:identifier", quote_str(stable_id))
+            self.triple(sbj, "so:transcribed_from", "ensg:"+percent_encode(gene[transcript[id][0]][6]))
             translates_to = transcript[id][6]
             if translates_to != "\\N":
-                self.triple(sbj, "so:translates_to", "ensp:"+escape(translation[translates_to][1]))
+                self.triple(sbj, "so:translates_to", "ensp:"+percent_encode(translation[translates_to][1]))
 
             # location
             chromosome_urls = self.seq_region_id_to_chr(transcript[id][8])
@@ -341,7 +341,7 @@ class Ensembl2turtle:
                             self.triple(statement, "rdf:subject", sbj)
                             self.triple(statement, "rdf:predicate", "terms:has_transcript_flag")
                             self.triple(statement, "rdf:object", flag_dic[attrib_code][attrib_val])
-                            self.triple(statement, "rdfs:comment", quote(comment))
+                            self.triple(statement, "rdfs:comment", quote_str(comment))
                     # elif attrib_code == "remark":
                     #     if attrib_val != "MANE_select":
                         #     continue
@@ -353,13 +353,13 @@ class Ensembl2turtle:
                         else:
                             ensgloss_term = "ensgloss:ENSGLOSSARY_0000375"
                         version = transcript[id][9]
-                        versioned_id = escape(stable_id) + "." + version
+                        versioned_id = percent_encode(stable_id) + "." + version
                         versioned_sbj = "enst:" + versioned_id
                         self.triple(sbj, "terms:has_transcript_flag", ensgloss_term)
                         self.triple(sbj, "terms:has_versioned_transcript", versioned_sbj)
                         self.triple(versioned_sbj, "a", "terms:VersionedTranscript")
                         self.triple(versioned_sbj, "terms:has_version", version)
-                        self.triple(versioned_sbj, "dcterms:identifier", quote(versioned_id))
+                        self.triple(versioned_sbj, "dcterms:identifier", quote_str(versioned_id))
                         self.triple(versioned_sbj, "terms:has_transcript_flag", ensgloss_term)
                         counterpart = "refseq:" + attrib_val
                         self.triple(versioned_sbj, "terms:has_counterpart", counterpart)
@@ -447,11 +447,11 @@ class Ensembl2turtle:
         self.output_file = f
         self.output_prefixes()
         for id in translation:
-            sbj = "ensp:" + escape(translation[id][1])
+            sbj = "ensp:" + percent_encode(translation[id][1])
 
             self.triple(sbj, "a", "terms:EnsemblProtein")
-            self.triple(sbj, "dcterms:identifier", quote(translation[id][1]))
-            self.triple(sbj, "so:translation_of", "enst:"+escape(transcript[translation[id][0]][7]))
+            self.triple(sbj, "dcterms:identifier", quote_str(translation[id][1]))
+            self.triple(sbj, "so:translation_of", "enst:"+percent_encode(transcript[translation[id][0]][7]))
         self.output_file = sys.stdout
         f.close()
         return
@@ -464,11 +464,11 @@ class Ensembl2turtle:
         self.output_file = f
         self.output_prefixes()
         for id in exon:
-            sbj = "ense:" + escape(exon[id][3])
+            sbj = "ense:" + percent_encode(exon[id][3])
 
             self.triple(sbj, "a", "terms:EnsemblExon")
             self.triple(sbj, "a", "obo:SO_0000147")
-            self.triple(sbj, "dcterms:identifier", quote(exon[id][3]))
+            self.triple(sbj, "dcterms:identifier", quote_str(exon[id][3]))
 
             # location
             chromosome_urls = self.seq_region_id_to_chr(exon[id][4])
@@ -494,9 +494,9 @@ class Ensembl2turtle:
             exon_stable_id = exon[exon_id][3]
             transcript_stable_id = transcript[transcript_id][7]
             rank = exon_transcript[id][0]
-            ordered_exon_uri = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/"+escape(transcript_stable_id)+"#Exon_"+rank+">"
-            exon_uri = "ense:" + escape(exon_stable_id)
-            transcript_uri = "enst:" + escape(transcript_stable_id)
+            ordered_exon_uri = "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/"+percent_encode(transcript_stable_id)+"#Exon_"+rank+">"
+            exon_uri = "ense:" + percent_encode(exon_stable_id)
+            transcript_uri = "enst:" + percent_encode(transcript_stable_id)
 
             self.triple(ordered_exon_uri, "a", "terms:EnsemblOrderedExon")
             self.triple(ordered_exon_uri, "a", "sio:SIO_001261")
@@ -524,11 +524,11 @@ class Ensembl2turtle:
             subject_id = object_xref[id][0]
             subject_type = object_xref[id][1]
             if subject_type == "Gene":
-                subject_url = "ensg:" + escape(gene[subject_id][6])
+                subject_url = "ensg:" + percent_encode(gene[subject_id][6])
             elif subject_type == "Transcript":
-                subject_url = "enst:" + escape(transcript[subject_id][7])
+                subject_url = "enst:" + percent_encode(transcript[subject_id][7])
             elif subject_type == "Translation":
-                subject_url = "ensp:" + escape(translation[subject_id][1])
+                subject_url = "ensp:" + percent_encode(translation[subject_id][1])
             else:
                 continue
             # xref_node = Bnode()
