@@ -1,5 +1,6 @@
 import urllib.parse
 import sys
+from datetime import datetime
 
 def quote_str(string):
     # Enclose a string with double-quotation marks.
@@ -20,6 +21,12 @@ def strand2faldo(s):
     else:
         print(f"Error: Invalid argument \"{s}\" for strand2faldo", file=sys.stderr)
         sys.exit(1)
+
+
+def log_time(text):
+    dt_now = datetime.now()
+    print(f"[{dt_now}] {text}", file=sys.stderr)
+    return
 
 
 class Bnode:

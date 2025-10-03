@@ -4,9 +4,8 @@ import os
 import psutil
 import json
 import re
-import datetime
 import urllib.parse
-from utils import quote_str, percent_encode, strand2faldo, Bnode
+from utils import quote_str, percent_encode, strand2faldo, Bnode, log_time
 
 input_dir = "./"
 
@@ -154,8 +153,7 @@ class Ensembl2turtle:
         return dbinfo_dict
 
     def load_db(self, db):
-        dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] Loading DB: {db}", file=sys.stderr)
+        log_time(f"Loading DB: {db}")
         dic = {}
         table_file = self.dbinfo[db]["filename"]
         key_indices = self.dbinfo[db]["key_indices"]
@@ -523,23 +521,17 @@ class Ensembl2turtle:
         return
 
     def output_turtle(self):
-        dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] Output turtle: gene", file=sys.stderr)
+        log_time(f"Output turtle: gene")
         self.rdfize_gene()
-        dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] Output turtle: transcript", file=sys.stderr)
+        log_time(f"Output turtle: transcript")
         self.rdfize_transcript()
-        dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] Output turtle: translation", file=sys.stderr)
+        log_time(f"Output turtle: translation")
         self.rdfize_translation()
-        dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] Output turtle: exon", file=sys.stderr)
+        log_time(f"Output turtle: exon")
         self.rdfize_exon()
-        dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] Output turtle: exon_transcript", file=sys.stderr)
+        log_time(f"Output turtle: exon_transcript")
         self.rdfize_exon_transcript()
-        dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] Output turtle: xref", file=sys.stderr)
+        log_time(f"Output turtle: xref")
         self.rdfize_xref()
 
         with open("xref_report.tsv", "w") as f:
@@ -554,8 +546,7 @@ class Ensembl2turtle:
                     print(dir_prod_name, "unknown", subject_type, db,
                           dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
 
-        dt_now = datetime.datetime.now()
-        print(f"[{dt_now}] Done.", file=sys.stderr)
+        log_time("Done.")
 
 
 def main():
