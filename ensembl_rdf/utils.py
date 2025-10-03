@@ -22,3 +22,18 @@ def strand2faldo(s):
         sys.exit(1)
 
 
+class Bnode:
+    def __init__(self):
+        self.properties = []
+
+    def add(self, tpl):
+        # `tpl` is a tuple of strings (e.g. ("rdf:type", "owl:Class"))
+        self.properties.append(tpl)
+
+    def serialize(self, level=1):
+        s = "[\n"
+        indent = "    " * level
+        for tpl in self.properties:
+            s += indent + tpl[0] + " " + tpl[1] + " ;\n"
+        s += "    " * (level-1) + "]"
+        return s

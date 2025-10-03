@@ -6,26 +6,9 @@ import json
 import re
 import datetime
 import urllib.parse
-from utils import quote_str, percent_encode, strand2faldo
+from utils import quote_str, percent_encode, strand2faldo, Bnode
 
 input_dir = "./"
-
-
-class Bnode:
-    def __init__(self):
-        self.properties = []
-
-    def add(self, tpl):
-        # `tpl` is a tuple of strings (e.g. ("rdf:type", "owl:Class"))
-        self.properties.append(tpl)
-
-    def serialize(self, level=1):
-        s = "[\n"
-        indent = "    " * level
-        for tpl in self.properties:
-            s += indent + tpl[0] + " " + tpl[1] + " ;\n"
-        s += "    " * (level-1) + "]"
-        return s
 
 
 class Ensembl2turtle:
