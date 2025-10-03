@@ -7,8 +7,6 @@ import re
 import urllib.parse
 from utils import quote_str, percent_encode, strand2faldo, Bnode, log_time
 
-input_dir = "./"
-
 
 class Ensembl2turtle:
     prefixes = [
@@ -71,9 +69,10 @@ class Ensembl2turtle:
                      "11", "12", "13", "14", "15", "16", "17", "18",
                      "19", "20", "21", "22", "X", "Y", "MT"]
 
-    base_dir = os.path.dirname(os.path.abspath(__file__)) + "/../"
+    base_dir = os.path.dirname(os.path.abspath(__file__))
 
-    def __init__(self, input_dbinfo_file):
+    def __init__(self, input_dbinfo_file, input_data_dir):
+        self.input_data_dir = input_data_dir
         self.dbinfo = self.load_dbinfo(input_dbinfo_file)
         self.dbs = self.load_dbs()
         # self.taxonomy_id = self.get_taxonomy_id()
@@ -94,7 +93,7 @@ class Ensembl2turtle:
 
     def init_biotype_url_dic(self):
         biotype_url_dic_tsv = "ontology/biotype_url.tsv"
-        with open(Ensembl2turtle.base_dir+biotype_url_dic_tsv, "r") as input_table:
+        with open(os.path.join(Ensembl2turtle.base_dir, biotype_url_dic_tsv), "r") as input_table:
             line = input_table.readline()
             while (line):
                 line = line.rstrip('\n')
@@ -107,7 +106,7 @@ class Ensembl2turtle:
     def init_xref_url_dic(self):
         xref_url_dic_tsv = "config/external_db_url.tsv"
 
-        with open(Ensembl2turtle.base_dir+xref_url_dic_tsv, "r") as input_table:
+        with open(os.path.join(Ensembl2turtle.base_dir, xref_url_dic_tsv), "r") as input_table:
             line = input_table.readline()
             while (line):
                 line = line.rstrip('\n')
@@ -155,7 +154,7 @@ class Ensembl2turtle:
     def load_db(self, db):
         log_time(f"Loading DB: {db}")
         dic = {}
-        table_file = self.dbinfo[db]["filename"]
+        table_file = os.path.join(self.input_data_dir, self.dbinfo[db]["filename"])
         key_indices = self.dbinfo[db]["key_indices"]
         val_indices = [v["index"] for v in self.dbinfo[db]["values"]]
         with gzip.open(table_file, 'rt') as input_table:
@@ -197,7 +196,7 @@ class Ensembl2turtle:
         xref = self.dbs["xref"]
         seq_region = self.dbs["seq_region"]
         external_synonym = self.dbs["external_synonym"]
-        f = open("gene.ttl", mode="w")
+        f = open(os.path.join(self.input_data_dir, "gene.ttl"), mode="w")
         self.output_file = f
         self.output_prefixes()
         for id in gene:
@@ -250,7 +249,7 @@ class Ensembl2turtle:
         translation = self.dbs["translation"]
         attrib_type = self.dbs["attrib_type"]
         unknown_flags = set()
-        f = open("transcript.ttl", mode="w")
+        f = open(os.path.join(self.input_data_dir, "transcript.ttl"), mode="w")
         self.output_file = f
         self.output_prefixes()
         for id in transcript:
@@ -404,7 +403,7 @@ class Ensembl2turtle:
         transcript = self.dbs["transcript"]
         xref = self.dbs["xref"]
         translation = self.dbs["translation"]
-        f = open("translation.ttl", mode="w")
+        f = open(os.path.join(self.input_data_dir, "translation.ttl"), mode="w")
         self.output_file = f
         self.output_prefixes()
         for id in translation:
@@ -421,7 +420,7 @@ class Ensembl2turtle:
         transcript = self.dbs["transcript"]
         exon = self.dbs["exon"]
         translation = self.dbs["translation"]
-        f = open("exon.ttl", mode="w")
+        f = open(os.path.join(self.input_data_dir, "exon.ttl"), mode="w")
         self.output_file = f
         self.output_prefixes()
         for id in exon:
@@ -446,7 +445,7 @@ class Ensembl2turtle:
         exon_transcript = self.dbs["exon_transcript"]
         transcript = self.dbs["transcript"]
         exon = self.dbs["exon"]
-        f = open("exon_transcript.ttl", mode="w")
+        f = open(os.path.join(self.input_data_dir, "exon_transcript.ttl"), mode="w")
         self.output_file = f
         self.output_prefixes()
         for id in exon_transcript:
@@ -477,7 +476,7 @@ class Ensembl2turtle:
         xref = self.dbs["xref"]
         object_xref = self.dbs["object_xref"]
         external_db = self.dbs["external_db"]
-        f = open("xref.ttl", mode="w")
+        f = open(os.path.join(self.input_data_dir, "xref.ttl"), mode="w")
         self.output_file = f
         self.output_prefixes()
         for id in object_xref:
@@ -534,7 +533,7 @@ class Ensembl2turtle:
         log_time(f"Output turtle: xref")
         self.rdfize_xref()
 
-        with open("xref_report.tsv", "w") as f:
+        with open(os.path.join(self.input_data_dir, "xref_report.tsv"), "w") as f:
             cwd = os.getcwd()
             dir_prod_name = re.sub(r"(.*/)|(_core_[^/]+$)", "", cwd)
             for subject_type, dbs in self.xrefed_dbs.items():
@@ -551,8 +550,9 @@ class Ensembl2turtle:
 
 def main():
     input_dbinfo_file = sys.argv[1]
+    input_data_dir = sys.argv[2]
 
-    converter = Ensembl2turtle(input_dbinfo_file)
+    converter = Ensembl2turtle(input_dbinfo_file, input_data_dir)
     #converter.rdfize_gene()
     #print(converter.dbs['meta'].keys())
     converter.output_turtle()
