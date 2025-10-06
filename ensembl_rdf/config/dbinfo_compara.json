@@ -12,6 +12,7 @@
     "key_indices": [0],
     "values": [
       {"index": 1, "name": "member_type"},
+      {"index": 2, "name": "tree_type"},
       {"index": 8, "name": "stable_id"},
       {"index": 9, "name": "version"}
     ]
