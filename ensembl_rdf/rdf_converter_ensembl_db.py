@@ -1,35 +1,24 @@
-import gzip
 import sys
 import os
-import psutil
-import json
 import re
 import urllib.parse
 from utils import quote_str, percent_encode, strand2faldo, Bnode, log_time
+from ensembl2turtle import Ensembl2turtle
 
-
-class Ensembl2turtle:
+class Genome2turtle(Ensembl2turtle):
     prefixes = [
         ['rdf:', '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'],
         ['rdfs:', '<http://www.w3.org/2000/01/rdf-schema#>'],
-        ['faldo:', '<http://biohackathon.org/resource/faldo#>'],
+        ['dcterms:', '<http://purl.org/dc/terms/>'],
         ['obo:', '<http://purl.obolibrary.org/obo/>'],
+        ['sio:', '<http://semanticscience.org/resource/>'],
+        ['taxonomy:', '<http://identifiers.org/taxonomy/>'],
         ['so:', '<http://purl.obolibrary.org/obo/so#>'],
         ['dc:', '<http://purl.org/dc/elements/1.1/>'],
-        ['dcterms:', '<http://purl.org/dc/terms/>'],
         ['owl:', '<http://www.w3.org/2002/07/owl#>'],
-        ['ensg:', '<http://rdf.ebi.ac.uk/resource/ensembl/>'],
-        ['ensgloss:', '<http://ensembl.org/glossary/>'],
         ['terms:', '<http://rdf.ebi.ac.uk/terms/ensembl/>'],
-        ['ense:', '<http://rdf.ebi.ac.uk/resource/ensembl.exon/>'],
-        ['ensp:', '<http://rdf.ebi.ac.uk/resource/ensembl.protein/>'],
-        ['enst:', '<http://rdf.ebi.ac.uk/resource/ensembl.transcript/>'],
-        ['ensi:', '<http://identifiers.org/ensembl/>'],
-        ['taxonomy:', '<http://identifiers.org/taxonomy/>'],
-        ['uniprot:', '<http://purl.uniprot.org/uniprot/>'],
-        ['refseq:', '<http://identifiers.org/refseq/>'],
-        ['sio:', '<http://semanticscience.org/resource/>'],
-        ['skos:', '<http://www.w3.org/2004/02/skos/core#>']
+        ['ensg:', '<http://rdf.ebi.ac.uk/resource/ensembl/>'],
+        ['ensp:', '<http://rdf.ebi.ac.uk/resource/ensembl.protein/>']
     ]
 
     # Keys are `code` of the attrib_type table to be used as transcript flags
@@ -69,12 +58,7 @@ class Ensembl2turtle:
                      "11", "12", "13", "14", "15", "16", "17", "18",
                      "19", "20", "21", "22", "X", "Y", "MT"]
 
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-
     def __init__(self, input_dbinfo_file, input_data_dir):
-        self.input_data_dir = input_data_dir
-        self.dbinfo = self.load_dbinfo(input_dbinfo_file)
-        self.dbs = self.load_dbs()
         # self.taxonomy_id = self.get_taxonomy_id()
         self.ensembl_version = self.get_ensembl_version()
         # self.production_name = self.get_production_name()
@@ -86,10 +70,20 @@ class Ensembl2turtle:
         self.init_xref_url_dic()
         self.xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
         self.not_xrefed_dbs = {"Gene": {}, "Transcript": {}, "Translation": {}}
-        self.output_file = sys.stdout
         self.biotype_url_dic = {}
         self.init_biotype_url_dic()
         self.used_coord_system_wo_version = set()
+        self.prefix += [
+            ['faldo:', '<http://biohackathon.org/resource/faldo#>'],
+            ['ensgloss:', '<http://ensembl.org/glossary/>'],
+            ['ense:', '<http://rdf.ebi.ac.uk/resource/ensembl.exon/>'],
+            ['enst:', '<http://rdf.ebi.ac.uk/resource/ensembl.transcript/>'],
+            ['ensi:', '<http://identifiers.org/ensembl/>'],
+            ['uniprot:', '<http://purl.uniprot.org/uniprot/>'],
+            ['refseq:', '<http://identifiers.org/refseq/>'],
+            ['skos:', '<http://www.w3.org/2004/02/skos/core#>']
+        ]
+
 
     def init_biotype_url_dic(self):
         biotype_url_dic_tsv = "ontology/biotype_url.tsv"
@@ -118,10 +112,6 @@ class Ensembl2turtle:
                 line = input_table.readline()
         return
 
-    def triple(self, s, p, o):
-        print(s, p, o, ".", file=self.output_file)
-        return
-
     def get_ensembl_version(self):
         ensembl_version = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'schema_version']
         return ensembl_version[0]
@@ -144,52 +134,6 @@ class Ensembl2turtle:
 
     def get_species_id2taxonomy_id(self):
         return {v[0]: v[2] for v in self.dbs["meta"].values() if v[1] == 'species.taxonomy_id'}
-
-    def load_dbinfo(self, input_dbinfo_file):
-        dbinfo_dict = {}
-        with open(input_dbinfo_file, 'r') as input_dbinfo:
-            dbinfo_dict = json.load(input_dbinfo)
-        return dbinfo_dict
-
-    def load_db(self, db):
-        log_time(f"Loading DB: {db}")
-        dic = {}
-        table_file = os.path.join(self.input_data_dir, self.dbinfo[db]["filename"])
-        key_indices = self.dbinfo[db]["key_indices"]
-        val_indices = [v["index"] for v in self.dbinfo[db]["values"]]
-        with gzip.open(table_file, 'rt') as input_table:
-            line = input_table.readline()
-            while (line):
-                line = line.rstrip('\n')
-                sep_line = line.split('\t')
-                # gene_attrib の sep_line: [gene_id, attrib_type_id, value]
-                key_list = [sep_line[i] for i in key_indices]
-                if len(key_list) >= 2:
-                    key = tuple(key_list)
-                else:
-                    key = key_list[0]
-                vals = [sep_line[i] for i in val_indices]
-                if self.dbinfo[db].get("list", False):
-                    if key in dic:
-                        dic[key].append(vals)
-                    else:
-                        dic[key] = [vals]
-                else:
-                    dic[key] = vals
-
-                line = input_table.readline()
-
-        return dic
-
-    def load_dbs(self):
-        db_dics = {}
-        for db in self.dbinfo:
-            db_dics[db] = self.load_db(db)
-            process = psutil.Process()
-            memory_usage = process.memory_info().rss  # バイト単位でのメモリ使用量
-            print(f'memory: {memory_usage / (1024*1024)} MB', file=sys.stderr)
-
-        return db_dics
 
     def rdfize_gene(self):
         gene = self.dbs["gene"]
@@ -512,11 +456,6 @@ class Ensembl2turtle:
                 self.not_xrefed_dbs[subject_type][external_db_code][2] += 1
         self.output_file = sys.stdout
         f.close()
-        return
-
-    def output_prefixes(self):
-        for prefix in Ensembl2turtle.prefixes:
-            self.triple("@prefix", prefix[0], prefix[1])
         return
 
     def output_turtle(self):
