@@ -40,6 +40,8 @@ class Compara2turtle(Ensembl2turtle):
             seq_member_id = gene_tree_node[id][1]
             if seq_member_id == "\\N":  # not a sequence node
                 continue
+            if gene_tree_id == "\\N":  # I don't know what this tree is
+                continue
             ensembl_id = seq_member[seq_member_id][0]
             member_type = gene_tree_root[root_id][0]
             if member_type == "protein":
