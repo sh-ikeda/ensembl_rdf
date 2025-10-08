@@ -27,8 +27,29 @@ process_turtle_file() {
         local tmp_dir="tmp_split_$(basename "$file" .ttl)"
         mkdir -p "$tmp_dir"
 
-        # ファイルを分割
-        split -l "$SPLIT_THRESHOLD" "$file" "$tmp_dir/chunk_"
+        # ファイルを分割（トリプルの境界で）
+        awk -v threshold="$SPLIT_THRESHOLD" -v outdir="$tmp_dir" '
+        BEGIN {
+            chunk_num = 0
+            line_count = 0
+            current_file = sprintf("%s/chunk_%02d", outdir, chunk_num)
+        }
+        {
+            print $0 > current_file
+            line_count++
+            # `.` で終わる行かつ閾値を超えた場合に次のファイルへ
+            if ($0 ~ /\.$/ && line_count >= threshold) {
+                close(current_file)
+                chunk_num++
+                current_file = sprintf("%s/chunk_%02d", outdir, chunk_num)
+                line_count = 0
+            }
+        }
+        END {
+            close(current_file)
+        }
+        ' "$file"
+
 
         # 分割されたファイルを処理して結合
         > "${file}.processed"
