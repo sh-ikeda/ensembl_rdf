@@ -302,7 +302,7 @@ class Genome2turtle(Ensembl2turtle):
         chromosome_urls.append(chromosome_url)
 
         if self.seq_region_id_to_taxonomy_id(seq_region_id) == "9606":
-            if chromosome_name in Ensembl2turtle.hco_chr_names:
+            if chromosome_name in Genome2turtle.hco_chr_names:
                 hco_url = "<http://identifiers.org/hco/"+chromosome_name+"/"+coord_system_version+">"
                 chromosome_urls.append(hco_url)
 
