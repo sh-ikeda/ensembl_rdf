@@ -65,7 +65,7 @@ process_turtle_file() {
             rapper -i turtle -o turtle "${chunk}.with_prefix" > "${chunk}.processed"
 
             # プレフィックス部分を除去して結合（最初のチャンクを除く）
-            if [ "$chunk" = "$tmp_dir/chunk_aa" ]; then
+            if [ "$chunk" = "$tmp_dir/chunk_00" ]; then
                 cat "${chunk}.processed" >> "${file}.processed"
             else
                 grep -v -E "^@prefix|^@base" "${chunk}.processed" >> "${file}.processed"
