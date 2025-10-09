@@ -6,21 +6,6 @@ from utils import quote_str, percent_encode, strand2faldo, Bnode, log_time
 from ensembl2turtle import Ensembl2turtle
 
 class Genome2turtle(Ensembl2turtle):
-    prefixes = [
-        ['rdf:', '<http://www.w3.org/1999/02/22-rdf-syntax-ns#>'],
-        ['rdfs:', '<http://www.w3.org/2000/01/rdf-schema#>'],
-        ['dcterms:', '<http://purl.org/dc/terms/>'],
-        ['obo:', '<http://purl.obolibrary.org/obo/>'],
-        ['sio:', '<http://semanticscience.org/resource/>'],
-        ['taxonomy:', '<http://identifiers.org/taxonomy/>'],
-        ['so:', '<http://purl.obolibrary.org/obo/so#>'],
-        ['dc:', '<http://purl.org/dc/elements/1.1/>'],
-        ['owl:', '<http://www.w3.org/2002/07/owl#>'],
-        ['terms:', '<http://rdf.ebi.ac.uk/terms/ensembl/>'],
-        ['ensg:', '<http://rdf.ebi.ac.uk/resource/ensembl/>'],
-        ['ensp:', '<http://rdf.ebi.ac.uk/resource/ensembl.protein/>']
-    ]
-
     # Keys are `code` of the attrib_type table to be used as transcript flags
     transcript_flags = {
         "gencode_basic": {
@@ -59,6 +44,7 @@ class Genome2turtle(Ensembl2turtle):
                      "19", "20", "21", "22", "X", "Y", "MT"]
 
     def __init__(self, input_dbinfo_file, input_data_dir):
+        super().__init__(input_dbinfo_file, input_data_dir)
         # self.taxonomy_id = self.get_taxonomy_id()
         self.ensembl_version = self.get_ensembl_version()
         # self.production_name = self.get_production_name()
@@ -73,7 +59,7 @@ class Genome2turtle(Ensembl2turtle):
         self.biotype_url_dic = {}
         self.init_biotype_url_dic()
         self.used_coord_system_wo_version = set()
-        self.prefix += [
+        self.prefixes += [
             ['faldo:', '<http://biohackathon.org/resource/faldo#>'],
             ['ensgloss:', '<http://ensembl.org/glossary/>'],
             ['ense:', '<http://rdf.ebi.ac.uk/resource/ensembl.exon/>'],
@@ -229,7 +215,7 @@ class Genome2turtle(Ensembl2turtle):
 
             # flag
             attribs = transcript_attrib.get(id, [])
-            flag_dic = Ensembl2turtle.transcript_flags
+            flag_dic = Genome2turtle.transcript_flags
             for attrib in attribs:
                 attrib_code = attrib_type[attrib[0]][0]
                 if attrib_code in flag_dic:
@@ -491,9 +477,7 @@ def main():
     input_dbinfo_file = sys.argv[1]
     input_data_dir = sys.argv[2]
 
-    converter = Ensembl2turtle(input_dbinfo_file, input_data_dir)
-    #converter.rdfize_gene()
-    #print(converter.dbs['meta'].keys())
+    converter = Genome2turtle(input_dbinfo_file, input_data_dir)
     converter.output_turtle()
 
 
