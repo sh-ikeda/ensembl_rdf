@@ -10,7 +10,7 @@ def quote_str(string):
 
 def percent_encode(string):
     #return re.sub(r"([()])", r"\\\1", string)
-    return urllib.parse.quote(string)
+    return urllib.parse.quote(string, safe="")
 
 
 def strand2faldo(s):
