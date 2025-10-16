@@ -45,11 +45,8 @@ class Genome2turtle(Ensembl2turtle):
 
     def __init__(self, input_dbinfo_file, input_data_dir):
         super().__init__(input_dbinfo_file, input_data_dir)
-        # self.taxonomy_id = self.get_taxonomy_id()
         self.ensembl_version = self.get_ensembl_version()
-        # self.production_name = self.get_production_name()
         self.species_id2taxonomy_id = self.get_species_id2taxonomy_id()
-        # print(self.species_id2taxonomy_id)
         self.species_id2production_name = self.get_species_id2production_name()
         self.xref_url_dic = {}
         self.xref_prefix_dic = {}
@@ -102,19 +99,6 @@ class Genome2turtle(Ensembl2turtle):
         ensembl_version = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'schema_version']
         return ensembl_version[0]
 
-    def get_taxonomy_id(self):
-        taxonomy_ids = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'species.taxonomy_id']
-        if len(taxonomy_ids) >= 2:
-            print("Error: `meta` table has multiple taxonomy_id. This seems to be multi-species database.", file=sys.stderr)
-            print("taxonomy_ids: ", taxonomy_ids, file=sys.stderr)
-            sys.exit(1)
-
-        return taxonomy_ids[0]
-
-    def get_production_name(self):
-        production_names = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'species.production_name']
-        return production_names[0]
-
     def get_species_id2production_name(self):
         return {v[0]: v[2] for v in self.dbs["meta"].values() if v[1] == 'species.production_name'}
 
@@ -124,7 +108,6 @@ class Genome2turtle(Ensembl2turtle):
     def rdfize_gene(self):
         gene = self.dbs["gene"]
         xref = self.dbs["xref"]
-        seq_region = self.dbs["seq_region"]
         external_synonym = self.dbs["external_synonym"]
         f = open(os.path.join(self.input_data_dir, "gene.ttl"), mode="w")
         self.output_file = f
@@ -331,7 +314,6 @@ class Genome2turtle(Ensembl2turtle):
 
     def rdfize_translation(self):
         transcript = self.dbs["transcript"]
-        xref = self.dbs["xref"]
         translation = self.dbs["translation"]
         f = open(os.path.join(self.input_data_dir, "translation.ttl"), mode="w")
         self.output_file = f
@@ -347,9 +329,7 @@ class Genome2turtle(Ensembl2turtle):
         return
 
     def rdfize_exon(self):
-        transcript = self.dbs["transcript"]
         exon = self.dbs["exon"]
-        translation = self.dbs["translation"]
         f = open(os.path.join(self.input_data_dir, "exon.ttl"), mode="w")
         self.output_file = f
         self.output_prefixes()
