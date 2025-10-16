@@ -65,20 +65,20 @@ class Genome2turtle(Ensembl2turtle):
         self.init_biotype_url_dic()
         self.used_coord_system_wo_version = set()
         self.prefixes += [
-            ['faldo:', '<http://biohackathon.org/resource/faldo#>'],
-            ['ensgloss:', '<http://ensembl.org/glossary/>'],
-            ['ense:', '<http://rdf.ebi.ac.uk/resource/ensembl.exon/>'],
-            ['enst:', '<http://rdf.ebi.ac.uk/resource/ensembl.transcript/>'],
-            ['ensi:', '<http://identifiers.org/ensembl/>'],
-            ['uniprot:', '<http://purl.uniprot.org/uniprot/>'],
-            ['refseq:', '<http://identifiers.org/refseq/>'],
-            ['skos:', '<http://www.w3.org/2004/02/skos/core#>'],
-            ['ensembl_vertebrates:', '<http://ensembl.org/>'],
-            ['ensembl_metazoa:', '<http://metazoa.ensembl.org/>'],
-            ['ensembl_plants:', '<http://plants.ensembl.org/>'],
-            ['ensembl_fungi:', '<http://fungi.ensembl.org/>'],
-            ['ensembl_protists:', '<http://protists.ensembl.org/>'],
-            ['ensembl_bacteria:', '<http://bacteria.ensembl.org/>']
+            ["faldo:", "<http://biohackathon.org/resource/faldo#>"],
+            ["ensgloss:", "<http://ensembl.org/glossary/>"],
+            ["ense:", "<http://rdf.ebi.ac.uk/resource/ensembl.exon/>"],
+            ["enst:", "<http://rdf.ebi.ac.uk/resource/ensembl.transcript/>"],
+            ["ensi:", "<http://identifiers.org/ensembl/>"],
+            ["uniprot:", "<http://purl.uniprot.org/uniprot/>"],
+            ["refseq:", "<http://identifiers.org/refseq/>"],
+            ["skos:", "<http://www.w3.org/2004/02/skos/core#>"],
+            ["ensembl_vertebrates:", "<http://ensembl.org/>"],
+            ["ensembl_metazoa:", "<http://metazoa.ensembl.org/>"],
+            ["ensembl_plants:", "<http://plants.ensembl.org/>"],
+            ["ensembl_fungi:", "<http://fungi.ensembl.org/>"],
+            ["ensembl_protists:", "<http://protists.ensembl.org/>"],
+            ["ensembl_bacteria:", "<http://bacteria.ensembl.org/>"]
         ]
 
 
@@ -87,8 +87,8 @@ class Genome2turtle(Ensembl2turtle):
         with open(os.path.join(Ensembl2turtle.base_dir, biotype_url_dic_tsv), "r") as input_table:
             line = input_table.readline()
             while (line):
-                line = line.rstrip('\n')
-                sep_line = line.split('\t')
+                line = line.rstrip("\n")
+                sep_line = line.split("\t")
                 if sep_line[1] != "":
                     self.biotype_url_dic[sep_line[0]] = sep_line[1]
                 line = input_table.readline()
@@ -100,8 +100,8 @@ class Genome2turtle(Ensembl2turtle):
         with open(os.path.join(Ensembl2turtle.base_dir, xref_url_dic_tsv), "r") as input_table:
             line = input_table.readline()
             while (line):
-                line = line.rstrip('\n')
-                sep_line = line.split('\t')
+                line = line.rstrip("\n")
+                sep_line = line.split("\t")
                 if sep_line[1] != "":
                     self.xref_url_dic[sep_line[0]] = sep_line[1]
                 if sep_line[2] != "":
@@ -110,7 +110,7 @@ class Genome2turtle(Ensembl2turtle):
         return
 
     def get_ensembl_version(self):
-        ensembl_version = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'schema_version']
+        ensembl_version = [v[2] for k, v in self.dbs["meta"].items() if v[1] == "schema_version"]
         return ensembl_version[0]
 
     def build_meta_dict(self):
@@ -141,7 +141,7 @@ class Genome2turtle(Ensembl2turtle):
             self.triple(sbj, "a", "terms:EnsemblGene")
             biotype = gene[id][0]
             if biotype not in self.biotype_url_dic:
-                print(f'Warning: Unknown biotype `{biotype}`', file=sys.stderr)
+                print(f"Warning: Unknown biotype `{biotype}`", file=sys.stderr)
             else:
                 self.triple(sbj, "a", self.biotype_url_dic[biotype])
                 self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[biotype])
@@ -197,7 +197,7 @@ class Genome2turtle(Ensembl2turtle):
             self.triple(sbj, "a", "terms:EnsemblTranscript")
             biotype = transcript[id][5]
             if biotype not in self.biotype_url_dic:
-                print(f'Warning: Unknown biotype `{biotype}`', file=sys.stderr)
+                print(f"Warning: Unknown biotype `{biotype}`", file=sys.stderr)
             else:
                 self.triple(sbj, "a", self.biotype_url_dic[biotype])
                 self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[biotype])
@@ -229,7 +229,7 @@ class Genome2turtle(Ensembl2turtle):
                     attrib_val = attrib[1]
                     if attrib_code == "TSL":
                         comment = ""
-                        match = re.search(r'\((.*?)\)', attrib_val)
+                        match = re.search(r"\((.*?)\)", attrib_val)
                         attrib_val = re.sub(r" .*", "", attrib[1])
                         if match:
                             comment = match.group(1)
@@ -313,7 +313,7 @@ class Genome2turtle(Ensembl2turtle):
             chromosome_url = "<http://rdf.ebi.ac.uk/resource/ensembl/"+self.ensembl_version+"/"+production_name+"/"+chromosome_name+">"
             if coord_system_id not in self.used_coord_system_wo_version:
                 self.used_coord_system_wo_version.add(coord_system_id)
-                print(f'Warning: coord_system without version is used. ID: `{coord_system_id}`, name: `{coord_system[coord_system_id][1]}`', file=sys.stderr)
+                print(f"Warning: coord_system without version is used. ID: `{coord_system_id}`, name: `{coord_system[coord_system_id][1]}`", file=sys.stderr)
         chromosome_urls.append(chromosome_url)
 
         if self.seq_region_id_to_taxonomy_id(seq_region_id) == "9606":
@@ -493,5 +493,5 @@ def main():
     converter.output_turtle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -13,9 +13,9 @@ def download_files(ftp, directory, dbs):
     for file in files:
         if file in dbs:
             dt_now = datetime.datetime.now()
-            print(f'[{dt_now}] Downloading: {directory}/{file}', file=sys.stderr)
-            with open(directory + "/" + file, 'wb') as f:
-                ftp.retrbinary('RETR %s' % file, f.write)
+            print(f"[{dt_now}] Downloading: {directory}/{file}", file=sys.stderr)
+            with open(directory + "/" + file, "wb") as f:
+                ftp.retrbinary("RETR %s" % file, f.write)
     ftp.cwd(start_dir)
 
 
@@ -25,9 +25,9 @@ def process_directory(ftp, directories, dbs):
 
         subdirectories = ftp.nlst()
         for subdirectory in subdirectories:
-            if '_compara_' in subdirectory:
+            if "_compara_" in subdirectory:
                 dt_now = datetime.datetime.now()
-                print(f'[{dt_now}] {subdirectory}', file=sys.stderr)
+                print(f"[{dt_now}] {subdirectory}", file=sys.stderr)
                 download_files(ftp, subdirectory, dbs)
 
 
@@ -38,8 +38,8 @@ def main():
     dbs = [dbinfo[k]["filename"] for k in dbinfo]
 
     ## vertebrate
-    ftp_url = 'ftp.ensembl.org'
-    ftp_dirs = ['/pub/current_mysql/']
+    ftp_url = "ftp.ensembl.org"
+    ftp_dirs = ["/pub/current_mysql/"]
 
     ftp = FTP(ftp_url)
     ftp.login()
@@ -47,7 +47,7 @@ def main():
     ftp.quit()
 
     ## genomes
-    ftp_url = 'ftp.ensemblgenomes.ebi.ac.uk'
+    ftp_url = "ftp.ensemblgenomes.ebi.ac.uk"
     genomes_sections = ["metazoa", "plants", "protists", "fungi"]
     ftp_dirs = ["/pub/current/"+s+"/mysql/" for s in genomes_sections]
     ftp_dirs.append("/pub/pan_ensembl/current/mysql/")
@@ -57,5 +57,5 @@ def main():
     process_directory(ftp, ftp_dirs, dbs)
     ftp.quit()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -8,13 +8,13 @@ class Compara2turtle(Ensembl2turtle):
     def __init__(self, input_dbinfo_file, input_data_dir):
         super().__init__(input_dbinfo_file, input_data_dir)
         self.prefixes += [
-            ['genetree:', '<http://identifiers.org/genetree/>'],
-            ['genetree_plants:', '<http://identifiers.org/genetree.plants/>'],
-            ['genetree_pan:', '<http://identifiers.org/genetree.bacteria/>'],
-            ['genetree_protists:', '<http://identifiers.org/genetree.protists/>'],
-            ['genetree_metazoa:', '<http://identifiers.org/genetree.metazoa/>'],
-            ['genetree_fungi:', '<http://identifiers.org/genetree.fungi/>'],
-            ['orth:', '<http://purl.org/net/orth#>']
+            ["genetree:", "<http://identifiers.org/genetree/>"],
+            ["genetree_plants:", "<http://identifiers.org/genetree.plants/>"],
+            ["genetree_pan:", "<http://identifiers.org/genetree.bacteria/>"],
+            ["genetree_protists:", "<http://identifiers.org/genetree.protists/>"],
+            ["genetree_metazoa:", "<http://identifiers.org/genetree.metazoa/>"],
+            ["genetree_fungi:", "<http://identifiers.org/genetree.fungi/>"],
+            ["orth:", "<http://purl.org/net/orth#>"]
         ]
 
     def rdfize_genetree(self):
@@ -68,5 +68,5 @@ def main():
     converter.output_turtle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
