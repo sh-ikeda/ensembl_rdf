@@ -39,6 +39,15 @@ class Genome2turtle(Ensembl2turtle):
         "cds_end_NF": {"1": "ensgloss:ENSGLOSSARY_0000022"}
     }
 
+    division2uri_prefix = {
+        "EnsemblVertebrates": "ensembl_vertebrates:",
+        "EnsemblMetazoa": "ensembl_metazoa:",
+        "EnsemblPlants": "ensembl_plants:",
+        "EnsemblFungi": "ensembl_fungi:",
+        "EnsemblProtists": "ensembl_protists:",
+        "EnsemblBacteria": "ensembl_bacteria:"
+    }
+
     hco_chr_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
                      "11", "12", "13", "14", "15", "16", "17", "18",
                      "19", "20", "21", "22", "X", "Y", "MT"]
@@ -46,8 +55,7 @@ class Genome2turtle(Ensembl2turtle):
     def __init__(self, input_dbinfo_file, input_data_dir):
         super().__init__(input_dbinfo_file, input_data_dir)
         self.ensembl_version = self.get_ensembl_version()
-        self.species_id2taxonomy_id = self.get_species_id2taxonomy_id()
-        self.species_id2production_name = self.get_species_id2production_name()
+        self.meta_dict = self.build_meta_dict()
         self.xref_url_dic = {}
         self.xref_prefix_dic = {}
         self.init_xref_url_dic()
@@ -64,7 +72,13 @@ class Genome2turtle(Ensembl2turtle):
             ['ensi:', '<http://identifiers.org/ensembl/>'],
             ['uniprot:', '<http://purl.uniprot.org/uniprot/>'],
             ['refseq:', '<http://identifiers.org/refseq/>'],
-            ['skos:', '<http://www.w3.org/2004/02/skos/core#>']
+            ['skos:', '<http://www.w3.org/2004/02/skos/core#>'],
+            ['ensembl_vertebrates:', '<http://ensembl.org/>'],
+            ['ensembl_metazoa:', '<http://metazoa.ensembl.org/>'],
+            ['ensembl_plants:', '<http://plants.ensembl.org/>'],
+            ['ensembl_fungi:', '<http://fungi.ensembl.org/>'],
+            ['ensembl_protists:', '<http://protists.ensembl.org/>'],
+            ['ensembl_bacteria:', '<http://bacteria.ensembl.org/>']
         ]
 
 
@@ -99,11 +113,18 @@ class Genome2turtle(Ensembl2turtle):
         ensembl_version = [v[2] for k, v in self.dbs["meta"].items() if v[1] == 'schema_version']
         return ensembl_version[0]
 
-    def get_species_id2production_name(self):
-        return {v[0]: v[2] for v in self.dbs["meta"].values() if v[1] == 'species.production_name'}
-
-    def get_species_id2taxonomy_id(self):
-        return {v[0]: v[2] for v in self.dbs["meta"].values() if v[1] == 'species.taxonomy_id'}
+    def build_meta_dict(self):
+        # meta_dict := {species_id: {meta_key: meta_value}}
+        meta_dict = {}
+        meta = self.dbs["meta"]
+        for meta_id in meta:
+            species_id = meta[meta_id][0]
+            meta_key = meta[meta_id][1]
+            meta_value = meta[meta_id][2]
+            if species_id not in meta_dict:
+                meta_dict[species_id] = {}
+            meta_dict[species_id][meta_key] = meta_value
+        return meta_dict
 
     def rdfize_gene(self):
         gene = self.dbs["gene"]
@@ -134,7 +155,10 @@ class Genome2turtle(Ensembl2turtle):
                 description = ""
             self.triple(sbj, "dcterms:description", quote_str(description))
             self.triple(sbj, "dcterms:identifier", quote_str(gene[id][6]))
-            self.triple(sbj, "obo:RO_0002162", "taxonomy:"+self.seq_region_id_to_taxonomy_id(seq_region_id))
+            # self.triple(sbj, "obo:RO_0002162", "taxonomy:"+self.seq_region_id_to_taxonomy_id(seq_region_id))
+
+            # Ensembl genome
+            self.triple(sbj, "obo:RO_0002162", self.seq_region_id_to_ensembl_genome_uri(seq_region_id))
 
             # synonym
             synonyms = ", ".join([quote_str(v[0]) for v in external_synonym.get(xref_id, [])])
@@ -251,19 +275,27 @@ class Genome2turtle(Ensembl2turtle):
         f.close()
         return
 
+    def seq_region_id_to_ensembl_genome_uri(self, seq_region_id):
+        seq_region = self.dbs["seq_region"]
+        coord_system = self.dbs["coord_system"]
+        coord_system_id = seq_region[seq_region_id][1]
+        species_id = coord_system[coord_system_id][0]
+        uri_prefix = Genome2turtle.division2uri_prefix[self.meta_dict[species_id]["species.division"]]
+        return uri_prefix + self.meta_dict[species_id]["species.url"]
+
     def seq_region_id_to_taxonomy_id(self, seq_region_id):
         seq_region = self.dbs["seq_region"]
         coord_system = self.dbs["coord_system"]
         coord_system_id = seq_region[seq_region_id][1]
         species_id = coord_system[coord_system_id][0]
-        return self.species_id2taxonomy_id[species_id]
+        return self.meta_dict[species_id]["species.taxonomy_id"]
 
     def seq_region_id_to_production_name(self, seq_region_id):
         seq_region = self.dbs["seq_region"]
         coord_system = self.dbs["coord_system"]
         coord_system_id = seq_region[seq_region_id][1]
         species_id = coord_system[coord_system_id][0]
-        return self.species_id2production_name[species_id]
+        return self.meta_dict[species_id]["species.production_name"]
 
     def seq_region_id_to_chr(self, seq_region_id):
         seq_region = self.dbs["seq_region"]
