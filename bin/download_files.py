@@ -14,9 +14,9 @@ def download_files(ftp, directory):
     for file in files:
         if file in dbs:
             dt_now = datetime.datetime.now()
-            print(f'[{dt_now}] Downloading: {directory}/{file}', file=sys.stderr)
-            with open(directory + "/" + file, 'wb') as f:
-                ftp.retrbinary('RETR %s' % file, f.write)
+            print(f"[{dt_now}] Downloading: {directory}/{file}", file=sys.stderr)
+            with open(directory + "/" + file, "wb") as f:
+                ftp.retrbinary("RETR %s" % file, f.write)
     ftp.cwd(start_dir)
 
 
@@ -25,16 +25,16 @@ def process_directory(ftp, directory):
 
     subdirectories = ftp.nlst()
     for subdirectory in subdirectories:
-        if '_core_' in subdirectory:
+        if "_core_" in subdirectory:
             dt_now = datetime.datetime.now()
-            print(f'[{dt_now}] {subdirectory}', file=sys.stderr)
+            print(f"[{dt_now}] {subdirectory}", file=sys.stderr)
             download_files(ftp, subdirectory)
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
 CONFIG_DIR = os.path.dirname(os.path.abspath(__file__)) + "/../config/"
-ftp_url = sys.argv[1]  # e.g. 'ftp.ensembl.org'
-ftp_dir = sys.argv[2]  # e.g. '/pub/current_mysql/'
+ftp_url = sys.argv[1]  # e.g. "ftp.ensembl.org"
+ftp_dir = sys.argv[2]  # e.g. "/pub/current_mysql/"
 
 with open(CONFIG_DIR+"dbinfo.json", "r") as f:
     dbinfo = json.load(f)

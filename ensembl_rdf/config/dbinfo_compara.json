@@ -1,0 +1,29 @@
+{
+  "gene_tree_node": {
+    "filename": "gene_tree_node.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 2, "name": "root_id"},
+      {"index": 6, "name": "seq_member_id"}
+    ]
+  },
+  "gene_tree_root": {
+    "filename": "gene_tree_root.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "member_type"},
+      {"index": 2, "name": "tree_type"},
+      {"index": 8, "name": "stable_id"},
+      {"index": 9, "name": "version"}
+    ]
+  },
+  "seq_member": {
+    "filename": "seq_member.txt.gz",
+    "key_indices": [0],
+    "values": [
+      {"index": 1, "name": "stable_id"},
+      {"index": 2, "name": "version"},
+      {"index": 3, "name": "source_name"}
+    ]
+  }
+}

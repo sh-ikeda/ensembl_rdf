@@ -14,9 +14,8 @@
   # gene.gene_id
   - dcterms:identifier:
     - ensg_id: "ENSG00000000003"
-  # meta.select(meta_value WHERE (meta_key=species.taxonomy_id))
   - obo:RO_0002162:
-    - ensg_taxonomy: taxonomy:9606
+    - ensg_taxonomy: <http://ensembl.org/Homo_sapiens>
   - so:part_of+:
     - ensg_chromosome: <http://rdf.ebi.ac.uk/resource/ensembl/110/homo_sapiens/GRCh38/X>
     ## In addition, human genes have an HCO term.
