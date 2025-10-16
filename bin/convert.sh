@@ -1,7 +1,8 @@
 #!/usr/bin/bash
 # set -euo pipefail
-SCRIPT_DIR=$(cd $(dirname $0); pwd)
-CONFIG_DIR=$SCRIPT_DIR/../config
+THIS_DIR=$(cd $(dirname $0); pwd)
+SCRIPT_DIR=$THIS_DIR/../ensembl_rdf
+CONFIG_DIR=$SCRIPT_DIR/config
 
 # 分割処理の最大行数
 SPLIT_THRESHOLD=20000000
@@ -94,7 +95,7 @@ for d in "$@"; do
 
         echo "$d" >&2
         cd "$d"
-        python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json
+        python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json .
 
         for f in gene transcript translation exon exon_transcript xref; do
             if [ -f "$f.ttl" ]; then
