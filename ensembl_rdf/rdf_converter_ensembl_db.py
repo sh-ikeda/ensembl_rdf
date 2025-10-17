@@ -2,6 +2,7 @@ import sys
 import os
 import re
 import urllib.parse
+import argparse
 from utils import quote_str, percent_encode, strand2faldo, Bnode, log_time
 from ensembl2turtle import Ensembl2turtle
 
@@ -456,41 +457,53 @@ class Genome2turtle(Ensembl2turtle):
         f.close()
         return
 
-    def output_turtle(self):
-        log_time(f"Output turtle: gene")
-        self.rdfize_gene()
-        log_time(f"Output turtle: transcript")
-        self.rdfize_transcript()
-        log_time(f"Output turtle: translation")
-        self.rdfize_translation()
-        log_time(f"Output turtle: exon")
-        self.rdfize_exon()
-        log_time(f"Output turtle: exon_transcript")
-        self.rdfize_exon_transcript()
-        log_time(f"Output turtle: xref")
-        self.rdfize_xref()
+    def output_turtle(self, target):
+        if "gene" in target:
+            log_time(f"Output turtle: gene")
+            self.rdfize_gene()
+        if "transcript" in target:
+            log_time(f"Output turtle: transcript")
+            self.rdfize_transcript()
+        if "translation" in target:
+            log_time(f"Output turtle: translation")
+            self.rdfize_translation()
+        if "exon" in target:
+            log_time(f"Output turtle: exon")
+            self.rdfize_exon()
+        if "exon_transcript" in target:
+            log_time(f"Output turtle: exon_transcript")
+            self.rdfize_exon_transcript()
+        if "xref" in target:
+            log_time(f"Output turtle: xref")
+            self.rdfize_xref()
 
-        with open(os.path.join(self.input_data_dir, "xref_report.tsv"), "w") as f:
-            cwd = os.getcwd()
-            dir_prod_name = re.sub(r"(.*/)|(_core_[^/]+$)", "", cwd)
-            for subject_type, dbs in self.xrefed_dbs.items():
-                for db in dbs:
-                    print(dir_prod_name, "xref", subject_type, db,
-                          dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
-            for subject_type, dbs in self.not_xrefed_dbs.items():
-                for db in dbs:
-                    print(dir_prod_name, "unknown", subject_type, db,
-                          dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
+            with open(os.path.join(self.input_data_dir, "xref_report.tsv"), "w") as f:
+                cwd = os.getcwd()
+                dir_prod_name = re.sub(r"(.*/)|(_core_[^/]+$)", "", cwd)
+                for subject_type, dbs in self.xrefed_dbs.items():
+                    for db in dbs:
+                        print(dir_prod_name, "xref", subject_type, db,
+                            dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
+                for subject_type, dbs in self.not_xrefed_dbs.items():
+                    for db in dbs:
+                        print(dir_prod_name, "unknown", subject_type, db,
+                            dbs[db][0], dbs[db][1], dbs[db][2], sep="\t", file=f)
 
         log_time("Done.")
 
 
 def main():
-    input_dbinfo_file = sys.argv[1]
-    input_data_dir = sys.argv[2]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-t", "--target", nargs="*",  choices=["exon", "exon_transcript", "gene", "transcript", "translation", "xref"], default=["exon", "exon_transcript", "gene", "transcript", "translation", "xref"])
+    parser.add_argument("dbinfo", help="path to dbinfo.json")
+    parser.add_argument("input_dir", help="path to input directory")
+    args = parser.parse_args()
+    dbinfo = args.dbinfo
+    input_dir = args.input_dir
+    target = args.target
 
-    converter = Genome2turtle(input_dbinfo_file, input_data_dir)
-    converter.output_turtle()
+    converter = Genome2turtle(dbinfo, input_dir)
+    converter.output_turtle(target)
 
 
 if __name__ == "__main__":

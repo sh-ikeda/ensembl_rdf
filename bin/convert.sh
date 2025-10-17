@@ -7,9 +7,37 @@ CONFIG_DIR=$SCRIPT_DIR/config
 # 分割処理の最大行数
 SPLIT_THRESHOLD=20000000
 
-if [ "$#" -eq 0 ]; then
-    echo "Usage: $0 <dir1> [dir2 ...]" >&2
+# デフォルトの処理対象ファイルタイプ
+ALL_TYPES="gene transcript translation exon exon_transcript xref"
+TYPES=""
+
+usage() {
+    echo "Usage: $0 [-t type] ... <dir1> [dir2 ...]" >&2
+    echo "  -t type: Specify file type(s) to process (gene, transcript, translation, exon, exon_transcript, xref)" >&2
+    echo "           Can be specified multiple times. If not specified, all types are processed." >&2
     exit 1
+}
+
+# オプション解析
+while getopts "t:" opt; do
+  case "$opt" in
+    t)
+      TYPES="$TYPES $OPTARG"
+      ;;
+    \?)
+      usage
+      ;;
+  esac
+done
+shift $((OPTIND-1))
+
+# -t が指定されていない場合は全タイプを処理
+if [ -z "$TYPES" ]; then
+    TYPES="$ALL_TYPES"
+fi
+
+if [ "$#" -eq 0 ]; then
+    usage
 fi
 
 # Turtle ファイルを分割して rapper で処理する関数
@@ -95,9 +123,16 @@ for d in "$@"; do
 
         echo "$d" >&2
         cd "$d"
-        python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json .
 
-        for f in gene transcript translation exon exon_transcript xref; do
+        # -t オプションが指定されている場合はそれを渡す
+        if [ -n "$TYPES" ]; then
+            python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json . -t $TYPES
+        else
+            python3 $SCRIPT_DIR/rdf_converter_ensembl_db.py $CONFIG_DIR/dbinfo.json .
+        fi
+
+        # 指定されたタイプのファイルのみ処理
+        for f in $TYPES; do
             if [ -f "$f.ttl" ]; then
                 process_turtle_file "$f.ttl"
                 gzip -f "$f.ttl"
