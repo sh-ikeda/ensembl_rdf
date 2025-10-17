@@ -60,7 +60,6 @@ class Compara2turtle(Ensembl2turtle):
             elif member_type == "ncrna":
                 node_prefix = "enst:"
             node_uri = node_prefix + ensembl_id
-            root_prefix = "genetree:"
             root_uri = root_prefix + gene_tree_id
             self.triple(root_uri, "orth:hasHomologousMember", node_uri)
 
