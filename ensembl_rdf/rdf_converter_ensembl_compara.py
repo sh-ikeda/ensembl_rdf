@@ -38,16 +38,19 @@ class Compara2turtle(Ensembl2turtle):
 
         for id in gene_tree_root:
             tree_type = gene_tree_root[id][1]
-            gene_tree_id = gene_tree_root[id][2]
+            clusterset_id = gene_tree_root[id][2]
+            gene_tree_id = gene_tree_root[id][3]
             if gene_tree_id == "\\N" or tree_type != "tree":
                 continue
             root_uri = root_prefix + gene_tree_id
             self.triple(root_uri, "a", "orth:OrthologsCluster")
             self.triple(root_uri, "dcterms:identifier", quote_str(gene_tree_id))
+            self.triple(root_uri, "orth:inDataset", root_prefix)
+            self.triple(root_uri, "terms:clusterset_id", clusterset_id)
 
         for id in gene_tree_node:
             root_id = gene_tree_node[id][0]
-            gene_tree_id = gene_tree_root[root_id][2]
+            gene_tree_id = gene_tree_root[root_id][3]
             seq_member_id = gene_tree_node[id][1]
             if seq_member_id == "\\N":  # not a sequence node
                 continue
