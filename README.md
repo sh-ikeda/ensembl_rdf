@@ -11,7 +11,7 @@ $ bash /path/to/ensembl_rdf/bin/convert.sh *_core_*
 
 If only some types of output are needed, the `-t` option can be specified.
 ```
-$ bash /path/to/ensembl_rdf/bin/convert.sh *_core_* -t gene -t transcript
+$ bash /path/to/ensembl_rdf/bin/convert.sh  -t gene -t transcript *_core_*
 ```
 
 Note that the direct use of the python script needs only one `-t` to specify multiple types.
