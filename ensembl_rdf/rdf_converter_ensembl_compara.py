@@ -5,12 +5,20 @@ from ensembl2turtle import Ensembl2turtle
 
 
 class Compara2turtle(Ensembl2turtle):
+    division2prefix = {
+        "vertebrates": "genetree:",
+        "plants": "genetree_plants:",
+        "metazoa": "genetree_metazoa:",
+        "fungi": "genetree_fungi:",
+        "protists": "genetree_protists:",
+        "pan": "genetree_pan:"
+    }
     def __init__(self, input_dbinfo_file, input_data_dir):
         super().__init__(input_dbinfo_file, input_data_dir)
         self.prefixes += [
             ["genetree:", "<http://identifiers.org/genetree/>"],
             ["genetree_plants:", "<http://identifiers.org/genetree.plants/>"],
-            ["genetree_pan:", "<http://identifiers.org/genetree.bacteria/>"],
+            ["genetree_pan:", "<http://identifiers.org/genetree.pan_compara/>"],
             ["genetree_protists:", "<http://identifiers.org/genetree.protists/>"],
             ["genetree_metazoa:", "<http://identifiers.org/genetree.metazoa/>"],
             ["genetree_fungi:", "<http://identifiers.org/genetree.fungi/>"],
@@ -21,15 +29,18 @@ class Compara2turtle(Ensembl2turtle):
         gene_tree_node = self.dbs["gene_tree_node"]
         gene_tree_root = self.dbs["gene_tree_root"]
         seq_member = self.dbs["seq_member"]
+        meta = self.dbs["meta"]
         f = open(os.path.join(self.input_data_dir, "genetree.ttl"), mode="w")
         self.output_file = f
         self.output_prefixes()
+
+        root_prefix = Compara2turtle.division2prefix[meta["division"]]
+
         for id in gene_tree_root:
             tree_type = gene_tree_root[id][1]
             gene_tree_id = gene_tree_root[id][2]
             if gene_tree_id == "\\N" or tree_type != "tree":
                 continue
-            root_prefix = "genetree:"
             root_uri = root_prefix + gene_tree_id
             self.triple(root_uri, "a", "orth:OrthologsCluster")
             self.triple(root_uri, "dcterms:identifier", quote_str(gene_tree_id))
