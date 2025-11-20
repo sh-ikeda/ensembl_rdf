@@ -32,7 +32,7 @@ def process_directory(ftp, directory):
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) + "/"
-CONFIG_DIR = os.path.dirname(os.path.abspath(__file__)) + "/../config/"
+CONFIG_DIR = os.path.dirname(os.path.abspath(__file__)) + "/../ensembl_rdf/config/"
 ftp_url = sys.argv[1]  # e.g. "ftp.ensembl.org"
 ftp_dir = sys.argv[2]  # e.g. "/pub/current_mysql/"
 
