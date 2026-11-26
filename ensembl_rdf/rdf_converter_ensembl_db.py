@@ -148,6 +148,9 @@ class Genome2turtle(Ensembl2turtle):
                 self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[biotype])
             if xref_id == "\\N":
                 label = gene[id][6]  # Substitute ID for label
+            elif xref_id not in xref:
+                print(f"Warning: display_xref_id `{xref_id}` of gene `{gene[id][6]}` not found in xref; using stable_id as label", file=sys.stderr)
+                label = gene[id][6]
             else:
                 label = xref[xref_id][2]
             self.triple(sbj, "rdfs:label", quote_str(label))
@@ -204,6 +207,9 @@ class Genome2turtle(Ensembl2turtle):
                 self.triple(sbj, "terms:has_biotype", self.biotype_url_dic[biotype])
             if xref_id == "\\N":
                 label = stable_id  # Substitute ID for label
+            elif xref_id not in xref:
+                print(f"Warning: display_xref_id `{xref_id}` of transcript `{stable_id}` not found in xref; using stable_id as label", file=sys.stderr)
+                label = stable_id
             else:
                 label = xref[xref_id][2]
             self.triple(sbj, "rdfs:label", quote_str(label))
@@ -438,6 +444,9 @@ class Genome2turtle(Ensembl2turtle):
             # xref_node.add(("terms:id_of", quote(external_db[xref[xref_id][0]][0])))  # FIXME
             # xref_node.add(("dcterms:identifier", quote(xref[xref_id][1])))
             # self.triple(subject_url, "rdfs:seeAlso", xref_node.serialize())
+            if xref_id not in xref:
+                print(f"Warning: xref_id `{xref_id}` of object_xref `{id}` not found in xref; skipped", file=sys.stderr)
+                continue
             external_db_id = xref[xref_id][0]
             external_db_code = external_db[external_db_id][0]
             if self.xref_url_dic.get(external_db_id, "") != "":
